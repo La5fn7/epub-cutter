@@ -1,0 +1,18 @@
+# Зависимости для EPUB Cutter
+
+# Для GUI версии (Drag & Drop функционал)
+tkinterdnd2>=0.3.0
+
+# Для веб-версии
+Flask>=2.3.0
+Werkzeug>=2.3.0
+
+# Остальные библиотеки входят в стандартную поставку Python:
+# threading - для многопоточности
+# zipfile - для работы с ZIP архивами
+# xml.etree.ElementTree - для парсинга XML
+# pathlib - для работы с путями
+# os, re, html, json, sqlite3 - стандартные модули
+
+# Установка:
+# pip install tkinterdnd2 Flask Werkzeug
