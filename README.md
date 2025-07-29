@@ -33,7 +33,7 @@
 ### Desktop версия
 ```bash
 # Клонирование репозитория
-git clone https://github.com/your-username/epub-cutter.git
+git clone https://github.com/La5fn7/epub-cutter.git
 cd epub-cutter
 
 # Установка зависимостей
