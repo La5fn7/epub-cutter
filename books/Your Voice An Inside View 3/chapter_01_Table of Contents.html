@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table of Contents - Your Voice: An Inside View 3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="book-header">
+        <h1 class="book-title">Your Voice: An Inside View 3</h1>
+        <p class="book-author">Scott McCoy</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        
+        <a href="chapter_02_Listening.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Table of Contents">
+        <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xml:lang="en-us" lang="en-us"  xmlns:epub="http://www.idpf.org/2007/ops">
+    <head>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+        <link rel="stylesheet" type="text/css" href="../../css/global.css"/>
+        <!--<script type="text/javascript" src="../../js/global.js"></script>-->
+        
+        <style type="text/css">
+            ol {
+                list-style-type: decimal;
+                margin-top: 1em;
+                margin-bottom: 1em;
+            }
+            ol ol {
+                list-style-type: decimal;
+            }
+            nav ol li, nav ul li {
+                margin-bottom: 1em;
+            }
+            </style>
+        <title>Table of Contents</title>
+    </head>
+
+    <body epub:type="frontmatter">
+        <nav id="toc" dir="ltr" epub:type="toc">
+            <h1>Table of Contents</h1>
+            <ol start="1" style="font-size:1.2em">
+                <li><a href="chapter_02_Listening.html">Listening</a></li><li><a href="swyst4.xhtml">Sound, Part 1</a></li><li><a href="chapter_03_Sound, Part 2.html">Sound, Part 2</a><ol><li><a href="chapter_04_References.html">References</a></li></ol></li><li><a href="chapter_05_Resonance.html">Resonance</a><ol><li><a href="chapter_06_References.html">References</a></li></ol></li><li><a href="chapter_07_Formants.html">Formants</a><ol><li><a href="chapter_08_References.html">References</a></li></ol></li><li><a href="chapter_09_Analysis.html">Analysis</a><ol><li><a href="chapter_10_References.html">References</a></li></ol></li><li><a href="chapter_11_Anatomy.html">Anatomy</a><ol><li><a href="chapter_12_References.html">References</a></li></ol></li><li><a href="chapter_13_Breathing.html">Breathing</a><ol><li><a href="chapter_14_Summary of Respiratory Muscle Fundtions and Locations.html">Summary of Respiratory Muscle Fundtions and Locations</a></li><li><a href="chapter_15_References.html">References</a></li></ol></li><li><a href="chapter_16_Phonation.html">Phonation</a><ol><li><a href="chapter_17_Summary of Phonatory Muscle Functions and Locations.html">Summary of Phonatory Muscle Functions and Locations</a></li><li><a href="chapter_18_References.html">References</a></li></ol></li><li><a href="chapter_19_Health.html">Health</a><ol><li><a href="chapter_20_References.html">References</a></li></ol></li><li><a href="chapter_21_Registration.html">Registration</a><ol><li><a href="chapter_22_References.html">References</a></li></ol></li><li><a href="chapter_23_Articulation.html">Articulation</a><ol><li><a href="chapter_24_Summary of Articulatory Muscle Function and Location .html">Summary of Articulatory Muscle Function and Location </a></li><li><a href="chapter_25_References.html">References</a></li></ol></li><li><a href="chapter_26_Hearing.html">Hearing</a><ol><li><a href="chapter_27_Summary of hearing anatomy.html">Summary of hearing anatomy</a></li><li><a href="chapter_28_References.html">References</a></li></ol></li><li><a href="chapter_29_Brain.html">Brain</a><ol><li><a href="chapter_30_References.html">References</a></li></ol></li><li><a href="chapter_31_Appendix 1 Listening to Singers, Rating Sheet.html">Appendix 1: Listening to Singers, Rating Sheet</a></li><li><a href="chapter_32_Appendix 2 Frequencies of the equally tempered scale.html">Appendix 2: Frequencies of the equally tempered scale</a></li><li><a href="chapter_33_About the Authors.html">About the Authors</a></li>
+            </ol>
+        </nav>
+        <nav epub:type="landmarks" style="display:none">
+            <h1>Guide</h1>
+            <ol>
+                <li><a epub:type="bodymatter" href="chapter_02_Listening.html">Start of Content</a></li>
+            </ol>
+        </nav>
+    </body>
+
+</html>
+
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        
+        <a href="chapter_02_Listening.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Устанавливаем информацию о книге для системы заметок
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем book_id из пути URL
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

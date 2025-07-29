@@ -1,0 +1,134 @@
+
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fefefe;
+            color: #333;
+        }
+        
+        .book-header {
+            text-align: center;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .book-title {
+            font-size: 2.5em;
+            color: #007acc;
+            margin-bottom: 10px;
+        }
+        
+        .book-author {
+            font-size: 1.3em;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #007acc;
+        }
+        
+        .toc h2 {
+            color: #007acc;
+            margin-top: 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .toc li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .toc li:last-child {
+            border-bottom: none;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .toc a:hover {
+            color: #007acc;
+            background-color: #e3f2fd;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin: -5px -10px;
+        }
+        
+        .chapter-number {
+            background: #007acc;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .chapter-content {
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navigation {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .nav-button {
+            background: #007acc;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 10px;
+            display: inline-block;
+        }
+        
+        .nav-button:hover {
+            background: #005c99;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .book-title {
+                font-size: 2em;
+            }
+            
+            .nav-button {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+        

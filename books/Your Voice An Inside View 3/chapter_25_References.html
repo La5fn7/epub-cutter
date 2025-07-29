@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>References - Your Voice: An Inside View 3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="book-header">
+        <h1 class="book-title">Your Voice: An Inside View 3</h1>
+        <p class="book-author">Scott McCoy</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_24_Summary of Articulatory Muscle Function and Location .html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_26_Hearing.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="References">
+        <!--?xml version='1.0' encoding='UTF-8'?--><!DOCTYPE html><html xml:lang="en-us" lang="en-us"  xmlns:epub="http://www.idpf.org/2007/ops"><head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css" />
+<link rel="stylesheet" type="text/css" href="../../css/kotobeeInteractive.css" />
+<link rel="stylesheet" type="text/css" href="../../css/global.css" />
+
+    <script type="text/javascript" src="../../js/kotobeeInteractive.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+
+    <title>References</title>
+    
+
+<meta charset="utf-8" />
+ <meta name="kotobee-chapter" content="raw/sufk1i.xhtml" />
+<meta name="kotobee-book" content="urn:uuid:b54b82c7-e96b-add8-0328-5e3e3c6b675f" />
+</head>
+<body>
+<h1><strong>References and Recommended Reading</strong></h1>
+
+<p style="margin-left:16.5pt;">&#160;</p>
+
+<p style="margin-left:16.55pt;">Netter, Frank H (1987). <em>Atlas of Human Anatomy</em> (2<sup>nd</sup> ed). Teterboro, NJ: Icon Learning Systems.</p>
+
+<p style="margin-left:16.55pt;">Rohen, Johannes, Chihiro Yokochi and Elke Lutjen-Drecoll (1993). <em>Color Atlas of Anatomy: A Photographic Study of the Human Body</em>. Philadelphia: Lippincot, Williams and Wilkins.</p>
+
+<p style="margin-left:16.55pt;">Sataloff, Robert Thayer (1998). <em>Vocal Health and Pedagogy</em>. San Diego, CA: Singular Publishing Group.</p>
+
+<p style="margin-left:16.55pt;">Seikel, Anthony J., Douglas W. King and David G. Drumright (2000). <em>Anatomy and Physiology for Speech, Language, and Hearing</em> (2<sup>nd</sup> edition). San Diego, CA: Singular Publishing Group.</p>
+
+<p style="margin-left:16.55pt;">Sundberg, Johan (1987). <em>The Science of the Singing Voice</em>. DeKalb, IL: Northern Illinois University Press.</p>
+
+<p style="margin-left:16.55pt;">Titze, Ingo R (1994). <em>Principles of Voice Production</em>. Englewood Cliffs, NJ: Prentice-Hall, Inc.</p>
+
+<p style="margin-left:16.55pt;">Zemlin, Williard R (1998). <em>Speech and Hearing Science: Anatomy and Physiology</em> (4<sup>th</sup> ed). Boston: Allyn and Bacon.</p>
+
+
+</body></html>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_24_Summary of Articulatory Muscle Function and Location .html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_26_Hearing.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Устанавливаем информацию о книге для системы заметок
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем book_id из пути URL
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

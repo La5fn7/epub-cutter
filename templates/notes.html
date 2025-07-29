@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Заметки - {{ book[0] }}{% endblock %}
+
+{% block content %}
+<div class="notes-container">
+    <div class="notes-header">
+        <h1>📝 Заметки</h1>
+        <div class="book-info">
+            <h2>{{ book[0] }}</h2>
+            <p class="author">{{ book[1] }}</p>
+        </div>
+        <div class="notes-actions">
+            <a href="/" class="btn btn-secondary">← Назад к каталогу</a>
+        </div>
+    </div>
+
+    <div class="notes-content">
+        {% if notes %}
+            <div class="notes-stats">
+                <p>Всего заметок: <strong>{{ notes|length }}</strong></p>
+            </div>
+
+            <div class="notes-list">
+                {% for note in notes %}
+                <div class="note-item" data-note-id="{{ note[0] }}">
+                    <div class="note-header">
+                        <span class="chapter-badge">{{ note[1] }}</span>
+                        <span class="note-date">{{ note[4] }}</span>
+                        <div class="note-actions">
+                            <button class="btn-edit" onclick="editNote({{ note[0] }})">✏️</button>
+                            <button class="btn-delete" onclick="deleteNote({{ note[0] }})">🗑️</button>
+                        </div>
+                    </div>
+                    
+                    <div class="selected-text">
+                        <blockquote>{{ note[2] }}</blockquote>
+                    </div>
+                    
+                    {% if note[3] %}
+                    <div class="note-text">
+                        <p>{{ note[3] }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-notes">
+                <div class="empty-state">
+                    <h3>Пока нет заметок</h3>
+                    <p>Выделите текст в главах книги, чтобы создать заметки</p>
+                    <p>📚 Откройте любую главу и выделите интересный фрагмент текста</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Модальное окно для редактирования заметки -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Редактировать заметку</h3>
+            <span class="close" onclick="closeEditModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <textarea id="editNoteText" placeholder="Добавьте свой комментарий к выделенному тексту..."></textarea>
+        </div>
+        <div class="modal-footer">
+            <button onclick="closeEditModal()" class="btn btn-secondary">Отмена</button>
+            <button onclick="saveEditedNote()" class="btn btn-primary">Сохранить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentEditingNoteId = null;
+
+function editNote(noteId) {
+    currentEditingNoteId = noteId;
+    const noteItem = document.querySelector(`[data-note-id="${noteId}"]`);
+    const noteText = noteItem.querySelector('.note-text p');
+    const currentText = noteText ? noteText.textContent : '';
+    
+    document.getElementById('editNoteText').value = currentText;
+    document.getElementById('editModal').style.display = 'block';
+}
+
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+    currentEditingNoteId = null;
+}
+
+function saveEditedNote() {
+    if (!currentEditingNoteId) return;
+    
+    const noteText = document.getElementById('editNoteText').value;
+    
+    fetch(`/api/notes/${currentEditingNoteId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            note_text: noteText
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload(); // Перезагружаем страницу для обновления
+        } else {
+            alert('Ошибка при сохранении заметки: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ошибка при сохранении заметки');
+    });
+    
+    closeEditModal();
+}
+
+function deleteNote(noteId) {
+    if (!confirm('Вы уверены, что хотите удалить эту заметку?')) {
+        return;
+    }
+    
+    fetch(`/api/notes/${noteId}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload(); // Перезагружаем страницу для обновления
+        } else {
+            alert('Ошибка при удалении заметки: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ошибка при удалении заметки');
+    });
+}
+
+// Закрытие модального окна при клике вне его
+window.onclick = function(event) {
+    const modal = document.getElementById('editModal');
+    if (event.target == modal) {
+        closeEditModal();
+    }
+}
+</script>
+{% endblock %}

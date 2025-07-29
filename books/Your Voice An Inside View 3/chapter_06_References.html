@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>References - Your Voice: An Inside View 3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="book-header">
+        <h1 class="book-title">Your Voice: An Inside View 3</h1>
+        <p class="book-author">Scott McCoy</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_05_Resonance.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_07_Formants.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="References">
+        <!--?xml version='1.0' encoding='UTF-8'?--><!DOCTYPE html><html xml:lang="en-us" lang="en-us"  xmlns:epub="http://www.idpf.org/2007/ops"><head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css" />
+<link rel="stylesheet" type="text/css" href="../../css/kotobeeInteractive.css" />
+<link rel="stylesheet" type="text/css" href="../../css/global.css" />
+
+    <script type="text/javascript" src="../../js/kotobeeInteractive.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+
+    <title>References</title>
+    
+
+<meta charset="utf-8" />
+ <meta name="kotobee-chapter" content="raw/sngweu.xhtml" />
+<meta name="kotobee-book" content="urn:uuid:fd2f82f9-d11f-a6b7-4496-01af280f98df" />
+</head>
+<body>
+<h1><strong>References and Recommended Reading</strong></h1>
+
+<p>Backus, John (1977). <em>The Acoustical Foundations of Music</em> (2<sup>nd</sup> ed.). New York: W.W. Norton &amp; Company.</p>
+
+<p>Borden, Gloria and Katherine S. Harris (1984). <em>Speech Science Primer</em>: <em>Physiology, Acoustics, and Perception of Speech </em>(2<sup>nd</sup> ed.). Philadelphia: Williams &amp; Wilkins.</p>
+
+<p>Ladefoged, Peter (1962). <em>Elements of Acoustic Phonetics</em>. Chicago: The University of Chicago Press.</p>
+
+<p>Sataloff, Robert Thayer (1998). <em>Vocal Health and Pedagogy</em>. San Diego: Singular Publishing Group, Inc.</p>
+
+<p>Sundberg, Johan (1991). <em>The Science of Musical Sounds</em>. San Diego: Academic Press, Inc., a division of Harcourt Brace Jovanovich.</p>
+
+<p>_____. (1987). <em>The Science of the Singing Voice</em>. DeKalb, Illinois: Northern Illinois University Press.</p>
+
+<p>Titze, Ingo R (1994). <em>Principles of Voice Production</em>. Englewood Cliffs, New Jersey: Prentice Hall.</p>
+
+<p>Zemlin, Willard R (1998). <em>Speech and Hearing Science: Anatomy and Physiology </em>(4<sup>th</sup> ed.). Boston: Allyn and Bacon.</p>
+
+
+</body></html>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_05_Resonance.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_07_Formants.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Устанавливаем информацию о книге для системы заметок
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем book_id из пути URL
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>
