@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Voice: An Inside View 3</title>
-    <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="theme-vintage">
     <!-- Переключатель тем -->
@@ -262,13 +262,42 @@
         
         // Функция скачивания главы по индексу
         function downloadChapterByIndex(chapterIndex, format) {
-            const pathParts = window.location.pathname.split('/');
-            if (pathParts[1] === 'book' && pathParts[2]) {
-                const bookPath = pathParts[2];
-                
+            // Извлекаем название папки книги из текущего URL
+            // Это и есть site_path в базе данных
+            let bookPath = '';
+            
+            const currentPath = window.location.pathname;
+            const pathParts = currentPath.split('/');
+            
+            // Ищем папку с книгой в пути
+            for (let i = 0; i < pathParts.length; i++) {
+                if (pathParts[i] === 'books' && pathParts[i + 1]) {
+                    // Нашли папку books, следующий элемент - название книги
+                    bookPath = decodeURIComponent(pathParts[i + 1]);
+                    break;
+                } else if (pathParts[i] === 'book' && pathParts[i + 1]) {
+                    // URL через роут /book/
+                    bookPath = decodeURIComponent(pathParts[i + 1]);
+                    break;
+                }
+            }
+            
+            // Если не найдено, попробуем извлечь из последней части пути до index.html
+            if (!bookPath) {
+                const match = currentPath.match(/\/([^\/]+)\/[^\/]*$/);
+                if (match) {
+                    bookPath = decodeURIComponent(match[1]);
+                }
+            }
+            
+            console.log('Текущий URL:', currentPath);
+            console.log('Используемый путь к книге:', bookPath);
+            
+            if (bookPath) {
                 fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
                     .then(response => response.json())
                     .then(data => {
+                        console.log('Ответ от API:', data);
                         if (data.book_id) {
                             const downloadUrl = `/download-chapter/${data.book_id}/${chapterIndex}/${format}`;
                             
@@ -279,13 +308,15 @@
                             link.click();
                             document.body.removeChild(link);
                         } else {
-                            alert('Не удалось получить информацию о книге');
+                            alert('Не удалось получить информацию о книге: ' + (data.error || 'Неизвестная ошибка'));
                         }
                     })
                     .catch(error => {
                         console.error('Ошибка:', error);
                         alert('Ошибка при скачивании файла');
                     });
+            } else {
+                alert('Не удается определить название книги');
             }
         }
         

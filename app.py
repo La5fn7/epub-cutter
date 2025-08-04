@@ -497,13 +497,42 @@ class EPUBProcessor:
         
         // Функция скачивания главы по индексу
         function downloadChapterByIndex(chapterIndex, format) {{
-            const pathParts = window.location.pathname.split('/');
-            if (pathParts[1] === 'book' && pathParts[2]) {{
-                const bookPath = pathParts[2];
-                
+            // Извлекаем название папки книги из текущего URL
+            // Это и есть site_path в базе данных
+            let bookPath = '';
+            
+            const currentPath = window.location.pathname;
+            const pathParts = currentPath.split('/');
+            
+            // Ищем папку с книгой в пути
+            for (let i = 0; i < pathParts.length; i++) {{
+                if (pathParts[i] === 'books' && pathParts[i + 1]) {{
+                    // Нашли папку books, следующий элемент - название книги
+                    bookPath = decodeURIComponent(pathParts[i + 1]);
+                    break;
+                }} else if (pathParts[i] === 'book' && pathParts[i + 1]) {{
+                    // URL через роут /book/
+                    bookPath = decodeURIComponent(pathParts[i + 1]);
+                    break;
+                }}
+            }}
+            
+            // Если не найдено, попробуем извлечь из последней части пути до index.html
+            if (!bookPath) {{
+                const match = currentPath.match(/\\/([^\\/]+)\\/[^\\/]*$/);
+                if (match) {{
+                    bookPath = decodeURIComponent(match[1]);
+                }}
+            }}
+            
+            console.log('Текущий URL:', currentPath);
+            console.log('Используемый путь к книге:', bookPath);
+            
+            if (bookPath) {{
                 fetch(`/api/book-info?path=${{encodeURIComponent(bookPath)}}`)
                     .then(response => response.json())
                     .then(data => {{
+                        console.log('Ответ от API:', data);
                         if (data.book_id) {{
                             const downloadUrl = `/download-chapter/${{data.book_id}}/${{chapterIndex}}/${{format}}`;
                             
@@ -514,13 +543,15 @@ class EPUBProcessor:
                             link.click();
                             document.body.removeChild(link);
                         }} else {{
-                            alert('Не удалось получить информацию о книге');
+                            alert('Не удалось получить информацию о книге: ' + (data.error || 'Неизвестная ошибка'));
                         }}
                     }})
                     .catch(error => {{
                         console.error('Ошибка:', error);
                         alert('Ошибка при скачивании файла');
                     }});
+            }} else {{
+                alert('Не удается определить название книги');
             }}
         }}
         
@@ -739,6 +770,8 @@ class EPUBProcessor:
                 level = int(tag[1]) + 1  # h1 -> level 2, h2 -> level 3, etc.
                 if child.text:
                     doc.add_heading(child.text.strip(), level=level)
+            elif tag == 'img':
+                self._add_image_to_docx(child, doc)
             elif tag == 'div':
                 self._process_html_to_docx(child, doc)
     
@@ -756,12 +789,66 @@ class EPUBProcessor:
             elif tag == 'strong' or tag == 'b':
                 run = paragraph.add_run(child.text or '')
                 run.bold = True
+            elif tag == 'img':
+                # Для изображений внутри параграфов добавляем только ссылку
+                src = child.get('src', '')
+                img_name = src.split('/')[-1] if src else 'изображение'
+                paragraph.add_run(f" [Изображение: {img_name}] ")
             else:
                 paragraph.add_run(child.text or '')
             
             if child.tail:
                 paragraph.add_run(child.tail)
     
+    def _add_image_to_docx(self, img_element, doc):
+        """Добавляет изображение в DOCX документ"""
+        try:
+            from docx.shared import Inches
+            import io
+            
+            # Получаем src атрибут
+            src = img_element.get('src')
+            if not src:
+                return
+            
+            # Ищем изображение в оригинальном EPUB
+            possible_paths = [
+                src,
+                f"OEBPS/{src}",
+                f"OPS/{src}",
+                f"content/{src}",
+                f"images/{src.split('/')[-1]}",
+                f"OEBPS/images/{src.split('/')[-1]}",
+                f"OPS/images/{src.split('/')[-1]}"
+            ]
+            
+            img_data = None
+            if self.epub_zip:
+                for path in possible_paths:
+                    try:
+                        img_data = self.epub_zip.read(path)
+                        break
+                    except KeyError:
+                        continue
+            
+            if img_data:
+                # Создаем новый параграф для изображения
+                paragraph = doc.add_paragraph()
+                paragraph.alignment = 1  # Центрирование
+                
+                # Добавляем изображение
+                img_stream = io.BytesIO(img_data)
+                try:
+                    run = paragraph.add_run()
+                    run.add_picture(img_stream, width=Inches(4))
+                except:
+                    # Если не получилось добавить изображение, добавляем текст
+                    run = paragraph.add_run()
+                    run.text = f"[Изображение: {src.split('/')[-1]}]"
+                    
+        except Exception as e:
+            print(f"Не удалось добавить изображение в DOCX: {e}")
+
     def _extract_text_to_docx(self, html_content, doc):
         """Извлекает текст из HTML простыми методами"""
         import re
@@ -788,12 +875,15 @@ class EPUBProcessor:
                 doc.add_paragraph(clean_para)
     
     def export_chapter_to_epub(self, chapter_index, book_title, book_author):
-        """Экспортирует главу в формат EPUB"""
+        """Экспортирует главу в формат EPUB с изображениями"""
         try:
             if chapter_index >= len(self.chapters):
                 return None
                 
             chapter = self.chapters[chapter_index]
+            
+            # Извлекаем изображения из контента главы
+            chapter_images = self._extract_images_from_chapter(chapter['content'])
             
             # Создаем временный EPUB файл
             epub_buffer = io.BytesIO()
@@ -811,9 +901,21 @@ class EPUBProcessor:
 </container>'''
                 epub_zip.writestr('META-INF/container.xml', container_xml)
                 
+                # Копируем изображения из оригинального EPUB
+                for img_src in chapter_images:
+                    self._copy_image_to_epub(epub_zip, img_src)
+                
                 # OEBPS/content.opf
                 import uuid
                 book_id = str(uuid.uuid4())
+                
+                # Создаем манифест с изображениями
+                image_manifest_items = []
+                for i, img_src in enumerate(chapter_images):
+                    img_filename = img_src.split('/')[-1]
+                    img_id = f"img{i+1}"
+                    media_type = self._get_image_media_type(img_filename)
+                    image_manifest_items.append(f'        <item id="{img_id}" href="images/{img_filename}" media-type="{media_type}"/>')
                 
                 opf_content = f'''<?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
@@ -828,6 +930,7 @@ class EPUBProcessor:
         <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
         <item id="chapter" href="chapter.xhtml" media-type="application/xhtml+xml"/>
         <item id="style" href="style.css" media-type="text/css"/>
+{chr(10).join(image_manifest_items)}
     </manifest>
     <spine toc="ncx">
         <itemref idref="chapter"/>
@@ -887,6 +990,9 @@ img {
                 if isinstance(content, bytes):
                     content = content.decode('utf-8')
                 
+                # Обновляем пути к изображениям в контенте
+                content = self._update_image_paths_for_epub(content)
+                
                 # Создаем валидный XHTML
                 chapter_xhtml = f'''<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -909,6 +1015,95 @@ img {
             print(f"Ошибка при экспорте в EPUB: {e}")
             return None
     
+    def _extract_images_from_chapter(self, content):
+        """Извлекает список изображений из контента главы"""
+        import re
+        
+        if isinstance(content, bytes):
+            content = content.decode('utf-8')
+        
+        # Ищем все теги img
+        img_pattern = r'<img[^>]*src=["\']([^"\']+)["\'][^>]*>'
+        images = []
+        
+        for match in re.finditer(img_pattern, content, re.IGNORECASE):
+            src = match.group(1)
+            # Убираем относительные пути и оставляем только имя файла с папкой
+            if '/' in src:
+                # Берем только последние две части пути (например, images/picture.jpg)
+                path_parts = src.split('/')
+                if len(path_parts) >= 2:
+                    images.append('/'.join(path_parts[-2:]))
+                else:
+                    images.append(path_parts[-1])
+            else:
+                images.append(src)
+        
+        return list(set(images))  # Убираем дубликаты
+    
+    def _copy_image_to_epub(self, epub_zip, img_src):
+        """Копирует изображение из оригинального EPUB в новый EPUB"""
+        try:
+            if self.epub_zip is None:
+                return
+            
+            # Ищем изображение в оригинальном EPUB
+            possible_paths = [
+                img_src,
+                f"OEBPS/{img_src}",
+                f"OPS/{img_src}",
+                f"content/{img_src}",
+                f"images/{img_src.split('/')[-1]}",
+                f"OEBPS/images/{img_src.split('/')[-1]}",
+                f"OPS/images/{img_src.split('/')[-1]}"
+            ]
+            
+            img_data = None
+            for path in possible_paths:
+                try:
+                    img_data = self.epub_zip.read(path)
+                    break
+                except KeyError:
+                    continue
+            
+            if img_data:
+                # Сохраняем в папку images в новом EPUB
+                img_filename = img_src.split('/')[-1]
+                epub_zip.writestr(f'OEBPS/images/{img_filename}', img_data)
+                
+        except Exception as e:
+            print(f"Не удалось копировать изображение {img_src}: {e}")
+    
+    def _get_image_media_type(self, filename):
+        """Определяет MIME тип изображения по расширению"""
+        ext = filename.lower().split('.')[-1]
+        media_types = {
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'png': 'image/png',
+            'gif': 'image/gif',
+            'svg': 'image/svg+xml',
+            'webp': 'image/webp'
+        }
+        return media_types.get(ext, 'image/jpeg')
+    
+    def _update_image_paths_for_epub(self, content):
+        """Обновляет пути к изображениям в контенте для EPUB"""
+        import re
+        
+        def replace_img_src(match):
+            full_tag = match.group(0)
+            src = match.group(1)
+            
+            # Обновляем путь к изображению
+            img_filename = src.split('/')[-1]
+            new_src = f"images/{img_filename}"
+            
+            return full_tag.replace(f'src="{src}"', f'src="{new_src}"').replace(f"src='{src}'", f'src="{new_src}"')
+        
+        img_pattern = r'<img[^>]*src=["\']([^"\']+)["\'][^>]*>'
+        return re.sub(img_pattern, replace_img_src, content, flags=re.IGNORECASE)
+
     def _clean_html_for_epub(self, html_content):
         """Очищает HTML для валидного EPUB"""
         import re
