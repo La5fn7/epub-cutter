@@ -486,223 +486,6 @@ body {
     }
 }
 
-/* Стили для системы заметок */
-
-/* Кнопка сохранения заметки при выделении текста */
-.note-save-button {
-    background: var(--primary-color);
-    color: white;
-    padding: 8px 15px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    animation: fadeIn 0.3s ease;
-}
-
-.note-save-button button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 0.9rem;
-    cursor: pointer;
-    padding: 0;
-}
-
-.note-save-button:hover {
-    background: var(--primary-hover);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Уведомление об успешном сохранении */
-.note-success-notification {
-    animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
-}
-
-/* Страница заметок */
-.notes-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-.notes-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.notes-header h1 {
-    color: var(--primary-color);
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.book-info h2 {
-    color: var(--dark-color);
-    margin-bottom: 0.5rem;
-}
-
-.book-info .author {
-    color: var(--secondary-color);
-    font-style: italic;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-}
-
-.notes-actions {
-    margin-top: 1rem;
-}
-
-/* Статистика заметок */
-.notes-stats {
-    background: var(--light-color);
-    padding: 1rem 1.5rem;
-    border-radius: var(--border-radius);
-    margin-bottom: 2rem;
-    text-align: center;
-    border-left: 4px solid var(--primary-color);
-}
-
-/* Список заметок */
-.notes-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.note-item {
-    background: white;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-}
-
-.note-item:hover {
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.note-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.chapter-badge {
-    background: var(--primary-color);
-    color: white;
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-.note-date {
-    color: var(--secondary-color);
-    font-size: 0.9rem;
-}
-
-.note-actions {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.btn-edit, .btn-delete {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0.3rem;
-    border-radius: 3px;
-    transition: var(--transition);
-}
-
-.btn-edit:hover {
-    background: rgba(0, 122, 204, 0.1);
-}
-
-.btn-delete:hover {
-    background: rgba(220, 53, 69, 0.1);
-}
-
-/* Выделенный текст в заметке */
-.selected-text {
-    margin-bottom: 1rem;
-}
-
-.selected-text blockquote {
-    background: var(--light-color);
-    border-left: 4px solid var(--primary-color);
-    padding: 1rem 1.5rem;
-    margin: 0;
-    font-style: italic;
-    line-height: 1.6;
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
-}
-
-/* Текст заметки */
-.note-text {
-    background: rgba(40, 167, 69, 0.05);
-    border: 1px solid rgba(40, 167, 69, 0.2);
-    border-radius: var(--border-radius);
-    padding: 1rem;
-    margin-top: 1rem;
-}
-
-.note-text p {
-    margin: 0;
-    color: var(--dark-color);
-    line-height: 1.6;
-}
-
-/* Пустое состояние заметок */
-.no-notes {
-    text-align: center;
-    padding: 4rem 2rem;
-}
-
-.no-notes .empty-state h3 {
-    color: var(--secondary-color);
-    margin-bottom: 1rem;
-}
-
-.no-notes .empty-state p {
-    color: var(--secondary-color);
-    margin-bottom: 1rem;
-}
-
-/* Модальное окно редактирования заметки */
-.modal {
-    display: none;
-}
-
-.modal-content {
-    max-width: 600px;
-    text-align: left;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
 .modal-header h3 {
     color: var(--primary-color);
     margin: 0;
@@ -746,26 +529,140 @@ body {
     border-top: 1px solid var(--border-color);
 }
 
-/* Адаптивность для заметок */
+/* Стили для системы заметок */
+.note-popup {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 9999;
+}
+
+.note-button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.note-button:hover {
+    background: var(--primary-hover);
+}
+
+.note-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.note-modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.note-modal-content h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.selected-text-preview {
+    margin-bottom: 20px;
+}
+
+.selected-text-preview blockquote {
+    background: #f8f9fa;
+    border-left: 4px solid var(--primary-color);
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-style: italic;
+    border-radius: 0 4px 4px 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 204, 0.25);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.note-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--success-color);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10001;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 @media (max-width: 768px) {
-    .notes-container {
-        padding: 1rem;
-    }
-    
-    .notes-header h1 {
-        font-size: 2rem;
-    }
-    
-    .note-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    
-    .note-actions {
-        align-self: flex-end;
-    }
-    
     .modal-content {
         margin: 1rem;
         max-width: none;

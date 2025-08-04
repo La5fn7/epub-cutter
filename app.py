@@ -701,8 +701,12 @@ def upload_book():
                         'site_path': relative_site_path
                     })
                 else:
+                    # Удаляем временный файл в случае ошибки создания сайта
+                    os.remove(file_path)
                     return jsonify({'error': 'Ошибка при создании сайта книги'}), 500
             else:
+                # Удаляем временный файл в случае ошибки обработки EPUB
+                os.remove(file_path)
                 return jsonify({'error': 'Ошибка при обработке EPUB файла'}), 500
         else:
             return jsonify({'error': 'Недопустимый формат файла. Поддерживается только EPUB'}), 400

@@ -1,15 +1,16 @@
 # Зависимости для EPUB Cutter Web
 
-# Для веб-версии
+# Основные зависимости
 Flask>=2.3.0
 Werkzeug>=2.3.0
 
 # Остальные библиотеки входят в стандартную поставку Python:
-# threading - для многопоточности
-# zipfile - для работы с ZIP архивами
-# xml.etree.ElementTree - для парсинга XML
-# pathlib - для работы с путями
-# os, re, html, json, sqlite3 - стандартные модули
+# sqlite3 - для работы с базой данных
+# zipfile - для работы с EPUB архивами  
+# xml.etree.ElementTree - для парсинга XML/OPF файлов
+# pathlib - для работы с путями файлов
+# os, re, html, json, shutil - стандартные модули
+# datetime - для работы с временными метками
 
 # Установка:
-# pip install Flask Werkzeug
+# pip install -r requirements.txt
