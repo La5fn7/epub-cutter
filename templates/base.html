@@ -22,11 +22,37 @@
                 <a href="{{ url_for('upload_book') }}" class="nav-link {% if request.endpoint == 'upload_book' %}active{% endif %}">
                     <i class="bi bi-plus-circle"></i> Добавить книгу
                 </a>
+                {% if current_user.is_authenticated %}
+                <div class="nav-user">
+                    <span class="nav-username">
+                        <i class="bi bi-person-circle"></i> {{ current_user.id }}
+                    </span>
+                    <a href="{{ url_for('logout') }}" class="nav-link logout-link">
+                        <i class="bi bi-box-arrow-right"></i> Выйти
+                    </a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </nav>
 
     <main class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            <i class="bi bi-info-circle"></i>
+                            {{ message }}
+                            <button type="button" class="alert-close" onclick="this.parentElement.remove()">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
         {% block content %}{% endblock %}
     </main>
 

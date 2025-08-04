@@ -11,9 +11,12 @@ import sqlite3
 import zipfile
 from pathlib import Path
 from datetime import datetime
-from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for
+from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for, flash, session, send_file
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.utils import secure_filename
 import sys
+import tempfile
+import io
 
 # Функции для работы с метаданными (перенесены из metadata_utils)
 def extract_epub_metadata(opf_root):
@@ -45,6 +48,27 @@ app.config['SECRET_KEY'] = 'your-secret-key-change-in-production'
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['BOOKS_FOLDER'] = 'books'
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100MB max file size
+
+# Настройка Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+login_manager.login_message = 'Пожалуйста, войдите в систему для доступа к этой странице.'
+login_manager.login_message_category = 'info'
+
+# Учетные данные пользователя
+USERNAME = 'reading'
+PASSWORD = 'readingbooks'
+
+class User(UserMixin):
+    def __init__(self, username):
+        self.id = username
+
+@login_manager.user_loader
+def load_user(user_id):
+    if user_id == USERNAME:
+        return User(user_id)
+    return None
 
 # Убеждаемся, что папки существуют
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -112,20 +136,46 @@ class EPUBProcessor:
                             
                             try:
                                 chapter_content = epub_zip.read(file_path)
-                                chapter_root = ET.fromstring(chapter_content)
+                                content_str = chapter_content.decode('utf-8')
                                 
-                                # Получение заголовка
-                                title_elem = chapter_root.find('.//{http://www.w3.org/1999/xhtml}title')
-                                title = title_elem.text if title_elem is not None and title_elem.text else f"Глава {i+1}"
-                                
-                                if title == f"Глава {i+1}":
-                                    for tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
-                                        heading = chapter_root.find(f'.//{{{http://www.w3.org/1999/xhtml}}}{tag}')
-                                        if heading is not None and heading.text:
-                                            title = heading.text.strip()
-                                            break
-                                
+                                # Сначала пытаемся извлечь заголовок из raw текста
                                 import re
+                                title_match = re.search(r'<title[^>]*>([^<]+)</title>', content_str, re.IGNORECASE)
+                                title = title_match.group(1).strip() if title_match else f"Глава {i+1}"
+                                
+                                # Пытаемся исправить некорректные HTML комментарии для корректного XML
+                                try:
+                                    # Исправляем проблемные комментарии
+                                    fixed_content = re.sub(r'<!--\[endif\]---->', '<!--[endif]-->', content_str)
+                                    fixed_content = re.sub(r'<!--([^>]*?)---->', r'<!--\1-->', fixed_content)
+                                    chapter_root = ET.fromstring(fixed_content.encode('utf-8'))
+                                    
+                                    # Если XML парсится успешно, используем исправленный контент
+                                    chapter_content = fixed_content.encode('utf-8')
+                                except:
+                                    # Если исправление не помогло, используем оригинальный контент
+                                    pass
+                                
+                                # Дополнительная попытка найти заголовок в заголовках h1-h6, если title пустой
+                                if title == f"Глава {i+1}":
+                                    try:
+                                        if 'chapter_root' in locals():
+                                            for tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+                                                heading = chapter_root.find(f'.//{{{http://www.w3.org/1999/xhtml}}}{tag}')
+                                                if heading is not None and heading.text:
+                                                    title = heading.text.strip()
+                                                    break
+                                        else:
+                                            # Ищем заголовки в raw тексте
+                                            for tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+                                                h_match = re.search(f'<{tag}[^>]*>([^<]+)</{tag}>', content_str, re.IGNORECASE)
+                                                if h_match:
+                                                    title = h_match.group(1).strip()
+                                                    break
+                                    except:
+                                        pass
+                                
+                                # Очищаем заголовок от недопустимых символов
                                 title = re.sub(r'[<>:"/\\|?*]', '', title)
                                 
                                 self.chapters.append({
@@ -139,7 +189,23 @@ class EPUBProcessor:
                                 
                             except Exception as e:
                                 print(f"Ошибка при чтении главы {file_path}: {e}")
-                                continue
+                                # Даже если возникла критическая ошибка, сохраняем главу
+                                try:
+                                    raw_content = epub_zip.read(file_path)
+                                    title = f"Глава {i+1}"
+                                    
+                                    self.chapters.append({
+                                        'title': title,
+                                        'file_path': file_path,
+                                        'content': raw_content
+                                    })
+                                    
+                                    # Сохраняем маппинг для обработки ссылок
+                                    self.file_mapping[file_path] = len(self.chapters) - 1
+                                    print(f"Добавлена глава с дефолтным названием: {title}")
+                                except:
+                                    print(f"Не удалось загрузить главу {file_path}")
+                                    continue
             
             return True
             
@@ -209,14 +275,23 @@ class EPUBProcessor:
                 
                 # Создание полного HTML документа главы
                 chapter_html = f"""<!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="theme-vintage">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{html.escape(chapter['title'])} - {html.escape(self.book_title)}</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
     <div class="book-header">
         <h1 class="book-title">{html.escape(self.book_title)}</h1>
         <p class="book-author">{html.escape(self.book_author)}</p>
@@ -226,6 +301,14 @@ class EPUBProcessor:
         <a href="index.html" class="nav-button">📚 Содержание</a>
         {prev_link}
         {next_link}
+    </div>
+    
+    <div class="download-section">
+        <h3>📥 Скачать главу:</h3>
+        <div class="download-buttons">
+            <button onclick="downloadChapter('epub')" class="download-btn epub-btn">📖 EPUB</button>
+            <button onclick="downloadChapter('docx')" class="download-btn docx-btn">📄 DOCX</button>
+        </div>
     </div>
     
     <div class="chapter-content" data-chapter-title="{html.escape(chapter['title'])}">
@@ -240,8 +323,67 @@ class EPUBProcessor:
     
     <script src="/static/js/notes.js"></script>
     <script>
+        // Функция переключения тем
+        function setTheme(theme) {{
+            // Удаляем все классы тем с body и html
+            document.body.className = document.body.className.replace(/theme-\\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\\w+/g, '');
+            
+            // Добавляем новый класс темы к body и html
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            // Сохраняем выбор в localStorage
+            localStorage.setItem('reading-theme', theme);
+            
+            // Обновляем активную кнопку
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }}
+        
+        // Загружаем сохраненную тему при загрузке страницы
+        function loadSavedTheme() {{
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }}
+        
+        // Функция скачивания главы
+        function downloadChapter(format) {{
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {{
+                const bookPath = pathParts[2];
+                
+                // Сначала получаем book_id
+                fetch(`/api/book-info?path=${{encodeURIComponent(bookPath)}}`)
+                    .then(response => response.json())
+                    .then(data => {{
+                        if (data.book_id) {{
+                            const chapterIndex = {i};  // Индекс текущей главы
+                            const downloadUrl = `/download-chapter/${{data.book_id}}/${{chapterIndex}}/${{format}}`;
+                            
+                            // Создаем временную ссылку для скачивания
+                            const link = document.createElement('a');
+                            link.href = downloadUrl;
+                            link.style.display = 'none';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        }} else {{
+                            alert('Не удалось получить информацию о книге');
+                        }}
+                    }})
+                    .catch(error => {{
+                        console.error('Ошибка:', error);
+                        alert('Ошибка при скачивании файла');
+                    }});
+            }}
+        }}
+        
         // Устанавливаем информацию о книге для системы заметок
         document.addEventListener('DOMContentLoaded', function() {{
+            // Загружаем сохраненную тему
+            loadSavedTheme();
+            
             // Получаем book_id из пути URL
             const pathParts = window.location.pathname.split('/');
             if (pathParts[1] === 'book' && pathParts[2]) {{
@@ -281,14 +423,23 @@ class EPUBProcessor:
         self._create_chapter_mapping(selected_chapters)
         
         html_content = f"""<!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="theme-vintage">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{self.book_title}</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
     <div class="book-header">
         <h1 class="book-title">{html.escape(self.book_title)}</h1>
         <p class="book-author">{html.escape(self.book_author)}</p>
@@ -318,6 +469,78 @@ class EPUBProcessor:
     <div class="navigation">
         <p>Эта книга содержит {len(selected_chapters)} глав. Выберите главу из оглавления выше для чтения.</p>
     </div>
+    
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {{
+            // Удаляем все классы тем с body и html
+            document.body.className = document.body.className.replace(/theme-\\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\\w+/g, '');
+            
+            // Добавляем новый класс темы к body и html
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            // Сохраняем выбор в localStorage
+            localStorage.setItem('reading-theme', theme);
+            
+            // Обновляем активную кнопку
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }}
+        
+        // Загружаем сохраненную тему при загрузке страницы
+        function loadSavedTheme() {{
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }}
+        
+        // Функция скачивания главы по индексу
+        function downloadChapterByIndex(chapterIndex, format) {{
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {{
+                const bookPath = pathParts[2];
+                
+                fetch(`/api/book-info?path=${{encodeURIComponent(bookPath)}}`)
+                    .then(response => response.json())
+                    .then(data => {{
+                        if (data.book_id) {{
+                            const downloadUrl = `/download-chapter/${{data.book_id}}/${{chapterIndex}}/${{format}}`;
+                            
+                            const link = document.createElement('a');
+                            link.href = downloadUrl;
+                            link.style.display = 'none';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        }} else {{
+                            alert('Не удалось получить информацию о книге');
+                        }}
+                    }})
+                    .catch(error => {{
+                        console.error('Ошибка:', error);
+                        alert('Ошибка при скачивании файла');
+                    }});
+            }}
+        }}
+        
+        // Добавляем кнопки скачивания к каждой главе
+        document.addEventListener('DOMContentLoaded', function() {{
+            // Загружаем сохраненную тему
+            loadSavedTheme();
+            
+            const chapters = document.querySelectorAll('.toc li');
+            chapters.forEach((li, index) => {{
+                const downloadDiv = document.createElement('div');
+                downloadDiv.className = 'chapter-download-buttons';
+                downloadDiv.innerHTML = `
+                    <button onclick="downloadChapterByIndex(${{index}}, 'epub')" class="mini-download-btn epub-btn" title="Скачать в EPUB">📖</button>
+                    <button onclick="downloadChapterByIndex(${{index}}, 'docx')" class="mini-download-btn docx-btn" title="Скачать в DOCX">📄</button>
+                `;
+                li.appendChild(downloadDiv);
+            }});
+        }});
+    </script>
 </body>
 </html>"""
         
@@ -443,6 +666,271 @@ class EPUBProcessor:
         
         return content
     
+    def export_chapter_to_docx(self, chapter_index, book_title, book_author):
+        """Экспортирует главу в формат DOCX"""
+        try:
+            from docx import Document
+            from docx.shared import Inches
+            import re
+            from html import unescape
+            import xml.etree.ElementTree as ET
+            
+            if chapter_index >= len(self.chapters):
+                return None
+                
+            chapter = self.chapters[chapter_index]
+            
+            # Создаем новый документ
+            doc = Document()
+            
+            # Добавляем заголовок книги
+            title = doc.add_heading(book_title, 0)
+            author = doc.add_paragraph(f'Автор: {book_author}')
+            author.alignment = 1  # Центрирование
+            
+            # Добавляем заголовок главы
+            chapter_title = doc.add_heading(chapter['title'], level=1)
+            
+            # Обрабатываем содержимое главы
+            content = chapter['content']
+            if isinstance(content, bytes):
+                content = content.decode('utf-8')
+            
+            # Парсим HTML для извлечения текста
+            try:
+                # Исправляем комментарии если нужно
+                content = re.sub(r'<!--\[endif\]---->', '<!--[endif]-->', content)
+                content = re.sub(r'<!--([^>]*?)---->', r'<!--\1-->', content)
+                
+                root = ET.fromstring(content)
+                body = root.find('.//{http://www.w3.org/1999/xhtml}body')
+                
+                if body is not None:
+                    self._process_html_to_docx(body, doc)
+                else:
+                    # Если не удалось парсить, извлекаем текст регулярными выражениями
+                    self._extract_text_to_docx(content, doc)
+                    
+            except:
+                # Fallback - извлекаем текст простыми методами
+                self._extract_text_to_docx(content, doc)
+            
+            # Сохраняем в память
+            docx_buffer = io.BytesIO()
+            doc.save(docx_buffer)
+            docx_buffer.seek(0)
+            
+            return docx_buffer
+            
+        except Exception as e:
+            print(f"Ошибка при экспорте в DOCX: {e}")
+            return None
+    
+    def _process_html_to_docx(self, element, doc):
+        """Обрабатывает HTML элементы и добавляет в DOCX документ"""
+        for child in element:
+            tag = child.tag.split('}')[-1] if '}' in child.tag else child.tag
+            
+            if tag in ['p']:
+                if child.text or len(child) > 0:
+                    paragraph = doc.add_paragraph()
+                    self._add_text_with_formatting(child, paragraph)
+            elif tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+                level = int(tag[1]) + 1  # h1 -> level 2, h2 -> level 3, etc.
+                if child.text:
+                    doc.add_heading(child.text.strip(), level=level)
+            elif tag == 'div':
+                self._process_html_to_docx(child, doc)
+    
+    def _add_text_with_formatting(self, element, paragraph):
+        """Добавляет текст с форматированием в параграф"""
+        if element.text:
+            paragraph.add_run(element.text)
+        
+        for child in element:
+            tag = child.tag.split('}')[-1] if '}' in child.tag else child.tag
+            
+            if tag == 'em' or tag == 'i':
+                run = paragraph.add_run(child.text or '')
+                run.italic = True
+            elif tag == 'strong' or tag == 'b':
+                run = paragraph.add_run(child.text or '')
+                run.bold = True
+            else:
+                paragraph.add_run(child.text or '')
+            
+            if child.tail:
+                paragraph.add_run(child.tail)
+    
+    def _extract_text_to_docx(self, html_content, doc):
+        """Извлекает текст из HTML простыми методами"""
+        import re
+        from html import unescape
+        
+        # Удаляем скрипты и стили
+        html_content = re.sub(r'<script[^>]*>.*?</script>', '', html_content, flags=re.DOTALL | re.IGNORECASE)
+        html_content = re.sub(r'<style[^>]*>.*?</style>', '', html_content, flags=re.DOTALL | re.IGNORECASE)
+        
+        # Извлекаем заголовки
+        headings = re.findall(r'<h[1-6][^>]*>(.*?)</h[1-6]>', html_content, re.DOTALL | re.IGNORECASE)
+        for heading in headings:
+            clean_heading = re.sub(r'<[^>]+>', '', heading)
+            clean_heading = unescape(clean_heading).strip()
+            if clean_heading:
+                doc.add_heading(clean_heading, level=2)
+        
+        # Извлекаем параграфы
+        paragraphs = re.findall(r'<p[^>]*>(.*?)</p>', html_content, re.DOTALL | re.IGNORECASE)
+        for para in paragraphs:
+            clean_para = re.sub(r'<[^>]+>', '', para)
+            clean_para = unescape(clean_para).strip()
+            if clean_para and len(clean_para) > 10:  # Игнорируем очень короткие параграфы
+                doc.add_paragraph(clean_para)
+    
+    def export_chapter_to_epub(self, chapter_index, book_title, book_author):
+        """Экспортирует главу в формат EPUB"""
+        try:
+            if chapter_index >= len(self.chapters):
+                return None
+                
+            chapter = self.chapters[chapter_index]
+            
+            # Создаем временный EPUB файл
+            epub_buffer = io.BytesIO()
+            
+            with zipfile.ZipFile(epub_buffer, 'w', zipfile.ZIP_DEFLATED) as epub_zip:
+                # mimetype (должен быть первым и несжатым)
+                epub_zip.writestr('mimetype', 'application/epub+zip', zipfile.ZIP_STORED)
+                
+                # META-INF/container.xml
+                container_xml = '''<?xml version="1.0" encoding="UTF-8"?>
+<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
+    <rootfiles>
+        <rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/>
+    </rootfiles>
+</container>'''
+                epub_zip.writestr('META-INF/container.xml', container_xml)
+                
+                # OEBPS/content.opf
+                import uuid
+                book_id = str(uuid.uuid4())
+                
+                opf_content = f'''<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:title>{book_title} - {chapter['title']}</dc:title>
+        <dc:creator>{book_author}</dc:creator>
+        <dc:identifier id="BookId">{book_id}</dc:identifier>
+        <dc:language>ru</dc:language>
+        <meta name="cover" content="cover"/>
+    </metadata>
+    <manifest>
+        <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+        <item id="chapter" href="chapter.xhtml" media-type="application/xhtml+xml"/>
+        <item id="style" href="style.css" media-type="text/css"/>
+    </manifest>
+    <spine toc="ncx">
+        <itemref idref="chapter"/>
+    </spine>
+</package>'''
+                epub_zip.writestr('OEBPS/content.opf', opf_content)
+                
+                # OEBPS/toc.ncx
+                toc_content = f'''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+    <head>
+        <meta name="dtb:uid" content="{book_id}"/>
+        <meta name="dtb:depth" content="1"/>
+        <meta name="dtb:totalPageCount" content="0"/>
+        <meta name="dtb:maxPageNumber" content="0"/>
+    </head>
+    <docTitle>
+        <text>{book_title} - {chapter['title']}</text>
+    </docTitle>
+    <navMap>
+        <navPoint id="navpoint-1" playOrder="1">
+            <navLabel>
+                <text>{chapter['title']}</text>
+            </navLabel>
+            <content src="chapter.xhtml"/>
+        </navPoint>
+    </navMap>
+</ncx>'''
+                epub_zip.writestr('OEBPS/toc.ncx', toc_content)
+                
+                # OEBPS/style.css
+                css_content = '''
+body {
+    font-family: Georgia, serif;
+    line-height: 1.6;
+    margin: 2em;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+p {
+    text-align: justify;
+    margin-bottom: 1em;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+'''
+                epub_zip.writestr('OEBPS/style.css', css_content)
+                
+                # OEBPS/chapter.xhtml
+                content = chapter['content']
+                if isinstance(content, bytes):
+                    content = content.decode('utf-8')
+                
+                # Создаем валидный XHTML
+                chapter_xhtml = f'''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{chapter['title']}</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+    <h1>{chapter['title']}</h1>
+    {self._clean_html_for_epub(content)}
+</body>
+</html>'''
+                epub_zip.writestr('OEBPS/chapter.xhtml', chapter_xhtml)
+            
+            epub_buffer.seek(0)
+            return epub_buffer
+            
+        except Exception as e:
+            print(f"Ошибка при экспорте в EPUB: {e}")
+            return None
+    
+    def _clean_html_for_epub(self, html_content):
+        """Очищает HTML для валидного EPUB"""
+        import re
+        
+        # Исправляем комментарии
+        html_content = re.sub(r'<!--\[endif\]---->', '<!--[endif]-->', html_content)
+        html_content = re.sub(r'<!--([^>]*?)---->', r'<!--\1-->', html_content)
+        
+        # Извлекаем содержимое body
+        body_match = re.search(r'<body[^>]*>(.*?)</body>', html_content, re.DOTALL | re.IGNORECASE)
+        if body_match:
+            content = body_match.group(1)
+        else:
+            content = html_content
+        
+        # Убираем некорректные атрибуты и теги
+        content = re.sub(r'data-[^=]*="[^"]*"', '', content)  # Удаляем data- атрибуты
+        content = re.sub(r'class="[^"]*"', '', content)  # Упрощаем, убираем классы
+        content = re.sub(r'style="[^"]*"', '', content)  # Убираем inline стили
+        
+        return content.strip()
+    
     def _create_chapter_mapping(self, selected_chapters):
         """Создает маппинг исходных файлов на новые имена файлов"""
         import re
@@ -468,46 +956,104 @@ class EPUBProcessor:
             self.chapter_mapping[name_without_ext] = new_filename
     
     def _get_website_css(self):
-        """Возвращает CSS стили для сайта"""
+        """Возвращает CSS стили для сайта с поддержкой тем"""
         return """
+        /* CSS переменные для тем чтения - Винтажная тема по умолчанию */
+        :root {
+            --bg-color: #EDE5D3;
+            --text-color: #3D2914;
+            --heading-color: #2A1810;
+            --border-color: #B8A082;
+            --card-bg: #F4EDE2;
+            --button-bg: #8B4513;
+            --button-hover-bg: #A0522D;
+            --shadow: rgba(61, 41, 20, 0.2);
+            --link-color: #8B4513;
+            --accent-color: #CD853F;
+            --highlight-bg: #F5DEB3;
+            --muted-text: #6B4E3D;
+        }
+
+        /* Винтажная тема */
+        html.theme-vintage,
+        body.theme-vintage {
+            --bg-color: #EDE5D3;
+            --text-color: #3D2914;
+            --heading-color: #2A1810;
+            --border-color: #B8A082;
+            --card-bg: #F4EDE2;
+            --button-bg: #8B4513;
+            --button-hover-bg: #A0522D;
+            --shadow: rgba(61, 41, 20, 0.2);
+            --link-color: #8B4513;
+            --accent-color: #CD853F;
+            --highlight-bg: #F5DEB3;
+            --muted-text: #6B4E3D;
+        }
+
+        /* Темная тема */
+        html.theme-dark,
+        body.theme-dark {
+            --bg-color: #000000;
+            --text-color: #C0C0C0;
+            --heading-color: #E0E0E0;
+            --border-color: #404040;
+            --card-bg: #1A1A1A;
+            --button-bg: #333333;
+            --button-hover-bg: #4A4A4A;
+            --shadow: rgba(255, 255, 255, 0.1);
+            --link-color: #A0A0A0;
+            --accent-color: #666666;
+            --highlight-bg: #2A2A2A;
+            --muted-text: #808080;
+        }
+
+        html {
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease;
+        }
+
         body {
             font-family: Georgia, "Times New Roman", serif;
             line-height: 1.6;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #fefefe;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .book-header {
             text-align: center;
-            border-bottom: 2px solid #007acc;
+            border-bottom: 2px solid var(--button-bg);
             padding-bottom: 20px;
             margin-bottom: 30px;
         }
         
         .book-title {
             font-size: 2.5em;
-            color: #007acc;
+            color: var(--heading-color);
             margin-bottom: 10px;
         }
         
         .book-author {
             font-size: 1.3em;
-            color: #666;
+            color: var(--muted-text);
             font-style: italic;
         }
         
         .toc {
-            background: #f8f9fa;
+            background: var(--card-bg);
             padding: 20px;
             border-radius: 8px;
-            border-left: 4px solid #007acc;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 2px 4px var(--shadow);
+            border: 1px solid var(--border-color);
         }
         
         .toc h2 {
-            color: #007acc;
+            color: var(--heading-color);
             margin-top: 0;
         }
         
@@ -518,7 +1064,8 @@ class EPUBProcessor:
         
         .toc li {
             padding: 8px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
         }
         
         .toc li:last-child {
@@ -527,37 +1074,79 @@ class EPUBProcessor:
         
         .toc a {
             text-decoration: none;
-            color: #333;
+            color: var(--text-color);
             font-weight: 500;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: block;
+            padding-right: 80px;
+            transition: all 0.2s ease;
         }
         
         .toc a:hover {
-            color: #007acc;
-            background-color: #e3f2fd;
+            color: var(--link-color);
+            background-color: var(--card-bg);
             padding: 5px 10px;
             border-radius: 4px;
             margin: -5px -10px;
+            margin-right: -90px;
+            box-shadow: 0 1px 3px var(--shadow);
+        }
+        
+        .chapter-download-buttons {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 5px;
+        }
+        
+        .mini-download-btn {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mini-download-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .mini-download-btn.epub-btn {
+            background: var(--button-bg);
+            color: var(--card-bg);
+            border: 1px solid var(--accent-color);
+        }
+        
+        .mini-download-btn.docx-btn {
+            background: var(--accent-color);
+            color: var(--card-bg);
+            border: 1px solid var(--button-bg);
         }
         
         .chapter-number {
-            background: #007acc;
-            color: white;
+            background: var(--accent-color);
+            color: var(--card-bg);
             padding: 2px 8px;
             border-radius: 12px;
             font-size: 0.8em;
             min-width: 20px;
             text-align: center;
+            font-weight: bold;
         }
         
         .chapter-content {
             margin-top: 30px;
             padding: 20px;
-            background: white;
+            background: var(--card-bg);
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px var(--shadow);
         }
         
         .navigation {
@@ -566,17 +1155,141 @@ class EPUBProcessor:
         }
         
         .nav-button {
-            background: #007acc;
+            background: var(--button-bg);
             color: white;
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 5px;
             margin: 0 10px;
             display: inline-block;
+            transition: background-color 0.2s ease;
         }
         
         .nav-button:hover {
-            background: #005c99;
+            background: var(--button-hover-bg);
+        }
+        
+        /* Переключатель тем */
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 10px var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .theme-switcher-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            display: block;
+            text-align: center;
+        }
+        
+        .theme-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .theme-btn {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .theme-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .theme-btn.active {
+            border-color: var(--button-bg);
+            box-shadow: 0 0 0 2px var(--button-bg);
+        }
+        
+        .theme-btn-vintage { background: #EDE5D3; border-color: #B8A082; }
+        .theme-btn-dark { background: #000000; border-color: #404040; }
+        
+        .theme-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .theme-btn-vintage::after { background: #3D2914; }
+        .theme-btn-dark::after { background: #C0C0C0; }
+        
+        .download-section {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            border-left: 4px solid var(--button-bg);
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+        
+        .download-section h3 {
+            color: var(--heading-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .epub-btn {
+            background: var(--button-bg);
+            color: var(--card-bg);
+            border: 1px solid var(--accent-color);
+        }
+        
+        .epub-btn:hover {
+            background: var(--button-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+        
+        .docx-btn {
+            background: var(--accent-color);
+            color: var(--card-bg);
+            border: 1px solid var(--button-bg);
+        }
+        
+        .docx-btn:hover {
+            background: var(--button-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
         }
         
         img {
@@ -600,6 +1313,30 @@ class EPUBProcessor:
             .nav-button {
                 display: block;
                 margin: 10px 0;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .download-btn {
+                width: 200px;
+            }
+            
+            .theme-switcher {
+                top: 10px;
+                right: 10px;
+                padding: 8px;
+            }
+            
+            .theme-btn {
+                width: 25px;
+                height: 25px;
+            }
+            
+            .theme-switcher-label {
+                font-size: 0.8rem;
             }
         }
         """
@@ -638,7 +1375,33 @@ def init_db():
     conn.close()
 
 # Маршруты Flask
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """Страница входа в систему"""
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if username == USERNAME and password == PASSWORD:
+            user = User(username)
+            login_user(user)
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('index'))
+        else:
+            flash('Неверный логин или пароль', 'error')
+    
+    return render_template('login.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    """Выход из системы"""
+    logout_user()
+    flash('Вы успешно вышли из системы', 'info')
+    return redirect(url_for('login'))
+
 @app.route('/')
+@login_required
 def index():
     """Главная страница с каталогом книг"""
     # Получаем список всех книг из базы данных
@@ -651,6 +1414,7 @@ def index():
     return render_template('index.html', books=books)
 
 @app.route('/upload', methods=['GET', 'POST'])
+@login_required
 def upload_book():
     """Страница загрузки новой книги"""
     if request.method == 'POST':
@@ -714,17 +1478,20 @@ def upload_book():
     return render_template('upload.html')
 
 @app.route('/book/<path:book_path>')
+@login_required
 def view_book(book_path):
     """Просмотр конкретной книги"""
     return send_from_directory(app.config['BOOKS_FOLDER'], book_path)
 
 @app.route('/book/<path:book_path>/<path:filename>')
+@login_required
 def book_file(book_path, filename):
     """Обслуживание файлов книги (HTML, CSS, изображения)"""
     full_path = os.path.join(app.config['BOOKS_FOLDER'], book_path)
     return send_from_directory(full_path, filename)
 
 @app.route('/delete/<int:book_id>', methods=['POST'])
+@login_required
 def delete_book(book_id):
     """Удаление книги"""
     conn = sqlite3.connect('books.db')
@@ -751,6 +1518,7 @@ def delete_book(book_id):
         return jsonify({'error': 'Книга не найдена'}), 404
 
 @app.route('/notes/<int:book_id>')
+@login_required
 def view_notes(book_id):
     """Просмотр заметок для книги"""
     conn = sqlite3.connect('books.db')
@@ -777,6 +1545,7 @@ def view_notes(book_id):
     return render_template('notes.html', book=book, notes=notes, book_id=book_id)
 
 @app.route('/api/notes', methods=['POST'])
+@login_required
 def save_note():
     """Сохранение новой заметки"""
     data = request.get_json()
@@ -799,6 +1568,7 @@ def save_note():
     return jsonify({'success': True, 'note_id': note_id})
 
 @app.route('/api/notes/<int:note_id>', methods=['PUT'])
+@login_required
 def update_note(note_id):
     """Обновление заметки"""
     data = request.get_json()
@@ -821,6 +1591,7 @@ def update_note(note_id):
     return jsonify({'success': True})
 
 @app.route('/api/notes/<int:note_id>', methods=['DELETE'])
+@login_required
 def delete_note(note_id):
     """Удаление заметки"""
     conn = sqlite3.connect('books.db')
@@ -838,6 +1609,7 @@ def delete_note(note_id):
     return jsonify({'success': True})
 
 @app.route('/api/book-info')
+@login_required
 def get_book_info():
     """Получение информации о книге по пути"""
     book_path = request.args.get('path')
@@ -858,6 +1630,75 @@ def get_book_info():
         })
     else:
         return jsonify({'error': 'Книга не найдена'}), 404
+
+@app.route('/download-chapter/<int:book_id>/<int:chapter_index>/<format>')
+@login_required
+def download_chapter(book_id, chapter_index, format):
+    """Скачивание главы в указанном формате"""
+    import re
+    
+    if format not in ['epub', 'docx']:
+        return jsonify({'error': 'Неподдерживаемый формат'}), 400
+    
+    # Получаем информацию о книге
+    conn = sqlite3.connect('books.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT title, author, site_path FROM books WHERE id = ?', (book_id,))
+    result = cursor.fetchone()
+    conn.close()
+    
+    if not result:
+        return jsonify({'error': 'Книга не найдена'}), 404
+    
+    book_title, book_author, site_path = result
+    
+    # Находим оригинальный EPUB файл
+    epub_files = []
+    for file in os.listdir(app.config['BOOKS_FOLDER']):
+        if file.endswith('.epub'):
+            epub_files.append(file)
+    
+    if not epub_files:
+        return jsonify({'error': 'Оригинальный EPUB файл не найден'}), 404
+    
+    # Берем первый найденный EPUB (можно улучшить логику)
+    epub_path = os.path.join(app.config['BOOKS_FOLDER'], epub_files[0])
+    
+    # Загружаем EPUB и экспортируем главу
+    processor = EPUBProcessor()
+    if not processor.load_epub(epub_path):
+        return jsonify({'error': 'Ошибка при загрузке EPUB файла'}), 500
+    
+    if chapter_index >= len(processor.chapters):
+        return jsonify({'error': 'Глава не найдена'}), 404
+    
+    chapter_title = processor.chapters[chapter_index]['title']
+    safe_title = re.sub(r'[<>:"/\\|?*]', '', chapter_title)
+    
+    if format == 'docx':
+        buffer = processor.export_chapter_to_docx(chapter_index, book_title, book_author)
+        if buffer is None:
+            return jsonify({'error': 'Ошибка при создании DOCX файла'}), 500
+        
+        filename = f"{safe_title}.docx"
+        return send_file(
+            buffer,
+            as_attachment=True,
+            download_name=filename,
+            mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        )
+    elif format == 'epub':
+        buffer = processor.export_chapter_to_epub(chapter_index, book_title, book_author)
+        if buffer is None:
+            return jsonify({'error': 'Ошибка при создании EPUB файла'}), 500
+        
+        filename = f"{safe_title}.epub"
+        return send_file(
+            buffer,
+            as_attachment=True,
+            download_name=filename,
+            mimetype='application/epub+zip'
+        )
 
 if __name__ == '__main__':
     # Инициализируем базу данных

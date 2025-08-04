@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis - Your Voice: An Inside View 3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Your Voice: An Inside View 3</h1>
+        <p class="book-author">Scott McCoy</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_09_References.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_11_References.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="download-section">
+        <h3>📥 Скачать главу:</h3>
+        <div class="download-buttons">
+            <button onclick="downloadChapter('epub')" class="download-btn epub-btn">📖 EPUB</button>
+            <button onclick="downloadChapter('docx')" class="download-btn docx-btn">📄 DOCX</button>
+        </div>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Analysis">
+        <!--?xml version='1.0' encoding='UTF-8'?--><!DOCTYPE html><html xml:lang="en-us" lang="en-us"  xmlns:epub="http://www.idpf.org/2007/ops"><head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css" />
+<link rel="stylesheet" type="text/css" href="../../css/kotobeeInteractive.css" />
+<link rel="stylesheet" type="text/css" href="../../css/global.css" />
+
+    <script type="text/javascript" src="../../js/kotobeeInteractive.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+
+    <title>Analysis</title>
+    
+
+<meta charset="utf-8" />
+ <meta name="kotobee-chapter" content="raw/sidjka.xhtml" />
+<meta name="kotobee-book" content="urn:uuid:2dc437ad-9fd2-c6f4-8c6a-687cd0023a37" />
+</head>
+<body>
+<p>lChapter 5</p>
+
+<h1>Analysis</h1>
+
+<p>Voice science has provided a wealth of information about the voice and its function, much of which is directly applicable to artistic singing. Research into acoustics and biomechanics—including issues of breath pressure and airflow—have been particularly important. This chapter will explore some of the ways this information trickles down to singers and teachers for practical use in the voice studio.</p>
+
+<p>Acoustic voice analysis might have originated in the scientific community, but it certainly has not remained exclusively in that domain. Thanks to the pioneering work of prominent pedagogues, including William Vennard, Ralph Appleman, and Richard Miller, analysis has become an important, accessible tool for singers and their teachers. Analysis instruments, such as oscilloscopes and spectrum analyzers, formerly were found only in well-funded laboratories. But the personal computer has changed everything. With appropriate software, an inexpensive PC<sup><a href="#footnote-1" id="footnote-ref-1">[1]</a></sup> becomes a comprehensive analysis station—something that would have cost tens of thousands of dollars less than a generation ago. Ordinary singers and teachers are now able to <em>see</em> the voice using programs and technology that are affordable and accessible. Indeed, if you can write an e-mail or log on to Facebook<sup>®</sup>, your technical savvy is sufficiently advanced to use and understand many of these tools.</p>
+
+<p>Voice laboratories that include sophisticated analysis instruments are increasingly common in music schools around the world,<sup><a href="#footnote-2" id="footnote-ref-2">[2]</a></sup> many of which have capabilities extending well beyond acoustics. Vocal fold vibration can be examined noninvasively through a process called <em>electroglottography</em>. Breath support can be evaluated through <em>inductive plethysmography</em>, which calculates the range of motion in the thorax and abdomen during respiration, and <em>electromyography, </em>which measures electrical activity in individual muscles during their contraction. Aerodynamic systems are available to measure airflow and the subglottal air pressure required to initiate phonation (reliable ways to measure subglottal pressure during phonation are more invasive). Nasality can be quantified through airflow and acoustic measures. Hybrid instruments even exist that are able to explore acoustics, airflow, and vocal fold movement simultaneously. While most of these instruments are beyond the fiscal means of individual singers and teachers, a respectable voice lab can be set up in an institution for no more than the cost of a typical computer, music theory, or piano lab.</p>
+
+<p>Computerized voice analysis is not a panacea. No matter how fast the computer or how complex the programming, it is unlikely ever to surpass the human ear and brain. A computer can help its user understand what is happening in a voice; it cannot, however, tell if the sound is beautiful or musical. It is this author’s opinion that voice analysis is best viewed as a teaching aid, much like an audio or video recorder. Just as no one has ever learned to sing solely by listening to recordings of his voice, no one will learn to sing solely by looking at a computer monitor!</p>
+
+<p>Acoustic analysis transforms sound from the aural to the visual realm. Much like prisms refract light into the colors of the rainbow, analysis instruments divide sound into its component parts: overtones and noise. The result is an objective representation of what once existed only in the subjective realm. Timbre can be visualized and quantified. The singer’s formant can be located and measured for frequency and amplitude. The relative amplitudes of the first vowel formant and the singer’s formant can be analyzed to help create a beautiful chiaroscuro tone. Legato, vibrato, and changes in musical dynamics can be visualized and used as biofeedback in teaching.</p>
+
+<p>Voice analysis examines two types of events: periodic and aperiodic. Periodic events are those with measurable frequency, including the fundamental, harmonics, and vibrato. Aperiodic events include noise, sonance (e.g. the sound of inhalation), subharmonics, and other imperfections in vocal sound.</p>
+
+<p>Almost all acoustic voice analysis is based on the Fast Fourier Transform (FFT). The FFT is a mathematical algorithm that converts sound into its component parts. Computers complete this computation so quickly that it appears to happen in realtime (no delay between input and output). FFT is the basis for analysis instruments such as the power spectrum and spectrogram, which will be discussed later in this chapter.</p>
+
+<p>There is little need for most singers and teachers to understand the mathematical underpinnings of the FFT—this chapter focuses on the information provided by the FFT, not on how it produces its results. Those who are particularly curious can find additional information via the Internet (the Wikipedia entry for FFT is quite good), or from publications cited in the References section of this chapter.</p>
+
+<p>Data collection and analysis occurs in three stages. The first step is conversion of the analog electrical signal produced by a microphone into a digital signal that can be interpreted by the computer. This is done either by the computer’s sound card or by an external analog to digital (A/D) signal processor,<sup><a href="#footnote-3" id="footnote-ref-3">[3]</a></sup> which might be called an <em>audio interface</em>. A computer program processes the signal, performs the FFT, and analyzes the results. In the final step, these results are plotted on a graph that is displayed on the computer monitor.</p>
+
+<p>Many analysis programs record and store the digitized audio signal prior to analysis. This offers the advantage of saving sound samples for retrieval and examination at a later date, which is particularly useful in research and in tracking change over time. As a teaching tool, however, it offers little pedagogic advantage over a tape recorder because feedback is provided after, not during, singing. Other analysis instruments are able to display information in realtime, eliminating the delay imposed by recording. These instruments have much greater use in teaching. Functioning as biofeedback devices, they permit students to witness the effects of technical changes as they happen. Most realtime instruments also are capable of saving data for subsequent retrieval and reanalysis.</p>
+
+<p>Analysis instruments and programs come in a wide variety of formats. Rudimentary examples can be downloaded for little or no cost from the Internet; few of these programs are designed specifically for voice analysis, but they still can be useful. Programs written specifically to look at the voice can range in price from relatively modest to prohibitively expensive. Increased cost usually is accompanied by more accurate acquisition, digitalization, and analysis of the audio signal, additional display options (such as 3-D plotting of spectrograms), and voice-specific analysis options such as formants, vowel plotting and perturbation assessment.</p>
+
+<p>The remainder of this chapter will focus on specific types of voice analysis and the manner in which they might be used. Most examples were created using VoceVista Professional (Visualization Software, LLC), and the Computer Speech Lab (Kay-Pentax).<sup><a href="#footnote-4" id="footnote-ref-4">[4]</a></sup></p>
+
+<h1>Acoustic Measures</h1>
+
+<h3>Audio Waveform</h3>
+
+<p>At this point, the only audio waveform that has been seen in this book is the pure sine wave. The complex sounds produced by the voice are very different (remember, a sine wave represents a pure fundamental tone with no overtones). Waveforms displayed by the computer are complex and are created by transforming the acoustic energy of sound into electrical energy. The wavy line that results shows the variation in compression and rarefaction within a single period or over a series of periods (Figure 5-1).</p>
+
+<p><img class="kInteractive image image35" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClFQQBcXTVBGWgsbBkpGXVgLEElJTVBGWgoKAhwAHCsLKEBBCBQ4AQ0ACh0NSlBXX0NEDQYRREpAWRwAFg4AQBcXWxsBBANeTl1GBg8COkNMDRAaCQIXTl1GVQwQCUkJREdGGA4GA0pGXVhAVxcLT1paRkAbBggHQFdIVAhcUlseGAhXWV1RWCY=" src="images/5-1-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-1:&#160;</strong>Audio waveform detail<br />
+&#160;</p>
+
+<p><img class="kInteractive image image28" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClBdQBcXTVBGWgsbBkpGXVgLEElJTVBGWgoKAhwAHCsLKEBBCBQ4AQ0ACh0NSlBXX0NEDQYRREpAWRwAFg4AQBcXWxsBBANeTl1GBg8COkNMDRAaCQIXTl1GVQwQCUkJREdGGA4GA0pGXVhAVxcLT1paRkAbBggHQFdIVwhcUlseGAhXWV1RWCY=" src="images/5-2-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-2:&#160;</strong>Audio waveform, legato &amp; non-legato<br />
+&#160;</p>
+
+<p>An audio waveform display has limited use as a feedback tool in teaching; at best, it might assist with control of legato and loudness. Figure 5-2 illustrates how this can occur with excerpts from Pergolesi's <em>Se tu m'ami&#160;</em>(<strong>5/1</strong>). The image below is not a “Rorschach” test—the strange-looking blobs show the amplitude of the sound above and below the point of zero energy. Non-legato connections are apparent as gaps or spaces. Vibrato can sometimes be seen through the periodic “spikes” that poke out from the top and bottom of the images.</p>
+
+<div class="kInteractive video video494" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbNjUjNnwTFgJDGwBXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKURwRREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-2" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/1:&#160;</strong>Audio waveform</p>
+
+<h3>Fundamental Frequency</h3>
+
+<p>Many analysis programs are able to extract the fundamental frequency from the complex waveform and plot it as a line or a series of points on a graph (<strong>5/2</strong>). When performed in realtime, this might provide valuable feedback to help correct poor intonation; however, the presence of vibrato in a singer’s voice combined with the poor frequency resolution often found with these displays can limit its efficacy.</p>
+
+<div class="kInteractive video video700" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbNTcCElJ6NFgrDzZXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKUhUVREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-3" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/2:&#160;</strong>Analysis of fundamental frequency</p>
+
+<p style="text-align: center;"><img class="kInteractive image image49" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClZcQBcXTVBGWgsbBkpGXVgLEElJTVBGWgoKAhwAHCsLKEBBCBQ4AQ0ACh0NSlBXX0NEDQYRREpAWRwAFg4AQBcXWxsBBANeTl1GBg8COkNMDRAaCQIXTl1GVQwQCUkJREdGGA4GA0pGXVhAVxcLT1paRkAbBggHQFdIVghcUkVFRgUCDEpGXUdSIQ==" src="images/5-3-y301.jpg" style="margin: 5px auto; position: static;" /><strong>Figure 5-3:&#160;</strong>Pitch extraction from the audio file<br />
+&#160;</p>
+
+<p>A better tool to help with this problem is found in rudimentary frequency counters or musical tuning programs, many of which can be found for little or no cost on the Internet. An excellent example is found in the program <em>Sing &amp; See</em>, published by CantOvation Ltd., which is one of the few programs available for both PC and Mac (Figure 5-4) (<a class="link897" href="http://www.singandsee.com/index.php" target="_self">http://www.singandsee.com/index.php</a>).</p>
+
+<p><img class="kInteractive image image447" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClZRUgAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBEIGEZaAh8VTl1GSlUh" src="images/5-4-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-4:&#160;</strong>Pitch extraction with "Sing &amp; See"&#160;<br />
+&#160;</p>
+
+<p>One noteworthy use of fundamental frequency extraction is as a tool to help develop good speech prosody (inflection). Through visualization of pitch, monotonal speakers often quickly can achieve a healthier and more pleasing pitch modulation. Some analysis programs provide special features to assist with this function, including the Realtime Pitch module for the CSL/Multi-Speech platform from Kay-Pentax.</p>
+
+<p><strong>Amplitude (intensity)</strong></p>
+
+<p>Many analysis programs are able to extract and measure the amplitude of sound (Figure 5-6). For absolute measurement, which shows the precise sound pressure (dB) level, the instrument must be calibrated to an external reference. Without calibration, measurement is relative; the difference between elements in the signal will be accurate (e.g. 10dB falloff from 2F<sub>o</sub> to 3F<sub>o</sub>), but the readings will not necessarily match those of a sound level meter.</p>
+
+<p><img class="kInteractive image image863" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClpTVgAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBMIGFseGAhXWV1RWCY=" src="images/5-6-y.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-6:&#160;</strong>Amplitude analysis of messa di voce (crescendo/diminuendo)<br />
+&#160;</p>
+
+<p>Programs that use relative amplitude arbitrarily place a reading of 0dB at some point on the scale. This practice can be a bit confusing until you understand what is happening. For example, VoceVista places the 0dB reference at the top of the scale (Figure 5-7). The amplitude of components in the signal (e.g. harmonics) is indicated through <em>negative </em>numbers that express the distance below the reference point; this means a harmonic that is measured at -50dB actually is stronger than one that reads -75dB. Programs from Kay-Pentax use an arbitrary 0dB reference that results in both positive and negative readings for amplitude. This system requires a bit more arithmetic at times, especially if you are trying to find the difference between harmonics with mixed readings, such as 40dB and -15dB. If you experience this conundrum, just remember that to find the difference between a positive and negative number, you add them together, disregarding the negative sign. Remember: any time you see amplitude expressed as a negative number, you are looking at relative, not absolute measures.</p>
+
+<p><img class="kInteractive image image652" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClRQVwAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBIIGEZaAh8VTl1GSlUh" src="images/5-7-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-7:&#160;</strong>Amplitude expressed in negative numbers (-32dB)<br />
+&#160;</p>
+
+<p>Some programs can generate simultaneous analyses of fundamental frequency and amplitude, which is useful in visualizing pitch-induced amplitude changes. Many singers have technical issues with high notes, often related to excess pressure and effort. A realtime amplitude and frequency display can help resolve this problem. The student sings a scale or arpeggio from low to high and back, striving to maintain consistent amplitude (Figure 5-8). He quickly sees that high notes almost always get louder (<strong>5/3</strong>). Using feedback from the program, he probably will discover that singing the top more easily, at a volume that matches the lower pitches, actually results in a freer sound than when he pushes for extra loudness.</p>
+
+<div class="kInteractive video video317" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbKjE0UENzJiYGGT5XWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKVhQSREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-8" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/3:&#160;</strong>Unintentuional crescendo to higher pitches</p>
+
+<p style="text-align: center;"><img class="kInteractive image image596" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TCldcUwAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSB0IGBBaAh8VTl1GSlUh" src="images/5-8-ye.jpg" style="margin: 5px auto; position: static;" /><strong>Figure 5-8:&#160;</strong>Combination display of Fo and dB<br />
+&#160;</p>
+
+<p>Dual displays of frequency and amplitude also are useful for assessing vibrato. In some voices, vibrato is dominated by frequency modulation; in others, amplitude changes dominate. Ideally, we look for synchronous movement of the two factors (Figure 5-9).</p>
+
+<p><img class="kInteractive image image448" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClZRXQAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBwIGEZaAh8VTl1GSlUh" src="images/5-9-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-9:&#160;</strong>Vibrato analysis. Amplitude change is seen on the top line;<br />
+frequency change is shown on the lower line<br />
+&#160;</p>
+
+<p>A computer is not the only way to provide amplitude feedback for a student. Sound meters are available from many consumer electronics stores for a modest price. Many of these devices are factory-calibrated and have a high level of accuracy.</p>
+
+<p><strong>Power Spectrum (FFT)</strong></p>
+
+<p>A power spectrum performs the Fourier Transform on an input signal and plots the results through a line or bar graph, allowing the components of a complex soundwave to be seen (amplitude and frequency of the fundamental and overtones). In a typical power spectrum, frequency is plotted on the horizontal (X) axis and amplitude is plotted on the vertical (Y) axis (Figure 5-10, <strong>5/4</strong>).</p>
+
+<p><img class="kInteractive image image563" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TCldTVgAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBQVTAxHRgUCDEpGXUdSIQ==" src="images/5-10-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-10:&#160;</strong>Power spectrum</p>
+
+<div class="kInteractive video video451" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbMCAUFhZTDB0HO1tXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKURAUREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-12" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/4:&#160;</strong>Power spectrum<br />
+&#160;</p>
+
+<p>Power spectrum analysis shows the content of sound during a single moment in time, which might be as short as a few milliseconds or as long as several hours (length is restricted by the processing power and sampling limitations of the analysis device). When the time period is extended to include several cycles of vibration, the resulting analysis is called a long-term average spectrum (LTAS). LTAS was used to generate the displays in the <em>formants </em>portion of this text that show the average acoustic output of a symphony orchestra and a tenor (<a class="link379" href="chapter_08_Formants.html#4-21">Figure 4-21</a>).</p>
+
+<p>An analogy might prove helpful in understanding aspects of a power spectrum. When viewed in realtime, the analysis is like a movie; it consists of individual frames that knit together to form a seamlessly moving image. When you view a still image of a power spectrum, it is like viewing a photograph or a single frame from a movie. Long term average spectrum is like a photograph taken with a long exposure time.</p>
+
+<p>Used as a feedback tool, power spectrum analysis can only display the sound that leaves a singer’s mouth; it cannot separate the source from the filter and therefore cannot directly show the locations of formants. The action of formants, however, is easily inferred by looking at the relative strength of elements in the spectrum; harmonics that are stronger than others almost certainly have been amplified by a formant (<strong>5-5</strong>). You can’t see the actual formant, but you can see its impact on the sound (Figure 5-11).</p>
+
+<div class="kInteractive video video361" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbHAVUNEZ8OSc2IxxXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKVhMUREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-83" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/5:&#160;</strong>Power spectrum showing harmonics interacting with formants</p>
+
+<p style="text-align: center;"><img class="kInteractive image image602" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClRVVwAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBQUTAxHRgUCDEpGXUdSIQ==" src="images/5-11-y3.jpg" style="margin: 5px auto; position: static;" /><strong>Figure 5-11:&#160;</strong>Harmonics amplified by a formant<br />
+<strong>&#160;</strong></p>
+
+<p>Formant locations can more easily be inferred in an FFT analysis through the use of vocal fry or an electro-larynx, a device used by people who have had their larynx surgically removed (<strong>5/6</strong>). In both of these cases, there is a low fundamental frequency followed by a large number of overtones; as a result, formants emerge from the FFT spectrum in great detail (Figure 5-12).</p>
+
+<div class="kInteractive video video252" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbAxAdNW9RUT44CRxXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKVxAXREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-85" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/6:&#160;</strong>Electro-larynx</p>
+
+<p style="text-align: center;"><img class="kInteractive image image100" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClNVVQAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBQXTAxHRgUCDEpGXUdSIQ==" src="images/5-12-y3.jpg" style="margin: 5px auto; position: static;" /><strong>Figure 5-12:&#160;</strong>Vocal fry used to locate formants<br />
+&#160;</p>
+
+<h3>Spectrogram</h3>
+
+<p>Spectrograms add the dimension of time to acoustic analysis. The graphic display is a bit like a power spectrum turned on its side (Figure 5-13). Frequency now appears on the vertical (Y) axis and time appears on the horizontal (X) axis. Amplitude is shown by color change (grayscale or color).</p>
+
+<p><img class="kInteractive image image332" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClFWVwAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBQWTAxHWF5cAR8TSlBXQBJh" src="images/5-13-y301.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-13:&#160;</strong>Spectrogram with power spectrum that is rotated 90 degrees<br />
+&#160;</p>
+
+<p>Spectrograms may either be wideband or narrowband<sup><a href="#footnote-5" id="footnote-ref-5">[5]</a></sup> (some programs also provide a middle-band option). Narrowband spectrograms divide the frequency spectrum into small segments, allowing clear visualization of harmonics and time-related vocal events such as vibrato. Wideband spectrograms divide the frequency spectrum into broad swaths; individual harmonics are obliterated but the total bandwidth of formants is more readily visible. Wideband spectrograms also provide high resolution in the domain of time, in some cases allowing acoustic visualization of each opening and closing cycle of the glottis (Figure 5-14).</p>
+
+<p><img class="kInteractive image image257" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClBQUgAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBQRTAxHRgUCDEpGXUdSIQ==" src="images/5-14-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-14:&#160;</strong>Wideband (left) and narrowband spectrograms<br />
+&#160;</p>
+
+<p><strong>Spectrogram Application</strong></p>
+
+<p>Students acquire knowledge in different ways. Some are kinesthetic learners who cannot accomplish a task until they know what it feels like in their bodies. Others are intellectual learners who must understand the concepts before they can be put into action. Still others learn aurally, responding best to modeling from the teacher. Many students, however, are visual learners; they must see it to do it. Feedback from realtime spectrograms is ideally suited to these visual learners. Teachers must remember that the current generation of students does not remember a world without computers. For them, receiving information from a display screen is familiar and normal.</p>
+
+<p>Unfortunately, spectrographic feedback tends to be more effective for male than female voices. The reason is simple: men almost always sing in a frequency range that permits a large number of harmonics to be visible on the spectrographic display. Women, however, generally sing much higher. At times, only three or four harmonics might be seen, as demonstrated by Figure 5-15 (<strong>5/7</strong>), which shows the same phrase sung by a baritone and a soprano. Notice that the spatial separation between harmonics is greater for the soprano and that fewer harmonics always are visible.</p>
+
+<p><img class="kInteractive image image438" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClZWXQAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBQQTAxHRgUCDEpGXUdSIQ==" src="images/5-15-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-15:&#160;</strong>Baritone and soprano singing the same phrase, one octave apart</p>
+
+<div class="kInteractive video video423" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbGlA0FEcRVwUjAC5XWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKURcWREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-70" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/7:&#160;</strong>Distribution of harmonics because of octave displacement<br />
+&#160;</p>
+
+<p>Spectrogram use is further complicated by linear frequency displays. This can be particularly troubling for musicians, who are accustomed to thinking in terms of pitch, rather than frequency. A spectrogram displaying a frequency range of 0-5,000Hz, for example, includes pitches extending to E8-flat (a minor third above the highest note of the piano). The midpoint of this display is 2,500Hz, E7-flat, which is the highest E-flat on the piano keyboard. Eight musical octaves are squeezed into the bottom half of the display; a single octave occupies the top half!</p>
+
+<p>Some programs, including Gram (Visualization Software) and CSL (Kay-Pentax), offer a solution to this problem through an option to display frequency logarithmically. Using this system, harmonics are spatially separated like their equivalent musical intervals (Figure 5-16, <strong>5/8</strong>). Many musicians find this type of display to be more intuitive.</p>
+
+<p><img class="kInteractive image image903" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TCltVVgAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBQTTAxHRgUCDEpGXUdSIQ==" src="images/5-16-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-16:&#160;</strong>Linear and logarithmic frequency displays</p>
+
+<div class="kInteractive video video694" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbPQE/A3BpGE0kMFtXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKUxwRREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-72" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/8:&#160;</strong>Spectrogram with logarithmic frequency<br />
+&#160;</p>
+
+<p>While realtime spectrograms can be used in many ways during voice instruction, in my experience, five applications are most important: control of vibrato; control of legato; monitoring the strength and bandwidth of the singer’s formant; monitoring elements of diction, including the duration of consonants, and the length of diphthongs (both intentional and accidental); and verifying the pitch accuracy of vocal onsets and releases.</p>
+
+<h3>Control of Vibrato</h3>
+
+<p>Vibrato is an important stylistic feature of singing in the Western, classical model. Most singers strive to allow their vibrato to remain uniform and consistent at all times, regardless of pitch or loudness. Vibrato easily is seen using narrowband spectrograms. When it is present, the harmonics appear to wiggle in a nearly sinusoidal pattern. This movement is most apparent in the higher harmonics where large changes of frequency only result in small changes of pitch. If vibrato is absent, harmonics will look like flat lines, not unlike the EKG tracings of someone whose heart has stopped beating. Alterations in vibrato speed, which frequently are employed by singers in commercial genres, are clearly visible. Perturbations or other irregularities within the vibrato can also be seen (Figure 5-17, <strong>5/9</strong>).</p>
+
+<p><img class="kInteractive image image389" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClFdXAAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBQSTAwRRgUCDEpGXUdSIQ==" src="images/5-17-ye.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-17:&#160;</strong>Four kinds of vibrato</p>
+
+<div class="kInteractive video video965" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbLVo8VUccBwcZRVdXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKXBMQREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-64" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/9:&#160;</strong>Different styles of vibrato<br />
+&#160;</p>
+
+<p>Narrowband spectrograms also allow us to measure the rate and extent of vibrato. This can be a tedious task with some programs, especially when readings must be taken manually. VoceVista, however, provides a special function to automate this process. The program extracts a single harmonic from the spectrum and places it in its own analysis window. Time cursors are used to select a portion of the waveform from which measures of the vibrato rate and extent are calculated (Figure 5-18, <strong>5/10</strong>).<sup><a href="#footnote-6" id="footnote-ref-6">[6]</a></sup></p>
+
+<p><img class="kInteractive image image724" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClVXUQAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBQdTAxHRgUCDEpGXUdSIQ==" src="images/5-18-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-18:&#160;</strong>Vibrato measurement tool in VoceVista</p>
+
+<div class="kInteractive video video222" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbKyRTL0FVJjAACypXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKVxcXREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-16" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/8:&#160;</strong>Demonstration of vibrato measurement protocol<br />
+&#160;</p>
+
+<p>Visual learners often can quickly correct problems related to vibrato using the spectrogram—sometimes in only a few minutes. Teacher supervision is recommended to ensure students are allowing their natural vibrato to occur and are not manufacturing the sound. Once singers learn the sensations and sounds of the new production, use of the spectrogram should be halted to avoid dependency. In this regard, the spectrogram becomes a <em>trigger</em>; it stimulates new behavior patterns that can continue after the direct feedback is eliminated.</p>
+
+<h3>Control of Legato</h3>
+
+<p>Legato is visualized in a spectrogram through the continuity of the signal. Non-legato connections are seen as vertical interruptions in the harmonics, which might result from poor vowel/ consonant continuity, from technical issues, such as breath control, or from inattention to the musical line (Figure 5-19, <strong>5/11</strong>).</p>
+
+<p><img class="kInteractive image image753" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClVQVgAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBQcTAwRRgUCDEpGXUdSIQ==" src="images/5-19-ye.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-19:&#160;</strong>Legato (left) and non-legato</p>
+
+<div class="kInteractive video video838" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbGhs3C0xXKCorIhxXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKXRYdREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-98" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/11:</strong>&#160;Legato v. non-legato<br />
+&#160;</p>
+
+<p>As with vibrato, realtime spectrographic feedback might help students see things about their legato that they cannot yet hear. Eventually, however, the ear and brain must take over control solely through aural and physical sensations.</p>
+
+<h3>Strength and Bandwidth of the Singer’s Formant</h3>
+
+<p>The center frequency, bandwidth, and amplitude of the singer’s formant are shown through the intensity of high frequency harmonics (remember—we don’t see the actual formant, we only see how it changes the sound). If F<sub>s</sub> is active, a continuous band of energy will be visible somewhere in the range of 2,400--3,200Hz. The singer’s formant occupies a relatively narrow band within this frequency range and is not the same for all voices. For basses, baritones, contraltos, and mezzos, F<sub>s</sub> often centers on a lower frequency than for tenors and sopranos (when they are using it). Ideally, we want to see F<sub>s</sub> producing uniform amplification across all vowels (Figure 5-20, <strong>5/12</strong>). This is a difficult task for some people, especially for the closed/back vowels /u/ and /o/. But the biofeedback provided by spectrography can help singers learn the vowel and support adjustments required to achieve this consistent sound.</p>
+
+<p><img class="kInteractive image image631" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClRWVAAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBcVTAxHRgUCDEpGXUdSIQ==" src="images/5-20-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-20:&#160;</strong>Stronger (left) and weaker singer's formants</p>
+
+<div class="kInteractive video video549" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbIw5UJld8BkBNKQBXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKUBEcREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-30" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/12:&#160;</strong>Singer's formant visualization with linear predictive coding (LPC)<br />
+&#160;</p>
+
+<p>Excess nasality also can impact the singer’s formant. Rather than tightly clustering F<sub>3</sub>-F<sub>5</sub> within a narrow frequency band, the energy can split into two discreet zones. Because this yields a less desirable sound, I tend to view this type of F<sub>s</sub> as the equivalent of a serpent’s split tongue! In most cases, the singer’s formant will reunite into a single band as soon as the flow of air and sound through the nose is cut off by lifting the soft palate.</p>
+
+<p>If the singer’s formant is unusually high, perhaps extending to 4kHz or beyond, there is reason to suspect an elevated larynx. It has been shown that the piriform sinus (or piriform fossa)—the area that surrounds the larynx at the base of the pharynx—has a strong <em>anti-resonance</em> effect that attenuates high frequency harmonics (Dang &amp; Honda, 1995). When the larynx is maintained in a low position and the pharyngeal walls are relaxed, the piriform area becomes an open space that strongly attenuates frequencies above approximately 4kHz. The impact of this anti-resonance is clearly visible in the spectrum of most classical singers through a precipitous falloff in energy (Figure 5-21). But if the larynx is elevated or the pharynx constricted, the piriform space is reduced or even completely closed, which reduces or eliminates its attenuating effect. Strong harmonics now are permitted to continue well beyond 4kHz, possibly ascending to 10kHz or beyond, as often seen in high-larynx belting (see Chapter 10).</p>
+
+<h3>Diction and Language</h3>
+
+<p>Many singers find diphthongs problematic, often because they are sung differently in different styles of music. In the classical idiom, the first vowel in the pair generally receives the greater importance and longer duration. The opposite can be true in some popular or commercial styles, which creates problems for some singers when they must adapt to the pure vowels of most foreign languages. For example, native speakers of English almost always pronounce the vowel /o/ as the diphthong /ou/ and /e/ as /ei/. Habitual events, such as inappropriate use of diphthongs, can be very difficult for students to hear or feel in their own singing—it is the equivalent of trying to hear your own accent. Visualization through spectrography can increase awareness of such habits, facilitating their correction (Figure 5-22, <strong>5/13</strong>).</p>
+
+<p><img class="kInteractive image image908" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TCltVXQAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBcXTAxHRgUCDEpGXUdSIQ==" src="images/5-22-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-22:&#160;</strong>Pure vowels (left) v. unintentional diphthongs</p>
+
+<div class="kInteractive video video503" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbWjMtAUcVU0ABPAhXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKUBUWREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-72" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5-15:&#160;</strong>Pure vowels and unintentional diphthongs<br />
+&#160;</p>
+
+<p>Double consonants in Italian pose another chronic problem for developing singers (and even some professionals). In terms of duration, a double consonant is not merely twice as long as a single; the relationship actually approaches ten to one. Because time is displayed in spectrograms, they are ideal tools for displaying the duration of single versus double consonants. As shown in Figure 5-23 (<strong>5/14</strong>), the difference between the single /n/ of <em>una</em> and the double /n/ of <em>donna</em> and <em>anni</em> is quite obvious (and the difference in meaning between&#160;<em>ani</em>&#160;and&#160;<em>anni</em>&#160;is HUGE--if you don't already know, look it up!).</p>
+
+<p><img class="kInteractive image image129" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClNXXAAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBcWTAxHRgUCDEpGXUdSIQ==" src="images/5-23-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-23:&#160;</strong>Double (left) v. single consonants</p>
+
+<div class="kInteractive video video419" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbIC9SEnFxNFgyBSpXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKURQcREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-94" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/14:&#160;</strong>Double and single consonants</p>
+
+<p><strong>Onset/Offset of tone</strong></p>
+
+<p>Spectrograms can reveal significant information about how sounds begin and end. Many singers fall into the habit of sliding up to pitches in a style sometimes called “scooping.” This articulation might be appropriate in some musical styles, but is problematic for others. In this regard, scooping has quite a lot in common with delayed start of vibrato and accidental diphthongs: it easily becomes a habitual part of a singer’s sound. And as we all know, habits—especially bad ones—can be difficult to break. A spectrogram clearly reveals scooping onsets, making it an ideal tool to trigger awareness of the habit (Figure 5-24, <strong>5/15</strong>). Remember: correction requires recognition!</p>
+
+<p><img class="kInteractive image image68" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClRdQBcXTVBGWgsbBkpGXVgLEElJTVBGWgoKAhwAHCsLKEBBCBQ4AQ0ACh0NSlBXX0NEDQYRREpAWRwAFg4AQBcXWxsBBANeTl1GBg8COkNMDRAaCQIXTl1GVQwQCUkJREdGGA4GA0pGXVhAVxcLT1paRkAbBggHQFdIVxEIGEZaAh8VTl1GSlUh" src="images/5-24-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-24:&#160;</strong>Scooped (left) and clean onsets</p>
+
+<div class="kInteractive video video657" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbJlsoM3pQKCEBAxxXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKUxASREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-86" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/15:&#160;</strong>Scooping up to pitch<br />
+&#160;</p>
+
+<p>Spectrographic feedback also can assist with breathy (aspirate) and hard (glottal) onsets of sound. In the aspirate onset, airflow precedes tone; in the glottal onset, air is pressurized beneath the glottis and explosively released at the instant tone begins. Aspirate onset is visible in the spectrogram as a subtle “fade in” of the sound, often accompanied by a small scoop up to the pitch. Hard onsets display a burst of energy; initial tuning often is sharp, requiring a quick slide down to the intended pitch. Balanced onsets are clean, neither sharp nor flat, and allow vibrato to begin immediately. Offset is visible in much the same manner. An aspirate release—as in a sigh—creates a spectrographic image that fades out, usually accompanied by a drooping pitch. Hard offset is seen as an abrupt spike in energy at the moment sound stops. Balanced offsets split the difference between the other two (Figure 5-25, <strong>5/16</strong>).</p>
+
+<p><img class="kInteractive image image312" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClFUVwAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBcQTAxHRgUCDEpGXUdSIQ==" src="images/5-25-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-25:&#160;</strong>Onsets visible in narrowband spectrogram</p>
+
+<div class="kInteractive video video613" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbIgkHUE9rMSAkLjpXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKUxQWREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-48" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/16:&#160;</strong>Onsets<br />
+&#160;</p>
+
+<h3>More Details</h3>
+
+<p>When using FFT-based analysis, including power spectrums and spectrograms, the computer operator is likely to be confronted with a baffling array of program setup options. Usually, the wisest choice is to accept the “default” settings offered by the program. Changes, however, might be needed to fine-tune the instrument to specific analysis expectations. Some of these setup parameters are explained below:</p>
+
+<h3>Sample Rate</h3>
+
+<p>Sample rate controls the total frequency range you can analyze and therefore is an important parameter to verify. The rule is simple: the maximum range of frequencies that can be analyzed is exactly <em>half</em> the sample rate (this is called the Nyquist frequency). At least three options usually exist for sample rate: 11kHz, 22kHz, and 44kHz. 11kHz is sufficient to display the sustained elements of classical singing, which rarely exceed 5,000Hz. 22kHz allows you to visualize fricative and sibilant consonants, along with the very high harmonics often found in belting. 44kHz is the sample rate for CD audio and is sufficient to cover the entire frequency range of healthy human hearing (approximately 0-20kHz). You probably only would use this very high sample rate to compare a live voice with a prerecorded example. Higher sampling rates provide additional information about the sound, but also result in significantly larger file sizes.</p>
+
+<p><strong>Bit Depth</strong></p>
+
+<p>Sample rate indicates the number of individual samples taken per second, each of which contains discreet data. Within each sample there are individual bits of data; bit depth controls the number of bits per sample. Bit depth is the controlling factor in the amplitude range that can be captured. CD audio is sampled at 44kHz with a 16-bit depth, which yields a frequency range to 22kHz and amplitude range of 96dB; DVD audio typically is sampled at 96kHz with a 24-bit depth, yielding a potential range of 48kHz (well beyond the abilities of the human ear) and an amplitude range up to 144dB. An increase of 1 bit raises amplitude range by 6dB. To capture singing for analysis, a bit depth of 8 or 16 should be sufficient. As with sample rate, higher bit rates result in larger file sizes.</p>
+
+<h3>FFT Points</h3>
+
+<p>FFT points can be thought of as frequency subdivisions within the analysis. An analogy helps understand how this happens. Imagine looking through a window that is covered by wide-louvered blinds. The image you see will be subdivided into segments, each of which is the width of one louver in the blind. The location of objects that are visible through the window could be measured based on the louver through which they are seen. Now, imagine the window is covered by narrow-louvered mini-blinds. The image you see is now subdivided into much smaller segments and the location of objects can be measured more precisely.</p>
+
+<p>FFT points are the “Venetian Blinds” of acoustic analysis. The frequency range will be divided by the number of FFT points to create small segments—like the view between adjacent slats of window blinds. A large number of FFT points will result in small subdivisions (mini-blinds); a low number of FFT points will result in large spectral subdivisions.</p>
+
+<p>The choices available for FFT points will probably follow the same pattern as found with computer memory modules, that is, sequentially doubling from the starting point of the number eight (i.e. 8, 16, 32, 64, 128, etc.). FFT points usually will enter this numerical series at 256 or 512, continuing to as high as 16,384 in some programs. While increasing the number of FFT points improves resolution frequency, it does so at the expense of efficiency. For most voice applications, FFT points higher than 1,024 or 2,048 are superfluous. 512 FFT points will clearly show the location of harmonics. Lower resolutions tend to obscure individual harmonics, but show the locations of formant zones more clearly.</p>
+
+<h3>Bandwidth</h3>
+
+<p>Bandwidth is an alternate method of determining the number of FFT points. Spectrograms, for example, usually are configured as narrow, middle or wideband. Narrowband spectrograms have a resolution of at least 60Hz, which is sufficient for clear visualization of harmonics. Resolution of wideband spectrograms might exceed 200Hz. At this bandwidth, individual harmonics no longer are visible; however, formant regions can be seen clearly. Bandwidth also impacts the resolution of time in the display. As bandwidth widens, frequency becomes less detailed and time becomes increasingly detailed. At a very wide bandwidth (300Hz and higher), time resolution may be sufficiently detailed to permit visualization of individual opening/closing cycles of the glottis, which appear as vertical striations in the spectrograph image.</p>
+
+<h3>Window Length</h3>
+
+<p>Some programs allow adjustment of the analysis window duration. A good analogy in this case comes from the frame rate of movies or videos. Faster frame rates allow faster, more realistic-looking motions. In acoustic analysis, shorter window lengths provide greater resolution in the time domain. Time-dependent events, such as vibrato, are therefore most easily visualized with short window lengths (e.g. 10ms or 20ms).</p>
+
+<p><strong>File Formats</strong></p>
+
+<p>Most of the information in this chapter focuses on the analysis of sound that is captured in realtime. It also is possible to analyze prerecorded material, including CD and DVD audio, but only if the original file is in an uncompressed or <em>lossless</em> format. Most people now are familiar with “ripping” files from CDs or downloading digital media directly from the Internet. Media of this type almost always is in a compressed format, such as MP3 or WMA. File compression is a double-edged sword: it dramatically shrinks file size, which is good if you want to keep a lot of music on a small storage device, but does so by eliminating a great deal of important acoustic information. Most analysis programs are unable to open compressed files.</p>
+
+<p>Uncompressed audio files usually are captured either in WAV or AIFF format. High quality compressed (lossless) files are available in formats including m4a, MPEG-4 SLS, and WMA Lossless. Programs to convert audio file formats are readily available for download; care must be taken, however, in format selection. It is possible to <em>down-sample</em> a 44kHz WAV file to 22kHz or lower; the resulting file will be smaller than the original and will no longer contain frequency information beyond 11kHz, but the data that remain are reliable and usable. <em>Up-sampling</em> is an entirely different matter. An analogy with digital images is helpful: a photograph taken at 300dpi resolution can be shrunk to 72dpi for display on a computer monitor with no loss of clarity; but an image enlarged from 72 to 300dpi will appear pixelated and unclear. The same thing happens if you try to up-sample a sound file. Similarly, a lossless format can be converted to a compressed MP3 file, but MP3 cannot be “reconstituted” into its original, lossless format.</p>
+
+<h3>Linear Predictive Coding (LPC)</h3>
+
+<p>LPC, also sometimes called <em>formant analysis</em>, uses a mathematical algorithm to interpolate vocal tract resonance based on the amplitude and location of harmonics. Like the power spectrum, LPC places data on a two-dimensional graph with amplitude on the Y-axis and frequency on the X-axis (Figure 5-26, <strong>5/17</strong>).</p>
+
+<p><img class="kInteractive image image411" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClZUVAAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBcTTAxHRgUCDEpGXUdSIQ==" src="images/5-26-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-26:&#160;</strong>LPC of /i/ at F3 and F5</p>
+
+<div class="kInteractive video video768" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbGVVcHGNiIDQEPipXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKUhMdREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-90" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/17:&#160;</strong>Series of vowels with LPC estimating formant locations<br />
+&#160;</p>
+
+<p>The result is a reasonable estimate of formant frequencies and bandwidths—provided F<sub>o</sub> is at a lower frequency than the expected first formant. As soon as pitch rises above E4 (approximately), LPC accuracy becomes extremely unreliable. This problem occurs because the computer is unable to decipher the difference between F<sub>o</sub> and F<sub>1</sub>. If /i/ is sung at C3, LPC likely will place F<sub>1</sub> correctly at about E4. But if pitch rises to C5, all vowels except /a/ will appear to have F<sub>1</sub> at that same pitch. By the time pitch exceeds F5, peaks in the LPC signal display harmonics, not formants.</p>
+
+<p>When used within an appropriate frequency range, formant analysis through LPC can help a student maintain vowel integrity over a range of pitches. As a scale is sung, formant peaks might vary in amplitude, but should change very little in frequency. LPC also provides an excellent means to monitor the relationship between F<sub>1</sub> and F<sub>s</sub> to help develop a balanced, chiaroscuro timbre. For many people, optimal sound is produced when the singer’s formant, which usually is the third peak in the LPC display, is maintained at about the same amplitude as the first formant (Figure 5-27).</p>
+
+<p><img class="kInteractive image image734" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClVWUQAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBcSTAxHRgUCDEpGXUdSIQ==" src="images/5-27-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-27:&#160;</strong>LPC showing relationship of F1 to Fs<br />
+&#160;</p>
+
+<p><strong>Vowel Matching</strong></p>
+
+<p>Some of the more advanced analysis programs, including the Sona-Match module in CSL (Kay-Pentax), use LPC analysis to display the accuracy of vowel sounds. A graph is created with F<sub>1</sub> on one axis and F<sub>2</sub> on the other; the program estimates formant locations in the vocal sound and plots them as a point on this graph (Figure 5-28, <strong>5/18</strong>).</p>
+
+<p><img class="kInteractive image image468" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClZTXQAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBcdTAxHRgUCDEpGXUdSIQ==" src="images/5-28-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-28:&#160;</strong>Static image from vowel matching program</p>
+
+<div class="kInteractive video video683" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbQlIHUhJJNEEsLgBXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKUx0WREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-53" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/18:&#160;</strong>Video of vowel matching<br />
+&#160;</p>
+
+<p>Target locations of vowels can be adjusted for differences among men, women and children, and for inter-language variations. It is important to remember to check the program setup in this regard; if a woman sings into a program whose analysis parameters are set for a man, or vice versa, results will be erratic and unreliable.</p>
+
+<p>Vowel matching has its best accuracy when measuring spoken, rather than sung, vowels. This is especially true for women because of the aforementioned problem of F<sub>o</sub> rising above the typical location of F<sub>1</sub>. In singing, closed, back vowels (/o/ and /u/) can be difficult for the computer to identify accurately, especially in voices with a prominent singer’s formant. In these cases, F<sub>s</sub> often is mistakenly plotted as F<sub>2</sub>, skewing the data point to a strange location on the graph. The singer can correct for this by temporarily reducing the ring in his sound.</p>
+
+<h3>Perturbation and Noise Factors</h3>
+
+<p>Advanced analysis systems are likely to include methods to calculate perturbation and noise factors in the voice, which clinicians and researchers use to help assess a person’s vocal health. They can also be used to objectively quantify change in a voice over a period of time, such as before and after voice therapy.</p>
+
+<p>Perturbation measurements have little value as a teaching tool for singing. Indeed, when sung samples are analyzed, the results are wildly erratic: the most beautiful voice in the world is likely to be labeled as extremely disordered, usually because vibrato is interpreted as a tonal defect related to excess tremor or a high standard deviation of the fundamental frequency.</p>
+
+<p>Some of the more common perturbation measurements are defined below:</p>
+
+<h3>Jitter</h3>
+
+<p>Jitter is cycle-to-cycle variability in the fundamental frequency, expressed as a percentage. It is a measure of subtle unsteadiness in the vocal tone. Healthy speaking voices usually have a jitter rate under 1%. We do not yet have norms for jitter in the singing voice, so any measures that are taken would have little meaning. It is also possible to define a jitter rate for vibrato as inter-cycle variability; given the much longer period for vibrato than fundamental frequency, acceptable jitter rates likely will be higher than for speech.</p>
+
+<h3>Shimmer</h3>
+
+<p>Shimmer is cycle-to-cycle variability in amplitude, expressed as a percentage. Healthy speaking voices usually have a shimmer rate under 3%. As with jitter, the measure has little meaning if applied to the singing voice, primarily because of amplitude modulation that occurs within vibrato.</p>
+
+<p>Shimmer also is used as a subjective descriptive term—you might read a review that raves about a soprano’s <em>shimmering</em> tone. Some singers and pedagogues even use shimmer as a synonym or substitute term for vibrato. Using the word in this manner causes no confusion in the artistic world, but could lead to misunderstanding in a therapeutic setting.</p>
+
+<h3>Standard deviation of the fundamental frequency</h3>
+
+<p>This is a statistical measurement of frequency variability that is used to estimate roughness or coarseness in vocal sound. Measurements over 3Hz generally are considered excessive for speech. As was the case with jitter and shimmer, standard deviation is a meaningless measurement for vocal samples that are sung, not spoken. Vibrato will result in an artificially high measurement that would represent a severe voice defect in speech.</p>
+
+<h3>Habitual Fundamental Frequency</h3>
+
+<p>Habitual fundamental frequency is an indication of the most frequent fundamental in a recorded sample, which may or may not be different from the average fundamental.</p>
+
+<h3>Average (mean) Fundamental Frequency</h3>
+
+<p>This is the average frequency sustained during a sample. If the measure is taken for singing, it simply reports pitch. It is more useful for speech, where is can help determine if a singer is speaking at an appropriate pitch level for his or her voice type.</p>
+
+<h3>Maximum and Minimum Fundamental Frequency</h3>
+
+<p>The highest and lowest fundamental frequencies that are present in the recorded sample.</p>
+
+<h3>Amplitude and Fundamental Frequency Tremor</h3>
+
+<p>These measurements are indications of <em>long-term</em> periodic variations in either amplitude or pitch, as opposed to the <em>cycle-to-cycle</em> variations measured by shimmer and jitter. For singers, the measurements should correlate with vibrato speed. In speech, significant tremors can be indicative of neurological disorders, such as Parkinson’s disease.</p>
+
+<p>A variety of noise measurements also can be taken, such as harmonics-to-noise, signal-to-noise, and normalized-noise-energy, which are used to assess breathiness and other aperiodic aspects of vocal sound.</p>
+
+<h1>Physiologic Measures</h1>
+
+<p><strong>Electroglottography</strong></p>
+
+<p><a id="EGG">&#160;</a> It’s not easy to figure out what the vocal folds are doing during phonation. One option is to look at them directly with a laryngoscope. Two versions of this device are available for use by medical personal: rigid scopes that enter through the mouth, and flexible scopes that are inserted through the nose. Either way, this is a costly, invasive procedure that is better suited to diagnosing pathologies than correcting technical problems in singing. Besides, who can afford to take a student to the clinic every time you’re curious about basic voice function?</p>
+
+<p>Electroglottography (EGG) provides a much more sensible solution. The electroglottograph is an instrument that noninvasively measures vocal fold contact patterns during vibration. Two electrodes are placed on the neck on either side of the larynx (everything is external) and a tiny current is passed from one electrode to the other. Electrical resistance to this signal changes as the glottis opens and closes; plotting the resulting signal on a graph provides a detailed, noninvasive assessment of vocal fold vibration. The procedure is 100% free of risk, and permits unrestricted, normal singing during the collection of data. The information provided by EGG is extremely useful for correcting problems created by insufficient or excess breath pressure, and more importantly, for issues associated with voice registers and registration (see Chapter 10).</p>
+
+<p>The basic EGG signal is shown in Figure 5-29. The top of the analysis window represents the point of maximum glottal closure; maximum opening is at the bottom. Time passes from left to right as in a spectrogram. Three important aspects of vocal fold vibration are revealed through EGG: the rate at which the glottis closes, the rate at which it opens, and the relative duration of the closed and open phases. Opening and closing rates are seen in the slope of the ascending/descending portions of the signal. Open/closed phase duration is expressed through the <em>closed quotient</em> (CQ), which shows the percent of time the glottis is closed during each cycle (the open quotient is the reciprocal of this number).</p>
+
+<p><img class="kInteractive image image619" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClRUXAAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBccTAxHRgUCDEpGXUdSIQ==" src="images/5-29-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-29:&#160;</strong>The EGG signal<br />
+&#160;</p>
+
+<p>It usually is easy to locate the moment of maximum contact between the vocal folds with EGG by the slight change in slope that often is seen near the top of the signal. Finding the spot where the glottis opens is bit trickier. Opening occurs at some point while the EGG trace is descending. But the only way to know with 100% certainty that you have located this event is to view the vocal folds simultaneously in a laryngoscope. Determining the moment of opening is extremely important, for without that information, it is impossible to measure closed quotient accurately. Fortunately, clues are provided that make laryngeal visualization unnecessary. For less experienced users of the technology, most programs estimate the moment of glottal opening through a default setting that is based on a typical opening point (35% above the bottom of the measurement scale in VoceVista). Using this default setting reduces accuracy, but the measure still is sufficient to show changes within a single subject. As such, it is useful for identifying registration events and for monitoring phonation for insufficient or excess glottal closure that leads to breathy and/or pressed sounds (Figure 5-30A). An alternate, and often more accurate method examines the contour of the opening phase of the signal. Often, there will be a small bend that looks a bit like a knee; there is a good chance this represents the actual moment of opening (Figure 5-30B).</p>
+
+<p><img class="kInteractive image image358" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClFQXQAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBYVTAxHRgUCDEpGXUdSIQ==" src="images/5-30-y3.jpg" style="margin: 5px auto; position: static;" /><br />
+&#160;</p>
+
+<p>Miller (2008) identifies another potentially important element that can be evident within the EGG signal: the <em>effective</em> closed quotient. Traditional CQ measurements are designed to show the absolute ratio of time the glottis is physically closed versus open; effective CQ shows the acoustic impact of the opening glottis. As the glottis widens, a point is reached where the opening is large enough to alter the acoustic properties of the vocal tract. At this point, the standing wave that results from good resonance is damped. We can see this event by coordinating the EGG and audio signals (Figure 5-30C). Note the fourth major peak in the audio waveform, which is followed by an abrupt attenuation of energy. Effective CQ is derived by aligning this peak/attenuation event with the EGG signal. Because effective CQ is based on an open glottal configuration, it can be significantly larger than traditional CQ measures.</p>
+
+<p>EGG has distinct advantages over laryngoscopy for singers and teachers:</p>
+
+<ol>
+	<li>It is noninvasive, allowing people to sing <em>normally</em> while data are collected.</li>
+	<li>Licensure is not required to own or use an EGG, making it accessible to voice teachers, students, researchers, and clinicians.</li>
+	<li>It is relatively inexpensive. Lab quality instruments can run into the thousands of dollars, but portable units are available for much less.</li>
+	<li>It is relatively simple to use the instrument and to interpret the signals.</li>
+</ol>
+
+<h3>Breathing and Airflow</h3>
+
+<p>Advanced voice labs are likely to include instruments to assess respiratory function and breath use during singing. We will explore three common uses for this technology: lung capacity, airflow rate, and phonation threshold pressure (PTP).</p>
+
+<p>Lung capacity is measured through a process called spirometry (the instrument that does the measurement is a spirometer). As you will learn in Chapter 7, there are several different capacities that are relevant for breathing. But for singing, we primarily are interested in a person’s <em>vital capacity</em> (VC), which is the amount of air that is expelled during a single exhalation. VC varies widely from person to person and typically is related to physical stature; tall men have a much larger capacity than do petite women. If VC is known, the rate at which breath is expelled during phonation can easily be calculated—you simply divide VC by the maximum duration that a tone can be sustained. For example, if VC is 4 liters and a tone can be held for 40 seconds, the airflow rate is 0.1 liters per second (4÷40); flow rates, however, usually are expressed in milliliters, so 0.1L/sec becomes 100mL/sec. If you know the rate at which air is flowing, you have objective evidence to monitor phonation changes on the breathy-to-pressed continuum.</p>
+
+<p>Airflow rates during artistic singing (not simply sustaining a single tone for as long as possible) are better examined through specialized instruments such as the <em>Phonatory Aerodynamic System</em> (PAS) from Kay-Pentax, and <em>Aeroview</em> from Glottal Enterprises. These devices are able to measure and display airflow in realtime, which makes them particularly useful as pedagogic tools. For example, singers often have airflow-related problems with high notes—this is particularly true for those who overfill with air and subsequently push too hard, blowing out air too quickly and overpowering the voice. Realtime airflow monitoring provides biofeedback to help break this cycle; the student learns to equate reduced airflow with an easier, more beautiful sound. This monitoring also proves helpful in the opposite direction. Singers who habitually produce a tight, pressed tone can learn to release their laryngeal squeeze by gently increasing airflow.</p>
+
+<p>With appropriate hardware and software, it is possible to correlate airflow with acoustic biomechanical parameters in voice production. PAS is able to analyze and display five separate parameters simultaneously: fundamental frequency, amplitude, airflow, phonation threshold pressure, and EGG. Using this multidimensional approach, we can see direct relationships among the various elements. Several specific applications are worth noting:</p>
+
+<p>1. Messa di voce (crescendo/decrescendo). Airflow and amplitude can be monitored simultaneously. Many singers increase and decrease their airflow synchronously with the amplitude change; others maintain constant airflow throughout. A small minority are seen to reduce airflow during the crescendo. None of these options is necessarily better than the other, but if the task is difficult for a singer, one of the alternate approaches might prove more successful (Figure 5-31, <strong>5/19</strong>).</p>
+
+<p><img class="kInteractive image image265" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClBTUAAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBYUTAxHRgUCDEpGXUdSIQ==" src="images/5-31-y3.jpg" style="text-align: center; margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-31:&#160;</strong>Pitch, amplitude, and airflow during&#160;<em>messa di voce</em></p>
+
+<div class="kInteractive video video990" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbLhsxFGRPFzE8IAhXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKXBwVREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-107" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/19:&#160;</strong>Video of airflow analysis, <em>messa di voce</em><br />
+&#160;</p>
+
+<p>2. Interval leaps and ascending scales. Many singers reflexively increase amplitude with ascending pitch. By monitoring airflow, amplitude, and pitch, we can see changes in these parameters that occur spontaneously. Often, ascent to higher pitches becomes easier when singers use this feedback to monitor consistent airflow and amplitude (Figure 5-32, <strong>5/20</strong>).</p>
+
+<p><img class="kInteractive image image702" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClVVVwAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBYXTAxHRgUCDEpGXUdSIQ==" src="images/5-32-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-32</strong><strong>:&#160;</strong>Pitch, amplitude, and airflow during leaps of a perfect 5th and octave</p>
+
+<div class="kInteractive video video309" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbPDA1V1AXKQVDBltXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKVhUcREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-109" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/20:&#160;</strong>Video of intervallic leaps<br />
+&#160;</p>
+
+<p>3. Sustained vibrato. We’ve already looked at ways to measure the rate and extent of vibrato, and to correlate its frequency and amplitude changes. Airflow measures add yet another dimension. Concurrent visualization of frequency, amplitude, and airflow demonstrate interrelationships among these three parameters. In well-balanced vibrato, modulation of pitch and loudness are synchronous; breath varies in a similar manner, but often increases slightly in advance of frequency and amplitude (Figure 5-33, <strong>5/21</strong>).</p>
+
+<p><img class="kInteractive image image774" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClVSUQAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBYWTAxHWF5cAR8TSlBXQBJh" src="images/5-33-y301.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-33:&#160;</strong>Sustained vibrato</p>
+
+<div class="kInteractive video video490" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbBTQdA0lmID8QKxhXWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKURwVREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-31" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/21:&#160;</strong>Video of sustained vibrato<br />
+&#160;</p>
+
+<p>4. Vibrato versus non-vibrato singing. Comparing frequency, airflow, and EGG closed quotient reveals the manner in which singers inhibit vibrato. Some squeeze the glottis a bit more tightly, increasing CQ and decreasing airflow. Others do the opposite, releasing the glottis to decrease CQ and increase airflow. A final group maintains consistent CQ and airflow while singing both with and without vibrato. Singers who are required to produce non-vibrato tones and are unable to do so comfortably could use this technology to explore alternative techniques that lead to easier voice production (Figure 5-34, <strong>5/22</strong>).</p>
+
+<p><img class="kInteractive image image659" data-kotobee="Tlg2SlBXDEhCREdGUgEHBwNYSlBXB0BNAAMdBx1XWV1OSlBXC0pLBFBGWkNXWV0SAw0EEQAXU09RWl0cBAERSlBXSQAXUxgVGggbBUpGXVhQSQAXUwUbGBoCTl1GVRYXEEAJREdGGAACHh8nBhgAQBcXW1BGWgIXDwYBAkdXVwkAU0cQARwTCQMROBAEFWNKEzgbCgYeDkpGXVgRF1BATVBGWgweChwHAQMIAAAXU09RWl0bBg4TClRQXAAXU1lRWl0WAgJRXVBfC1BJDVlRWl0XEwYHGxEsC2hABRwVJAYQGQ4GFkdXVx9DABkHDUNXWV0HGxsJAAAXU08aHQMeR0pGXQsIAnpDCBkRBg4fDkpGXVgLEElJTVBGWh8THwdRXVBfQBcXT1tbRkFdAgITHE1QSBYRTAxHRgUCDEpGXUdSIQ==" src="images/5-34-y3.jpg" style="margin: 5px auto; position: static;" /></p>
+
+<p style="text-align: center;"><strong>Figure 5-34:&#160;</strong>Methods to reduce vibrato</p>
+
+<div class="kInteractive video video720" data-kotobee="Tlg2SlBXFldGREdGUkpAWQcAGxIWXwoKGBoBHBpcCQpbIhESFghfBjxMIl9XWV1YSlBXEkxBFR1RWl1IWl9EQ0dXV0NJDhQATV1AUUpGXQwKC0AAU0dYTV1ABg4GCAsLQBcXW0BYTV1AHAYQGwowC0xRREdGUkpAWUpGWkdXVwkAU0ccDQYVAxtRXVBfVhUVTVBGWg0VKAAYABBAVxcfREdGS19CW19EX0dXVwkAU0cHGAMTGAdRXVBfQBcXREdGREpAWRsNHwdAVxcfREdGHR0eTl1GQ0dXV0hECBsACQYcOQ4ABg1AVxcfFQcBDUNXWV0QBhEEB0lANgcVGCkdGSIbDQsJAAAXU08AGhoXR0pGXQ0VEUxKDwZRWl1ITlg2SlBXCkdPBBYAARkXTl1GVQwQCUkAVjFYTV1ACAMVHBELBEhAREdGUkpAWRkdCwcKUhcVREdGREpAWQsdAkdXVx9LFBkYREpAWRwAFg4AQBcXW1BGWjABHxYYClBAVxcJREdGHgYWDgAnHQE6A0xJBBsVBQpXWV1OARcJCQkAU0cCAQsXBDwGDEdXVx9LFBkYTVg2" id="ki-video-33" style="background-color: rgb(0, 0, 0); width: 100%; height: 300px; margin: 5px auto; clear: both;"></div>
+
+<p style="text-align: center;"><strong>Media 5/22:&#160;</strong>Reducing vibrato<br />
+&#160;</p>
+
+<p>Airflow and subglottal pressure (P<sub>sub</sub>) are interrelated and often will be inversely proportional (when one goes up, the other goes down). Many aspects of voice production are strongly linked to P<sub>sub</sub>, including maximum amplitude, ease or difficulty in singing high notes, transitions between voice registers, and basic tone quality. Unfortunately, direct measurement of subglottal pressure during phonation is a difficult and invasive task. In fact, the only way to get a reading that is guaranteed to be accurate is to puncture the trachea and insert a tube connected to a pressure meter (I can’t recommend this procedure for the voice studio). An alternate method measures pressure indirectly through a balloon that is swallowed and partially passed down the esophagus (connections to this balloon exit the body through the mouth or nose). When subglottal pressure rises, the membranous posterior of the trachea bulges against the esophagus, which in turn compresses the esophageal balloon. When properly calibrated, changes in the balloon’s pressure provide excellent estimates of subglottal pressure. Of course, this technique also is ill-suited to the voice studio.<sup><a href="#footnote-7" id="footnote-ref-7">[7]</a></sup></p>
+
+<p>While it currently is difficult to measure subglottal pressure during sustained phonation, noninvasive methods exist to explore PTP, which is the pressure required to initiate phonation. PTP is affected by many factors including hydration, fatigue, pathologies, and the extent to which a voice is “warmed up,” and therefore is useful in research, therapy, and singer training. One end of a small diameter tube is placed inside the mouth; the other end is connected to a pressure transducer. The singer repeats the syllable /pa/, gradually singing more and more quietly. Oral and subglottal pressures are approximately equal at the instant /p/ opens to /a/, providing a reliable estimate of PTP. By repeating the syllable during a diminuendo, the minimum pressure that will initiate phonation can be determined.</p>
+
+<h1>Conclusion</h1>
+
+<p>As we have seen, science provides a great variety of options for examining the voice, many of which have direct pedagogic application. Feedback provided by spectrograms, formant analysis, electroglottography, and airflow has the potential to help students become better singers. Of equal or perhaps greater importance, information gained from these types of analyses deepens our understanding of voice production. Singers are liberated when they realize <em>why</em> it is so difficult to produce accurate vowel sounds on high pitches, or why /e/ sounds better than /a/ on a given pitch.</p>
+
+<p>You are forbidden to be intimidated by voice analysis technology or the principles of resonance that guide their use. Let’s use a final analogy: word processing. Do you remember when you wrote your first document with a word processor? Those of us with more years behind us than lie ahead remember making the transition from typewriters to computers. But even current students who have never known a time without PCs had to start word processing from scratch. How did you learn to do this? Did you first read the manual from cover to cover, memorizing every capability and command, or did you just start typing and learn how to make formatting changes as the need arose? I’ll wager that every one of us opted for the latter approach. Begin your foray into the world of voice analysis in the same way. Start with a rudimentary spectrogram program and simply <em>play</em> with it. Experiment with it until you begin to see the connection between the sound that comes out of your mouth and the signals that are displayed on the screen. If you are a teacher, become comfortable seeing your own voice before you start to use the technology with your students. Eventually, I hope you will come to accept voice analysis technology as nothing more than an additional component of your teaching toolbox.</p>
+
+<p>Whether we realize it or not, good singing is totally dependent upon acoustics and resonance. Every time we make a subtle vowel adjustment, move our tongue, lift our palate, drop our jaw, change the shape of our lips, and raise or lower our larynx, we change our resonance. Fortunately, we need not rely on intuition and experimentation to achieve optimal resonance. If we understand the laws of acoustics and resonance, we can make informed choices that lead us to more beautiful singing.</p>
+
+<p>______________________</p>
+
+<p><strong>Review Questions</strong></p>
+
+<div class="kInteractive questions questions377" data-kotobee="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" dir="ltr" id="ki-qs-2026" style="color: rgb(51, 51, 51); padding: 5px; font-size: 1em;"></div>
+
+<p>&#160;</p>
+
+<p>________________________</p>
+
+<p><strong>Footnotes</strong></p>
+
+<ol>
+	<li id="footnote-1">
+	<p>At the time of this writing, computerized voice analysis remains firmly rooted in the PC world. Options for Mac are limited, but increasing. <a href="#footnote-ref-1">↑</a></p>
+	</li>
+	<li id="footnote-2">
+	<p>A partial list of notable institutions with significant voice labs includes Oberlin, The Ohio State University, Shenandoah Conservatory, Westminster College of the Arts, University of Kansas, University of Texas-Austin, University of Texas-San Antonio, and the University of North Texas. This list is far from inclusive and additional schools establish labs every year. <a href="#footnote-ref-2">↑</a></p>
+	</li>
+	<li id="footnote-3">
+	<p>Use the best A/D converter you can afford. Minimum specifications are: Signal to Noise Ratio of &gt;95db; minimum sampling frequency of 48kHz; dynamic range of &gt;95dB; total harmonic distortion no greater than 0.005%. USB devices with these specifications can be found for less than $200. <a href="#footnote-ref-3">↑</a></p>
+	</li>
+	<li id="footnote-4">
+	<p>Use of these programs does not constitute an endorsement. Many other options exist, including freeware, shareware, and commercial products. <a href="#footnote-ref-4">↑</a></p>
+	</li>
+	<li id="footnote-5">
+	<p>Spectrogram bandwidth is determined by the number of analysis or data points used. This parameter usually is user adjustable. Narrowband spectrograms typically have a minimum analysis size of 1,024 data points; wideband analysis uses a maximum size of 256 data points. <a href="#footnote-ref-5">↑</a></p>
+	</li>
+	<li id="footnote-6">
+	<p>The Multi-Dimensional Voice Profile module of CSL can extract this information, but its measures are calibrated for speech, not singing. At least one build of VoceVista Pro has included the ability to calculate amplitude in vibrato, but that fundtion has not yet been ported to the new VoceVista Video. <a href="#footnote-ref-6">↑</a></p>
+	</li>
+	<li id="footnote-7">
+	<p>As of 2012, systems are under development to extrapolate subglottal pressure from intra-oral pressure. If successful, these devices will have direct pedagogic application. <a href="#footnote-ref-7">↑</a></p>
+	</li>
+</ol>
+
+
+</body></html>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_09_References.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_11_References.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            // Удаляем все классы тем с body и html
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            // Добавляем новый класс темы к body и html
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            // Сохраняем выбор в localStorage
+            localStorage.setItem('reading-theme', theme);
+            
+            // Обновляем активную кнопку
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        // Загружаем сохраненную тему при загрузке страницы
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        // Функция скачивания главы
+        function downloadChapter(format) {
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                
+                // Сначала получаем book_id
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id) {
+                            const chapterIndex = 9;  // Индекс текущей главы
+                            const downloadUrl = `/download-chapter/${data.book_id}/${chapterIndex}/${format}`;
+                            
+                            // Создаем временную ссылку для скачивания
+                            const link = document.createElement('a');
+                            link.href = downloadUrl;
+                            link.style.display = 'none';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        } else {
+                            alert('Не удалось получить информацию о книге');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Ошибка:', error);
+                        alert('Ошибка при скачивании файла');
+                    });
+            }
+        }
+        
+        // Устанавливаем информацию о книге для системы заметок
+        document.addEventListener('DOMContentLoaded', function() {
+            // Загружаем сохраненную тему
+            loadSavedTheme();
+            
+            // Получаем book_id из пути URL
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

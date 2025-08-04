@@ -10,7 +10,11 @@
       "Bash(git push:*)",
       "Bash(rm:*)",
       "Bash(mv:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }
