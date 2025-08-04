@@ -15,7 +15,8 @@
       "Bash(pip install:*)",
       "Bash(ls:*)",
       "Bash(grep:*)",
-      "Bash(sqlite3:*)"
+      "Bash(sqlite3:*)",
+      "mcp__ide__getDiagnostics"
     ],
     "deny": []
   }

@@ -6,13 +6,11 @@ Web-приложение EPUB Cutter
 """
 
 import os
-import json
 import sqlite3
 import zipfile
 from pathlib import Path
-from datetime import datetime
-from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for, flash, session, send_file
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for, flash, send_file
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 from werkzeug.utils import secure_filename
 import sys
 import tempfile
