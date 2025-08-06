@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Author - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_133_Index.html" class="nav-button">← Предыдущая</a>
+        
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="About the Author">
+        <h3>Страница 390</h3>
+
+<p>About the Author Dr. Ian Howell is the founder of and chief educator at the Embodied Music Lab. He has held classroom and studio teaching appointments at the New England Conservatory of Music, the Cleveland Institute of Music, Yale College, Swarthmore, and Rutgers. He has sung in most major concert halls across America, Europe, Canada, and Japan as a soloist and with numerous professional ensembles. He has presented original research on performing arts biodynamics at the National Association of Teachers of Singing (NATS), the Pan American Vocology Association (PAVA), the Voice Foundation, the Audio Engineering Society, and the Society for Music Perception and Cognition, and has peer reviewed for Oxford University Press, the International Physiology &amp; Acoustics of Singing Conference (PAS7+), Musicae Scientiae, and PAVA. Ian has been an invited guest speaker and clinician for the NATS Chat series, the New York Singing Teachers’ Association, Opera Programs Berlin, Peabody Lunch and Learn, Mannes, University of Colorado Boulder, New York University, Boston Conservatory, and the San Francisco Conservatory. He is published in the Journal of Voice, the Journal of Singing, Classical Singer, and VOICEPrints, and his first book, Advice for Young Musicians, was published in 2023. Ian has won professional recognition ranging from a Grammy Award and a Grammy Award nomination for his recordings with</p>
+
+<hr class="page-separator">
+
+<h3>Страница 391</h3>
+
+<p>Chanticleer to a special commendation by the American Academy of Teachers of Singing for his “work with low-latency platforms and associated technology, and broad dissemination of instruction in its use” during the COVID-19 pandemic. Ian won the Van L. Lawrence Fellowship in 2022 for work investigating cisgender male bias in a common voice science model, and he was elected to the American Academy of Teachers of Singing in 2023. His research interests include the intersection of human perception and the singing voice, with a special focus on the role of auditory transduction. He now reaches a worldwide audience of clients and students via the high-quality, low-latency online collaboration tools he helped to curate and popularize during the Covid-19 pandemic. Ian Howell lives in Ann Arbor, Michigan with his wife and their two children. There is talk of getting a cat.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_133_Index.html" class="nav-button">← Предыдущая</a>
+        
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

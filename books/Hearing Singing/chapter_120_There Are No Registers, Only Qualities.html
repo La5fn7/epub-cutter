@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>There Are No Registers, Only Qualities - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_119_Loud and Exciting Is Not Enough.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_121_What Are the Perceptual Qualities of Vocal Registers.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="There Are No Registers, Only Qualities">
+        <h3>Страница 326</h3>
+
+<p>easy, clear sounds at that lower volume. The weird R, wawa pedal, tongue-backing, and pharyngeal narrowing strategies introduced in chapter 11 all work. Once you have established easy clarity in the sound, imagine that your goal is simply to ramp up the energy you put into the system. The system will respond and similarly ramp up its nonlinear behaviors as the amount of energy transferred from each subsystem to the next increases and those downstream subsystems come alive as they temporarily store and release elastic recoil energy. There Are No Registers, Only Qualities You can sing through most of your usable pitch range in several different modes or overall timbral adjustments. I encourage you to: 1. Work a quiet, gauzy neutral [ma] function starting in your lower range and extending over whatever break you think you have. I recommend wide-ranging arpeggios starting on D3 for non- trebles and A3 for trebles. 2. Work a slightly fuller version of this without the gauzy quality. 3. Sing a dull, neutral sound like an [ʌ] or [o]. 4. Sing a bright vowel like [e] with the airflow and warmth of the dull sound. 5. Sing a bright [æ] without that airflow and warmth. Explore these qualities over wide ranges. Your goal is to not change your basic vocal quality with pitch. For example, do not start with a gauzy [ma] and slide up an octave</p>
+
+<hr class="page-separator">
+
+<h3>Страница 327</h3>
+
+<p>to a bright [æ]. That is for artistic singing. Spend time noticing that it is a choice to do so, not an obligatory coordination. Find out whether you can sing a fast arpeggio on a gauzy [ma]. You may be surprised that the continual stimulus of that sound allows you to sing far higher than normal without strain or a sensation of a register break. Practice exercises 3 to 5 quietly and loudly. Practice them with a crescendo, with a diminuendo, and with equal power as you ascend. Use a lot of low-pitch glides to avoid hiding registration transitions. Really imagine that you can sing with the same quality over a wide pitch range. Please check out the work of the Complete Vocal Institute for more ideas,1 but you can also generate your own inventory of varying voice qualities.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_119_Loud and Exciting Is Not Enough.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_121_What Are the Perceptual Qualities of Vocal Registers.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

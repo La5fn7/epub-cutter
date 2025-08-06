@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not All Singing Transmits Language - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_18_The Burden of What Is Known About the Voice.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_20_First Steps Toward Understanding the Timbre of a Voice.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Not All Singing Transmits Language">
+        <h3>Страница 42</h3>
+
+<p>NOT ALL SINGING TRANSMITS LANGUAGE The human voice can transmit complex—even abstract—ideas through language, create purely musical or emotionally motivated sounds, or do both at the same time. Voice pedagogy borrows many of its models from the deep and fruitful fields of linguistics and language cognition (e.g., the International Phonetic Alphabet, vowel formant graphs, and spectrographic analysis). These models clearly bring powerful tools to bear on the study of the singing voice. However, these tools, developed to characterize spoken language, frequently fall short of describing the qualities prized in singing voices. The significantly wider pitch, intensity, and frequency spectrum ranges employed by singers may create physical phenomena that require novel analyses and descriptive models. These paralinguistic qualities are relevant to characterizing musical sounds, but they may have little to no impact on language cognition. They include distinctions along the continua of bright to dark, loud to quiet, high to low, buzzy to pure, tone to noise, and sound to silence. These are continua of qualitative oppositions that may transmit meaning within a single musical sound, gesture, and phrase irrespective of linguistic content. Singing communities then have to generate a common, orally and aurally transmitted understanding of what is meant, felt, and heard when we discuss the sound of a singer, whether we discuss a clear or muddy vowel at a certain pitch, a specific registration choice, the difference between sufficient or insufficient glottal closure, or an overall color to define a genre. Within these communities, it is rarely a quantitative measurement that transfers the tradition. It is through sound, and many aspects of these sounds are quite separate from any linguistic meaning the singer may convey. By contrast, phonemes in speech tend to group subtly different sounds. These</p>
+
+<hr class="page-separator">
+
+<h3>Страница 43</h3>
+
+<p>internal differences, while meaningful, are generally not technically consequential to speech production. In singing, the physical adjustments associated with subtly different sounds may differentiate genres, emotional affects, or easefulness. Anyone who sings in a style that requires deviations from a speech-shaped vocal tract to effectively resonate higher pitches (broadly called vowel modification) understands that singers leave the strict definitions of IPA symbols as pitch rises. Any singer who can sing above the treble staff similarly understands that high-sung pitches are qualitatively (timbrally) and experientially (what it feels like to produce) different from low pitches. Additionally, phonemes in speech are interdependent; it is more often the phonetic context— the sound of traveling from one phoneme to another—than the objective timbral character of a given phoneme that imbues a sound with linguistic meaning.6 However, singers frequently make sounds outside of linguistic context; what else is a sustained tone, melisma, vocalise, or wide-ranging riff but an exploration of the timbre and musical character of the singer’s sound? It is perhaps more profitable to think of such changes in a singing voice as one would in a violin or piano, which are instruments with definite tonal characteristics based on pitch range, intensity, and emotional affect.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_18_The Burden of What Is Known About the Voice.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_20_First Steps Toward Understanding the Timbre of a Voice.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

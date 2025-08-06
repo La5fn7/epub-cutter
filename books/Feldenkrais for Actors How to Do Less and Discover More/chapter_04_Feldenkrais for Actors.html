@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feldenkrais for Actors - Feldenkrais for Actors: How to Do Less and Discover More</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Фиксированная панель инструментов -->
+    <div class="toolbar">
+        <div class="toolbar-left">
+            <h1 class="book-title">Feldenkrais for Actors: How to Do Less and Discover More</h1>
+        </div>
+        <div class="toolbar-right">
+            <div class="font-controls">
+                <button class="font-btn font-decrease" onclick="changeFontSize(-1)" title="Уменьшить шрифт">A-</button>
+                <button class="font-btn font-increase" onclick="changeFontSize(1)" title="Увеличить шрифт">A+</button>
+            </div>
+            <div class="theme-controls">
+                <button class="theme-btn light-theme active" onclick="setTheme('light')" title="Светлая тема">☀️</button>
+                <button class="theme-btn dark-theme" onclick="setTheme('dark')" title="Тёмная тема">🌙</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="navigation">
+            <a href="index.html" class="nav-button">📚 Содержание</a>
+            <a href="chapter_03_Feldenkrais for Actors.html" class="nav-button">← Предыдущая</a>
+            <a href="chapter_05_Feldenkrais for Actors.html" class="nav-button">Следующая →</a>
+        </div>
+        
+        <div class="chapter-content" data-chapter-title="Feldenkrais for Actors">
+            <h2 class="chapter-title">Feldenkrais for Actors</h2>
+            <?xml version='1.0' encoding='utf-8'?>
+<html >
+  <head>
+    <title>Feldenkrais for Actors</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body id="1T140-a90a7afdeb3b44c3b8154838eaa839e5" class="calibre">
+<p class="chaptitle"><a id="page_4" class="calibre1"></a>Foreword <span class="smallt"><b class="calibre3"><i class="calibre4">by John Wright</i></b></span></p>
+<p class="noindent">It’s a truism to say that the way we feel affects the things we do, but the fact is inescapable. I see it dampen possibilities in every rehearsal and in every workshop, as people struggle with what they want to do, and what they think they can’t. Old habits, old movement patterns – some as old as childhood – are imprinted on our minds and re-released in the way we move. The Feldenkrais Method is unique in my experience in interceding between the glib personal assumptions we make about ourselves, and our actual potential.</p>
+<p class="indent">Before I started doing Feldenkrais, I used to think that to make any progress in movement work, it had to hurt. ‘No pain – no gain’ was the prevailing culture in my previous training, but Feldenkrais continually teaches me that the reverse is true: if you feel the pain, there’ll be no gain. It’s the essential lesson of less doing more, where the journey is more important than the arrival, and where the desire to achieve is the greatest obstacle to doing anything. In my experience, this reckless economy starts with the rediscovery of simple functional movement, such as the journey from lying to standing, or from walking to running, and running to jumping.</p>
+<p class="indent">But the implications of the work go way beyond this. I feel less fatigue when I’ve done some Feldenkrais, and big new challenges fall into more comfortable proportions. I think more <a id="page_5" class="calibre6"></a>clearly. I’m more aware, more present; yet at the same time, more objective. I feel as if my ego has been switched off, and I find it easier to take on new ideas, to do something different – something else.</p>
+<p class="indent">I haven’t found any other movement study that opens up such a rich and continuing area of enquiry. It’s as if I’m taken back to the place that nature intended me to be, rather than keeping me at the place where life has left me. And all this through the gentle art of teaching yourself not to try.</p>
+<p class="noindent1"><i class="calibre8">John Wright is a theatre-maker, director and teacher, and co-founder of Trestle Theatre Company and Told by an Idiot. His books include</i> Why Is That So Funny? A Practical Exploration of Physical Comedy.</p>
+</body></html>
+
+        </div>
+        
+        <div class="navigation">
+            <a href="index.html" class="nav-button">📚 Содержание</a>
+            <a href="chapter_03_Feldenkrais for Actors.html" class="nav-button">← Предыдущая</a>
+            <a href="chapter_05_Feldenkrais for Actors.html" class="nav-button">Следующая →</a>
+        </div>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция изменения размера шрифта
+        function changeFontSize(change) {
+            const root = document.documentElement;
+            const currentSize = parseInt(getComputedStyle(root).getPropertyValue('--font-size')) || 18;
+            const newSize = Math.max(12, Math.min(32, currentSize + change * 2));
+            root.style.setProperty('--font-size', newSize + 'px');
+            localStorage.setItem('font-size', newSize);
+        }
+        
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            if (theme === 'dark') {
+                document.body.classList.add('theme-dark');
+                document.documentElement.classList.add('theme-dark');
+            }
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.' + theme + '-theme').classList.add('active');
+        }
+        
+        function loadSavedSettings() {
+            // Загружаем сохранённую тему
+            const savedTheme = localStorage.getItem('reading-theme') || 'light';
+            setTheme(savedTheme);
+            
+            // Загружаем сохранённый размер шрифта
+            const savedFontSize = localStorage.getItem('font-size') || 18;
+            document.documentElement.style.setProperty('--font-size', savedFontSize + 'px');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedSettings();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time and Timbre - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_35_What Differs What Is the Same.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_37_Potential Conclusions and Applications.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Time and Timbre">
+        <h3>Страница 87</h3>
+
+<p>TIME AND TIMBRE The next several chapters will focus on the aspects of timbre that are conceptually similar to the tone colors of the fundamentals explored in figure 4.1. In a way of thinking, these properties exist outside of time. That is to say, as time passes, their intrinsic character does not change. They are time invariant. They are either present with some amount of loudness or they are not, and their role in the overall timbre may change over time. By contrast, there are myriad ways in which other timbral qualities might unfold over time. This includes the nature of the onset or attack, the character of how a sound is sustained—is it steady or does it fluctuate?—and the way the sound is released. Further, one could consider that changes in loudness (that is to say, dynamics) are obviously tied to the passage of time. The spectral aspects of changes in loudness can be understood in terms of their relative presence or absence rather than a change in their intrinsic quality. Return to the pass-filtered fundamental from the soprano and the treble instrument. Notice that they likely differ in timbre in other noticeable ways, even as they share tone colors. See Lab #4. As a voice teacher who spends time being present with and reacting to sound, I would never suggest that time-invariant qualities of timbre are more important than those qualities that unfold over time. The latter might be thought of as the signifiers that transmit easefulness, control, confidence, appropriate registration, and style. However, I do believe that conceptually separating these two ideas is an essential step toward clarifying functional listening. As an example, if a singer moves into problematic pressed phonation— and pressed phonation is only a problem if it functionally inhibits singing— one might notice a decreased easefulness in their ability to smoothly change pitches. The pressing will attenuate the lower, warmer portion of the spectrum while favoring the brighter, buzzy part, but the sound of this miscoordination itself must unfold over time. The inability to smoothly</p>
+
+<hr class="page-separator">
+
+<h3>Страница 88</h3>
+
+<p>change pitches will be shown over time by virtue of the behavior of the warm, bright, and buzzy qualities. In this example, the warm/bright/buzzy qualities are time-invariant aspects of the sound. They are individually unrelated to the passage of much time.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_35_What Differs What Is the Same.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_37_Potential Conclusions and Applications.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

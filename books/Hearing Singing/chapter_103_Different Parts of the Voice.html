@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Different Parts of the Voice - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_102_Is It Consistent Is It Representative.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_104_What Does a Resonance Strategy Feel Like.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Different Parts of the Voice">
+        <h3>Страница 292</h3>
+
+<p>A FEW PRACTICAL THINGS TO KEEP IN MIND Is It Consistent? Is It Representative? One of the changes I want to see from all my teaching mentees is to move away from them talking and toward the singer singing. There are, of course, things to talk about in a voice lesson, especially once a singer is approaching a performance. However, by and large the best way for a singer to learn how to sing is to sing. Any time you take them through an exercise, let them try it several times before you give feedback. You may even be surprised to witness the student fixing the issue on their own once they have a chance to explore it procedurally. The second reason to let them sing is that it moves you toward the primary technical outcome of voice lessons: We want to raise the average performance level of the singer while narrowing the variability in outcomes between attempts. If you listen to a singer once, you have no idea whether that sample was representative of their average performance. It may have been the best or worst they have ever done. Until you have listened enough times to a singer to understand their habitual patterns of stimulus and response, intervening will not help. If their variability is wide, positive feedback may result in a worse subsequent attempt and negative feedback may appear to help. This is because no matter what, their next attempt is most likely to represent their average ability to execute the task. We don’t build reliable technique around the outliers. Different Parts of the Voice I have found that basically every voice has three pitch ranges that demand different approaches. These are not registers or approaches</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_102_Is It Consistent Is It Representative.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_104_What Does a Resonance Strategy Feel Like.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

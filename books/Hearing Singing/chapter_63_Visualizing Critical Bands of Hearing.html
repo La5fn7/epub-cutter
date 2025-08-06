@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizing Critical Bands of Hearing - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_62_Exploring Auditory Roughness Experientially.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_64_The Equivalent Rectangular Bandwidth.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Visualizing Critical Bands of Hearing">
+        <h3>Страница 168</h3>
+
+<p>VISUALIZING CRITICAL BANDS OF HEARING Let us return to the idea of the spatially organized frequency response of the basilar membrane within the cochlea (see “How Does the Ear Work?” in chapter 3). We have learned that different frequency pure tones will find resonance with different physical locations along this membrane on a continuum from high to low frequency. Closer in frequency is physically closer along the surface of the basilar membrane. But no matter how narrow the frequency band of the stimulus, the basilar membrane has a minimum displacement length. Even a pure tone displaces a short region of the basilar membrane, not just a single point. It is possible to simultaneously stimulate two adjacent portions of the basilar membrane, and the wash of high-frequency energy rippling through each pitch period creates overlapping areas of stimulation along the basilar membrane. This is the physical correlate to a critical band of hearing. This is analogous to familiar resolution limitations of our eyes. We can see far enough that we can no longer make out the details of distant objects. The details are there in nature, but the resolution limitations of our eyes obscure that information. Similarly, it is possible to simultaneously stimulate two points along the basilar membrane that are so physically close that these stimuli overlap, even if these stimuli are not persistent at all timescales. The brain becomes confused as to whether two separate stimuli are present, and we experience it as a single, fused percept. With this understanding, we can acknowledge that the limitations of the human ear belie detail that may be present in nature. In the harmonic model we can think about critical bands as if they are a line of bins (see figure 7.2). If each bin contains a single input, it passes that input along intact. If a bin has more than one input, it sums those inputs and passes through some amount of the buzzy quality associated with auditory roughness. In this model, think of the input arrows as separate harmonics in the harmonic series as they would appear in a spectrum or spectrogram. The output arrows show a single, increasingly buzzy percept per bin.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 169</h3>
+
+<p>Figure 7.2 Author’s schematic of four critical bands of hearing. Each critical band sums the input into a single output. Bands (a) and (b) exhibit no auditory roughness. Bands (c) and (d) exhibit increasing auditory roughness. This suggests what initially may be an uncomfortable idea about singing voice perception: It is generally not possible to perceive individual harmonics above about the fifth harmonic. From a practical perspective, a spectrum or spectrogram would feel more accurate if it clearly showed the lowest five harmonics while blurring the higher ones (see figure 7.3).16 Interesting exceptions to this rule relate to the intensity of an individual harmonic relative to its surrounding harmonics, notably as found in some forms of overtone singing.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 170</h3>
+
+<p>Figure 7.3 Power spectrum of a sawtooth wave at the pitch B2 (top). With schematic critical bands overlaid &gt; 5fo (bottom). Source: Synthesized by author in Madde.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_62_Exploring Auditory Roughness Experientially.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_64_The Equivalent Rectangular Bandwidth.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

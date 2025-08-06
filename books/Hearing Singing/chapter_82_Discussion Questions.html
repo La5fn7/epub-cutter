@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion Questions - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_81_Potential Conclusions and Applications.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_83_10 How Pitch, Auditory Roughness, and Tone Color Intersect Theory and Application.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Discussion Questions">
+        <h3>Страница 232</h3>
+
+<p>DISCUSSION QUESTIONS Explore saying the phrase “My, it is hot today” in multiple different accents, character voices, or with different emotional affects. Be inventive. Really try to distort the vowels. Can other people still understand what you said? Record that sound in these different ways and excise only the “o” in ho t. How different do these vowels sound in isolation? What do you think this suggests about the difference between the inherent timbres of each of those sounds and the process of language cognition? Do the ongoing spectral fluctuations of speech mean that perception of brightness is inherently subjective? Can you think of an example of a natural or mechanical sound that sounds like the defining aspect of a specific human vowel? Do we ever experience actual sine waves (perfectly symmetrical, continuous changes in pressure) in nature? What are some sounds that are close to sine waves? Think about the complexity of a vowel relative to the specificity of the ASTC of a pure tone. What do you think about the hierarchical idea that vowels may have certain spectral features that define the vowel and other spectral features that are complementary tone colors? Can you think of any implications for this idea given the wide pitch and intensity range used by singers? What are some arguments against using IPA vowel symbols for ASTC? What are some arguments in favor? Does the principle of absolute spectral tone color require that two people agree about a specific label? What does it require? If vowels share formants, give a few examples of potential timbral similarities between different vowels.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 233</h3>
+
+<p>NOTES 1. Ian Howell, “Misreading the Science: Vocal Treatises, Vowels, and a New Framework for Understanding the Female passaggio,” unpublished term paper MHST902, New England Conservatory of Music, 2014. 2. Cornelia Fales, “The Paradox of Timbre,” in Ethnomusicology 46, no. 1 (2002): 58. 3. Reinier Plomp, “Experiments on Tone Perception” (PhD diss., Institute for Perception RVO-TNO, 1966), 131–32. 4. William Hartmann, “Pitch, periodicity, and auditory organization,” in Journal of the Acoustical Society of America 100, no. 6 (December 1996): 3494–95. 5. Ian Howell, “Parsing the Spectral Envelope: Toward a General Theory of Vocal Tone Color” (DMA diss., New England Conservatory of Music, 2016), 29. 6. Plomp, “Experiments,”132. 7. Robert Cogan, Music Seen, Music Heard: a Picture Book of Musical Design (Cambridge: Publication Contact International, 1998), 110. 8. Howell, “Parsing,” 29. 9. Howell, “Parsing,” 39. 10. Howell, “Parsing,” 73; Ian Howell, “Necessary Roughness in the Voice Pedagogy Classroom: The Special Psychoacoustics of the Singing Voice,” VOICEPrints (May/June 2017): 5. 11. Howell, “Parsing,” 31 12. David J. M. Weenink, “Formant Analysis of Dutch Vowels from 10 Children,” in Proceedings of the Institute of Phonetic Sciences of the University of Amsterdam 9 (1985), 45–52. 13. For clarity, this is “close” [kloʊs] that is the opposite of far. It refers to the typical distance of the tongue dorsum from the roof of the mouth.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_81_Potential Conclusions and Applications.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_83_10 How Pitch, Auditory Roughness, and Tone Color Intersect Theory and Application.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

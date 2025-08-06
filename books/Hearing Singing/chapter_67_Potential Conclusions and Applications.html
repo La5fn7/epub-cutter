@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potential Conclusions and Applications - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_66_The Two-Timbre Model and Beyond.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_68_Discussion Questions.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Potential Conclusions and Applications">
+        <h3>Страница 182</h3>
+
+<p>POTENTIAL CONCLUSIONS AND APPLICATIONS In order to understand the vocal function of a singer, we must be able to hear the effects of the various physiological and aerodynamic coordinations that generate the sound. Auditory roughness might appear to be a broad idea, but in periodic voicing, auditory roughness arises when sufficiently fast pressure changes occur repeatedly. Auditory roughness is a cue that something is causing that fast, repeating pressure change. It could be a sign of flow phonation paired with a supraglottal vocal tract air mass ready to quickly snap from high to low pressure. It could be a sign of increased vocal fold mass thickness—even to the point of losing balanced phonation. It could be a sign that the resonances in the vocal tract are timing particularly well with each vocal fold contacting event. Auditory roughness could point to deeper contacting of the vocal folds per glottal cycle (typically associated with more TA engagement),25 or it could point to the complete closure of the arytenoid cartilages in the absence of significant TA engagement. Or it could be one of several adjustments that incrementally increase or decrease the intensity of the voice. As I wrote above, auditory roughness tells you about the speed of pressure changes in the vocal tract; as such, it is a broadly useful percept when combined with other perceptual qualities and contextual clues. In spectra and spectrograms, we see various spectral structures in different groups of higher or lower intensity harmonics. Different portions of a vowel’s spectrum have historically been assigned different roles. The lowest two to three peaks in the spectrum are thought to establish vowel identity. Higher peaks define brightness. The intersection of auditory roughness and pitch resolution cuts across this division and suggests that any peak can also be either pure, buzzy, or noisy, depending on pitch and the frequencies of the harmonic components of the peak itself. At least theoretically, it is possible that a sung pitch could be so low that all vowel- defining peaks would be buzzy, and that the majority of the spectrum would remain unresolved from the pitch. If you consider the sound of a very low bass’s speaking voice, buzzy noise is the defining characteristic.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 183</h3>
+
+<p>It is also possible to sing a pitch so high that any very little audible buzzy sound exists. So, apparently similar spectral features do not automatically indicate similar percepts. Perhaps the most important implications of auditory roughness and pitch resolution relate to the subtle rebalancing of multiple functional variables that characterize registration. The voice pedagogy community uses a variety of terms to explore both raw laryngeal mechanisms and the endless number of in-between settings. The buzzy quality of auditory roughness or pitch-less noise may meaningfully differentiate currently observed but difficult to nail down vocal qualities. Consider that changes in dynamics, vowels, vocal tract shape, air pressure, transglottal airflow, glottal adduction, effort, emotion, and phonation quality all impact the spectral slopes (the relative strength of slow and fast pressure changes) of the glottal impulses and the radiated sound. Rather than imagining these to be descriptive, analytical terms, think of them as outcomes to help shape the simple prompts you offer. They are levers that can effect change in a voice, in a way of thinking. If these adjustments modulate the amount of energy above the fifth harmonic (5f o) shown on a spectrum or spectrogram, auditory roughness is the perceptual correlate to that physical phenomenon. Strong energy even higher in the spectrum becomes pitch-less noise.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_66_The Two-Timbre Model and Beyond.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_68_Discussion Questions.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

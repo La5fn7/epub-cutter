@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Can Be Perceived? - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_94_Hearing the Entire Spectrum.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_96_Conclusions.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="What Can Be Perceived?">
+        <h3>Страница 276</h3>
+
+<p>WHAT CAN BE PERCEIVED? Surely experts hear with more specificity than novices do. It is impossible to guess how much of what we have explored can be heard by the naive listener, especially on a first pass. Sustained tones permit deeper critical listening. Obvious contrasts are the easiest to discern: buzzy versus pure, and noise versus pitch. Even this basic approach to listening can develop one’s ability to hear functionally. Revisit the two-timbre model in chapter 7 to consider how changes at the glottal level rebalance the amount of auditory roughness and pitch resolution in the sound. The more dissimilar two aspects of a spectrum are, the easier they are to distinguish. This is especially so the further apart they are in tone color. In pitch ranges where the lowest two resonances both generate a strong, discrete radiated peak, the overall buzziness of the percept may prevent the separation of those tone colors beyond simply noticing their relative warmth and clarity. As pitch rises and auditory roughness falls away from the vowel-defining portion of the spectrum, more specific tone color qualities may become clearer. This is evident for vowels such as [e] and [i] because the tone colors of their f R1 and f R2 are less similar than the f R1 and f R2 in vowels like [o] and [a]. As we consider how to find these resonances by their sounds, we must be cautious in attempts to elicit the characteristic color of a specific vowel’s formant by broadly exciting the vocal tract. Scott McCoy (2019), among many others, suggests flicking the throat while the glottis is held closed. Doing this while changing vocal tract shapes for various vowels will play a little melody.14 It is actually a great way to demonstrate that resonances are time-and-pressure phenomena. We hear F 1 as a pitch in this demonstration specifically because the resonance periodically repeats in the vocal tract at a frequency that triggers a pitch percept. However, the tone color produced by flicking the throat will be the combination of all the resonances of the vocal tract sounding at once, not exclusively the tone color of F 1. If you record yourself doing this and pass-filter just the F 1 response of the vocal tract, you may be surprised that other tone</p>
+
+<hr class="page-separator">
+
+<h3>Страница 277</h3>
+
+<p>colors exist in the higher formants. McCoy (among others) similarly suggests whispering to hear the pitch of the second formant (F 2). The same caveat applies—that the tone color will be dominated by, but not exclusively be, that of the second formant. Other methods to excite the vocal tract to reveal its approximate formant frequencies include vocal fry, white noise from an external speaker, or an externally generated impulse (either from a recording or by flicking the throat). We must exercise caution not to extrapolate these sounds to a pitched sound. Pitched phonation not only typically features no spectral information below the fundamental but also reflects a completely different excitation pattern for the inner ear. These vocal tract excitation exercises also contain no helpful information regarding auditory roughness or pitch resolution, and they do not capture tone color changes that occur because of the pitch being sung. See Lab #27. Singing above C4, the presence or absence of 1f o may be clearly heard. In the case of a classical treble singer, this will likely correlate to the timbral complexity of the voice, or its maximum potential amplitude. Lighter Fachs tend to have less power in this regard. One also hears the characteristic tone color of the fundamental in a variety of contemporary singing styles. As mentioned above, this is clearly audible in the opening minute of Whitney Houston’s recording of “I Will Always Love You. Another good example is the first 0:48 of Nina Simone’s “Feeling Good.”15 Unbalanced classical treble voices can get into trouble when they do not take advantage of this power. This typically sounds like strong bright energy with little power in 1f o. These singers may depend instead on pressed phonation or tracheal pressure well above the phonation threshold pressure. One may hear issues related to intonation, legato line, or a general lack of easefulness that accompany an otherwise exciting sound. This is to their long-term detriment, despite how thrilling a sound it is. In a classical tenor or baritone, musical theater, or contemporary singer, the absence of a strong 1f o likely reflects a brighter tonal goal and lower tessitura. Singers using directional microphones at a distance that triggers the proximity effect (typically within 30 cm or 1 ft.) will enjoy a boost to the warmest portion of their spectrum. This must be kept in mind</p>
+
+<hr class="page-separator">
+
+<h3>Страница 278</h3>
+
+<p>when training without a microphone, and when selecting and positioning a microphone for an online lesson.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_94_Hearing the Entire Spectrum.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_96_Conclusions.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

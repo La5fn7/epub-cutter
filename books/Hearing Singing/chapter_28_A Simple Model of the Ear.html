@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Simple Model of the Ear - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_27_The Most Basic Model of the Ear.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_29_A More Complex Model of the Ear.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="A Simple Model of the Ear">
+        <h3>Страница 62</h3>
+
+<p>HOW DOES THE EAR WORK? Exploring the function of the ear is helpful for at least two reasons: (1) I make claims throughout this book that the ear mediates the stimulus that it receives by introducing perceptual qualities unrealized in the raw pressure wave in the air. I suggest that we can understand the timbre of a singing voice in these terms. (2) An important argument in this book is that the study of voice acoustics breeds confusion in part because of the models we use to teach it. Like any other biological system, one may understand hearing through a series of models that become more accurate as they become more complex. The following text lays out three models of the ear that take us from a quite basic understanding to a suitably complex one. Keeping in mind the importance of synthesis, I will discuss the relevance of including the complex nature of the acoustic output of the voice in our pedagogic model. The Most Basic Model of the Ear In basic terms, the ear receives pressure waves from the environment and conveys the information contained in them to our brain. A young human with pristine hearing can hear sounds in the frequency range between 20 Hz and 20 kHz. Some might dub this a “black box” model because we have an input and an output without a clear sense of what takes us from one to the other. A Simple Model of the Ear Most simple models divide the ear’s anatomy into three parts: the outer ear, the middle ear, and the inner ear (see figure 3.1). The outer ear includes what may be understood as the external, cotton-swab-accessible structures: the pinna (the external structures) and the ear canal (also known as the auditory canal). This canal terminates at the outer wall of the eardrum or tympanic membrane. These external structures gather</p>
+
+<hr class="page-separator">
+
+<h3>Страница 63</h3>
+
+<p>vibrations from the surrounding environment (typically through air), which in turn set the tympanic membrane in motion. Figure 3.1 Gross anatomy of the ear. Source: yumiimage (adobe.stock.com) The middle ear consists of three minuscule bones called the ossicles (the malleus, incus, and stapes) and their various connective tissues. These bones transfer vibrations from the inner surface of the tympanic membrane to the structures of the inner ear. What had been pressure changes in air become the mechanical motion of the ossicles. The inner ear is primarily a fluid-filled structure called the cochlea, which is part of the same bony labyrinth structure that contains the vestibular organs that are responsible for our sense of balance. The cochlea itself looks somewhat like a snail shell. Vibrations from the bones of the middle ear excite small structures within the cochlea that filter sounds into the frequency spectrum we are familiar with from spectra or</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_27_The Most Basic Model of the Ear.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_29_A More Complex Model of the Ear.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

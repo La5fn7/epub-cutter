@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Before We Start - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_07_Preface.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_09_Who Is This Book For.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Before We Start">
+        <h3>Страница 15</h3>
+
+<p>BEFORE WE START Welcome! I am glad you have found this book and that you are sitting down to ponder its contents. This book reflects who I am and how I understand the nature of singing and voice teaching. I hope you will feel welcomed into the way I think and that these ideas will find similar purchase in your mind. I have long been fascinated by expressive, artistic singing, how one might deeply experience and understand that practice, and how one might effectively teach others to do it. I have lived all these lives as a performer, researcher, and teacher. I have won professional awards and received recognition for all three activities. But after working at this for decades, I am confronted with the reality that a deep understanding of the singing voice still lies just behind the veil. The human voice is understandable in part at different times in different ways. But the comprehensive nature of the voice is fundamentally unknowable and endlessly available for exploration. In broad terms, the culture I find myself a part of does not always celebrate interdisciplinary work. Voice teachers and singers are certainly encouraged to incorporate conclusions from the scientific literature when they can be satisfactorily simplified. Toward this end there now exists a new education industry dedicated to the art of simplifying complex scientific information for voice teachers. However, a silent binary seems imposed: It is assumed that you must either be one who seeks to create knowledge or one who consumes that knowledge. Anyone interested in both may find themselves pushed away by voice teachers for being too science- curious and pushed away by scientists for being too practitioner- oriented. However, in my experience encountering the voice pedagogy and vocology literature, some of the most interesting observations and</p>
+
+<hr class="page-separator">
+
+<h3>Страница 16</h3>
+
+<p>connections between the science and practice of singing have been made by those brave enough to attempt to straddle both worlds. This is the space occupied at different moments in recent times by William Vennard, Berton Coffin, Barbara Doscher, Cornelius Reid, Meribeth Bunch Dayme, Richard Miller, Donald Miller, Jeanie LoVetri, Jo Estill, and Kenneth Bozeman, just to name a few. These individuals were brave enough to absorb all they could from the resources available to them, ask the questions that only occur to those who sing and teach singing, and then turn around and suggest that they had a viable way to think about singing that was worth disseminating to others. It is perhaps bold to imagine the inherent value of your own point of view. But this is the only approach that changes minds. In my experience, it is the only approach that moves our field forward. In that spirit, I offer what follows.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_07_Preface.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_09_Who Is This Book For.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

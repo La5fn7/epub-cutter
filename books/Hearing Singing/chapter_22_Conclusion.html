@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conclusion - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_21_What We Choose to Notice.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_23_3 Refining Models for Understanding the Singing Voice.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Conclusion">
+        <h3>Страница 48</h3>
+
+<p>CONCLUSION I have laid out an argument for why we find so much science- derived information in our voice pedagogy and vocology culture. This information is there regardless of whether we deeply understand it. I have also set the stage to notice that the models we use to conceptualize the sound of a voice typically have their roots in speech research, and that singing and speaking are phenomenologically different. We now begin to explore these questions and these models.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 49</h3>
+
+<p>NOTES 1. Kari Ragan, “Defining Evidence-Based Voice Pedagogy: A New Framework,” Journal of Singing 72, no. 2 (2018): 157–60. 2. William Vennard, Singing: The Mechanism and the Technic (New York: Carl Fischer, 1967, iii; this excerpt also appears in the harder to find first edition from 1949. 3. Harold Bloom, The Anxiety of Influence, 2nd ed. (New York: Oxford University Press, 1997). 4. Joseph N. Straus, “The ‘Anxiety of Influence’ in Twentieth-Century Music,” The Journal of Musicology 9, no. 4 (1991): 430–47. 5. Giovanni Battista Lamperti, The Technics of Bel Canto (New York: G. Schirmer, 1905), 15. Emphasis added. 6. See Mark H. Ashcraft, Cognition (Upper Saddle River, NJ: Pearson Prentice Hall, 2006), 382–83, for a discussion of coarticulation. See also Terrance M. Nearey, “Static, dynamic, and relational properties in vowel perception,” Journal of the Acoustical Society of America 85/5 (May 1989): 2088–113, for a discussion of conflicts between the context effect and inherent quality in speech research. 7. Brian Monson, Eric J Hunter, Andrew J Lotto, and Brad H Story, “The Perceptual Significance of High-Frequency Energy in the Human Voice,” Frontiers in Psychology 16, no. 5 (2014), 2. 8. Monson et al., “The Perceptual Significance,” 2. 9. Monson et al., “The Perceptual Significance,” 1–10; Ingo R. Titze and Sung Min Jin, “Is There Evidence of a Second Singer’s Formant?” Journal of Singing 59, no. 4 (2003): 329–31; S. O. Ternström, “Hi-Fi Voice: Observations on the Distribution of Energy in the Singing Voice Spectrum above 5 kHz,” The Journal of the Acoustical Society of America 123, no. 5 (2008): 3171–76. 10. Tina Tallon, “A Century of ‘Shrill’: How Bias in Technology Has Hurt Women’s Voices,” New Yorker, September 3, 2019, https://www.newyorker.com/culture/cultural-comment/a-century-of-shrill- how-bias-in-technology-has-hurt-womens-voices.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_21_What We Choose to Notice.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_23_3 Refining Models for Understanding the Singing Voice.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

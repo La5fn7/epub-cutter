@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conclusions and Potential Applications - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_57_The Pitch Exception of Noisy Distortion.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_59_Discussion Questions.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Conclusions and Potential Applications">
+        <h3>Страница 154</h3>
+
+<p>CONCLUSIONS AND POTENTIAL APPLICATIONS By centering a time-and-pressure domain view of voice production, I hope to offer a complementary model to understand real, observable phenomena. At times, exploring this model leads to uncomfortable suggestions: notably that harmonics do not appear to temporally precede resonances as laid out in the simplest version of the source-filter model. Please keep in mind that we separate the contribution of the vocal folds from the contribution of the vocal tract for convenience at a model level, not for accuracy. When you encounter images showing the spectrum of the vocal fold source sound with discrete harmonics of decreasing intensity that are ready to be reshaped by the vocal tract transfer function, please know that this discretization does not exist in nature. It is a useful way to conceive of the separate processes of voicing. On the other hand, the resonances of the vocal tract do in fact seem to be excited as real physical oscillations of the air mass in the vocal tract per glottal cycle. The repetition of that resonant response is the periodic pattern that can be analyzed as a harmonic spectrum. As established above, this suggests that timbre has duration. To grasp this, the time domain must be confronted. It is worth reflecting on why spectrum- and spectrogram-based models continue to dominate the teaching of voice acoustics when they potentially pull us away from other, complementary models. By no means am I suggesting that everyone who teaches a voice acoustics unit in a voice pedagogy or vocology class is confused about this. But it is my opinion that such dominant models are the most pedagogically helpful when we remember that they conveniently display repeated aspects of the of the information that is also available via time-and-pressure-based models. For example, if one observes that there is a strong third harmonic (3f o) in a singer’s sound, a spectrum will display its frequency far more intuitively than a waveform. Where we may lose our footing is in forgetting that that spectrum shows repeating aspects within the pitch</p>
+
+<hr class="page-separator">
+
+<h3>Страница 155</h3>
+
+<p>period of the complex wave in terms of harmonic frequencies of the slowest repeating pattern—in other words, the fundamental. The acoustic energy the spectrum represents as that third harmonic exists on the timescale of a single period as a resonance that ripples at one-third the duration of the pitch period (or three times the frequency in Hz of the fundamental). That is to say, there will be three noticeable ripples per pitch period in the waveform. That resonance will generally decrease in amplitude through the duration of the period, which directly impacts the resulting percept. This nuance is typically summarized away in a spectrum or spectrogram because the algorithm that generates that image typically averages information over a window of time that is much longer than the pitch period. The 3f o in the spectrum does not point to a pure tone that independently exists in time and space. The energy of that harmonic likely does not even consistently oscillate for the entire pitch period (overtone singing being a notable exception). The timing theory of pitch perception makes more sense once we consider the repetition of transients in a waveform, as opposed to the fundamental in a spectrum. The waveform of a sound with a weak or missing fundamental (1f o) in that spectrum still repeats at the same period duration as that same sound would have with a strong fundamental. The interdependent nature of pitch and timbre similarly becomes obvious when we see them interact in a waveform. Many questions and answers arise from this discussion: Why can you not separately hear all of those harmonics on the spectrogram? What is the nature of the vocal fold source sound? What are resonances, and why can you move them or align them with harmonics? Why does timbre change with pitch? What are harmonics, and where do they come from? What process creates the separately heard pure tone when pass-filtering just one harmonic? I believe that much of what remains confusing about voice acoustics begins to clear up when viewed through the time-and-pressure domain. At a minimum, we should consider what ideas may flow from all available models.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 156</h3>
+
+<p>Why include this view of voice acoustics in a book about perception? As we discovered in chapter 3, the physical limitations of the process of auditory transduction are a fruitful launch pad from which to understand voice perception. The sooner one can develop an intuition for how the acoustic pressure pattern is created, the sooner one can understand how different functional adjustments trigger specific perceptual qualities.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_57_The Pitch Exception of Noisy Distortion.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_59_Discussion Questions.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

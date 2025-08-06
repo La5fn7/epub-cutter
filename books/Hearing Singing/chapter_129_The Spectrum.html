@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Spectrum - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_128_The Waveform.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_130_The Spectrogram.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="The Spectrum">
+        <h3>Страница 348</h3>
+
+<p>THE SPECTRUM A spectrum (figure A.2) is a graph that represents the simple components (simple waveforms with specific frequencies, amplitudes, and phases) that when combined would redraw some duration of a complex waveform. A spectrum is typically the output of a discrete or fast Fourier transform. The horizontal axis is typically frequency (repetitions per second) in hertz (Hz) and the vertical axis is typically intensity (dB), although you will find these reversed in some programs. You can think of the intensity of each harmonic peak in a spectrum as corresponding to how well a simple waveform of the same frequency lines up with your complex audio waveform. It also takes into consideration the phase of that simple waveform, which here points to where it is in its oscillation at the start. Figure A.2 A narrow-band spectrum generated from a long window of the audio waveform in Figure A.1 Both linear (left) and logarithmic (right) frequency scales are shown. The frequency axis can be displayed on a linear (figure A.2, left) or logarithmic (figure A.2, right) scale. Linear scales show equally spaced frequencies, while logarithmic scales show equally spaced musical intervals. A change in 100 Hz in a linear scale will keep the same physical spacing throughout the spectrum. In a logarithmic scale, that physical spacing in hertz will get smaller at higher frequencies. In a logarithmic scale a change of an octave (for example) will always retain the same physical spacing regardless of where it is in the spectrum. I use both</p>
+
+<hr class="page-separator">
+
+<h3>Страница 349</h3>
+
+<p>linear and logarithmic scales in this book. You will know the frequency scale is logarithmic when there is a piano keyboard in the image. The Fourier transform may be applied to any duration of an audio file to create a spectrum. When the duration (called a window) contains several periods of voicing, the resulting spectrum tends to represent all the pressure fluctuations in the waveform in terms of harmonics of the fundamental. This is true even if the actual pressure pattern within the period does not align well with the pitch period itself—meaning it is not an integer multiple of that fundamental. When the window contains only one or two periods of voicing, the resulting spectrum typically shows no harmonics. The long window spectrum is called narrow-band; the short window spectrum is called wide-band. In voice pedagogy and vocology, we tend to measure very long windows of time relative to the duration of a pitch period. VoceVista Video Pro defaults to 83 ms, which will represent almost all periodic voicing with harmonics. In speech and communications and linguistics, both narrow- and wide-band spectra are used. Praat defaults to a very short 5 ms window, which tends to display the supraglottal impulses and the formant frequencies instead of harmonics. All the spectra in this book are narrow- band. Note that time is not an axis in a spectrum. The entire spectrum represents the entire duration of the window. This means that we do not know when in that window the pressure changes represented by a given harmonic occurred. In many cases a harmonic does not point to a continuous pressure change that occurs throughout the entire window. A short window (perhaps one or two pitch periods) will instead show vertical pulses of energy and no harmonics. You can say with greater confidence when in the waveform pressure patterns of a given frequency exist, but you lose confidence in the precise frequency.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_128_The Waveform.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_130_The Spectrogram.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

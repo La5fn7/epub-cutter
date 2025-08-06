@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Tone Color of “Flat” versus “Pointy” Formants - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_85_The Intersection of Auditory Roughness, Pitch Resolution, and Tone Color In A Single Formant.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_87_Rules of Thumb.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="The Tone Color of “Flat” versus “Pointy” Formants">
+        <h3>Страница 247</h3>
+
+<p>THE TONE COLOR OF “FLAT” VERSUS “POINTY” FORMANTS One can predict what the tone color of a spectral peak will be if an integer multiple of its resonance strongly aligns with the frequency of vocal fold oscillation. For example, every one, two, three, etc., times through the oscillation of the resonance aligns with the next glottal contacting event. In a spectrum or spectrogram, this would appear as a formant peak with a high-intensity harmonic at its center. However, when confronted with a resonance that misaligns with the frequency of vocal fold oscillation, that formant flattens out. No single harmonic appears as a clear central frequency, so we presume that the resonance is hidden in the spectrum between two harmonics. To explore the tone color of such a formant, you can use a rule of thumb that leverages a measurement called the spectral centroid. In Praat it is named the centre of gravity, and it is assigned a function in the Query menu of a Spectrum object. (Note the British English spelling of centre.) This measurement returns an amplitude-weighted average frequency (Hz) for a spectrum or portion of a spectrum. Essentially, if you have a formant with a strong central harmonic, the frequency of that harmonic is the spectral centroid for that part of the spectrum. If you have a formant consisting of two harmonics of equal intensity, you will most likely hear the tone color of what a pure tone between them would be. Here are some examples of this: Combine a pure tone at 440 Hz (A4) and another at 880 Hz (A5). To calculate the spectral centroid, you add those frequencies and divide by the number of pure tones. Were those pure tones different in amplitude, the calculation would be more complex. Here, 440 + 880 = 1,320; 1,320 ÷ 2 = 660. Thus, the unified tone color of those two equal-amplitude pure tones sounding simultaneously will be |~o| (see again figure 9.1). Repeat this with pure tones at 523 Hz (C5) and 784 Hz (G5). The spectral centroid is once again ~660 Hz, which still sounds like |~o|. Even if the first tone is ~623 Hz and the second ~693 Hz, the spectral centroid is again ~660 Hz and the tone color will be |~o|.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 248</h3>
+
+<p>This last sample will be so rough that it will remind you of an emergency alert tone. It definitely gets your attention. These three pairs of pure tones represent harmonics of equal intensity at 1f o and 2f o of A4, 2f o and 3f o of C4, and 9f o and 10f o of C#2, respectively. See Lab #24. It is also possible to calculate what the spectral centroid of pure tones of differing amplitudes would be. If, for example, you saw a formant in a spectrum that featured a strong lower harmonic and a weaker higher harmonic, the intensity of the lower harmonic will pull the resulting average frequency lower. This triggers a correspondingly darker tone color, which aligns better with the ASTC of that lower frequency yet higher intensity harmonic. However, we now run into a common challenge related to reading spectra and spectrograms. The equal loudness contours introduced in chapter 3 suggest that the human ear will preferentially overrepresent the intensity of certain frequency ranges that fall between around 1 kHz and 3.5 kHz, and that the degree to which this happens depends on the overall intensity of the pressure pattern at the ear. So, no matter what, the objective measurements of the relative intensities of the harmonics shown on a spectrum or spectrogram will be further reshaped by the process of auditory transduction. The complexity of this reshaping in both the frequency and intensity domains makes it virtually impossible to precisely measure our percept of the spectral centroid. Fortunately, no practical experience of the tone color of a formant requires careful measurement or calibration. It is enough to be close in a voice lesson.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_85_The Intersection of Auditory Roughness, Pitch Resolution, and Tone Color In A Single Formant.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_87_Rules of Thumb.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acoustical Interactions - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_107_Phonation and Resonation.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_109_Summary.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Acoustical Interactions">
+        <h3>Страница 313</h3>
+
+<p>entire tongue mass straight back into your pharynx—not down—to close this space while phonating, you may notice a moment when a very clear sound pops into existence. This happens just before the sound turns into a character voice; [æ] is a great vowel to explore this, although it can be mixed into basically anything but a breathy sound. The skillful implementation of this technique requires only that the root of the tongue move back, freeing the rest of the tongue for articulation. This can be explored through the “weird R” exercise suggested by Chadley Ballantyne or the “wawa pedal sound” suggested by Chris Johnson.11 Both of these exercises encourage a little firmness to the tongue and allow you to play with how much “cut” you want in your sound. Crucially, this “cut” does not automatically come at the expense of any pure warmth and does not require aggressive adduction of the vocal folds or a higher laryngeal position. You can imagine that you do not need to restrict your transglottal flow for this function, and that the drop in supraglottal pressure is rapid, strong, and likely drops from a relatively high-pressure value. Acoustical Interactions In a speech-pitch range, where the vocal tract dampens significantly per glottal cycle, the interaction of the vocal folds and vocal tract to form the source impulse is typically characterized by the resistance of the vocal tract to the flow itself. This does not cease to be true as pitch and/or intensity rise, but acoustical interactions do play an increasingly important role. Because the resonances of the vocal tract respond to the source impulse per period, because these resonances bounce forward and backward within the vocal tract as they oscillate, and because humans frequently sing in pitch and intensity ranges where some portion of the vocal tract excitation pattern will still be in motion when the next glottal impulse comes,</p>
+
+<hr class="page-separator">
+
+<h3>Страница 314</h3>
+
+<p>the pressure (high or low) of a strong resonance may return to the glottis in a constructive or destructive manner. A constructive alignment happens when a low-pressure moment in the oscillation of the resonance meets the closing glottis in the supraglottal air mass. This means that the drop in pressure facilitated by the rapidly contacting vocal folds joins forces with the drop in pressure from the resonance. This alignment generates a stronger supraglottal impulse than either would have alone, bringing power to that resonance and heightening the tone color contribution of the resulting formant. In some cases, the drop in pressure from the resonance may affect the vibratory pattern of the folds themselves.12 The basic condition for this alignment to occur is that the resonance progresses through an integer multiple of its oscillating cycle every pitch period. We have traditionally conceptualized these as harmonic multiples of the fundamental. You may also conceptualize the fundamental as a subharmonic of the resonance, since the vocal folds oscillate once for every two, three, four, etc., oscillations of the resonance. Mistiming these events does not prevent phonation. We are not brass instruments, and our resonator does not force the oscillation of our vocal folds to occur at only resonant frequencies of the vocal tract. However, the difference between aligning these acoustical relationships and misaligning them does affect both the power of the source impulse and also whether acoustic power accumulates period to period. Especially in higher pitch ranges while singing louder, a noticeable dip in amplitude can occur when passing between well- aligned and misaligned resonance-pitch relationships. We tend to hear these misalignments as a neutralization of the vowel. These consequential amplitude variations tend to be mitigated by singing lower pitches quietly.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_107_Phonation and Resonation.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_109_Summary.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potential Conclusions and Applications - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_80_Vowels Share Common Tone Colors.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_82_Discussion Questions.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Potential Conclusions and Applications">
+        <h3>Страница 230</h3>
+
+<p>POTENTIAL CONCLUSIONS AND APPLICATIONS The essential takeaway from this chapter builds on the ideas from chapter 8: We can (1) notice tone color as a property of pure tones, and (2) notice that the tone colors of different frequency pure tones are experientially different and similar frequency pure tones are experientially similar. In this chapter I have proposed what I think is a useful and logically ordered series of vowel labels to represent the ranges of the frequency spectrum that correspond to the human voice. Further, I explored that anthropomorphizing these different tone colors in this manner is both useful and problematic. This anthropomorphizing is useful because basic ideas like open and close13 vowels have identifiable timbral correlates. For example, [a] is not just linguistically more open in speech (with the tongue dorsum further from the roof of the mouth) than [o]; we can also hear the vowel formants shifting to brighter tone colors. At the same time, using vowel labels from speech is problematic because spoken and sung vowels elicit more complex percepts than pure tones do. These labels in the ASTC schema risk conflating the two. Additionally, it is problematic because ASTC applies to all sounds we hear, not just human vocalization. Recall that the call of a mourning dove does not sound like the defining quality of a bright [i], nor does the squeal of wet bus brakes resemble the dominant tone colors of a [u]. ASTC can inform both spoken and sung sounds, yes. But ASTC is not exclusively related to language cognition. One of the delightful implications of the above information is that vowels are assemblages of tone colors. Yes, one may comprehend speech between speakers despite differing formant frequencies, and in the speech-pitch range, the spectrum is in continuous flux. The entire venture accommodates variability. However, encountering a vowel as a musical sound allows one to contemplate several ideas relevant to singers and voice teachers. It suggests that given a particular pitch and intensity, attending to specific tone color aspects of the sound allows us to fine- tune a vowel. It also primes us for the exploration of commonalities</p>
+
+<hr class="page-separator">
+
+<h3>Страница 231</h3>
+
+<p>between different sounds. The commonalities point to the idea that different functional coordinations of the singing voice may share qualities in common. This suggests pathways to realize adjacent or intermediate functions that might help a singer to discover the feeling or sound of the actual target function. More on this in chapters 11 and 12. In the following chapter I will explore how ASTC exists in “the wild” as part of the messy and ever-changing percept of a complete vowel, and I will explore its intersection with pitch perception and auditory roughness. I continue to encourage the reader to think of ASTC as informing rather than dictating the resulting percept.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_80_Vowels Share Common Tone Colors.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_82_Discussion Questions.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

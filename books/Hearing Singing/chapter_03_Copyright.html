@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copyright - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_02_Title.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_04_Dedication.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Copyright">
+        <h3>Страница 4</h3>
+
+<p>Published by Rowman &amp; Littlefield An imprint of The Rowman &amp; Littlefield Publishing Group, Inc. 4501 Forbes Boulevard, Suite 200, Lanham, Maryland 20706 www.rowman.com 86-90 Paul Street, London EC2A 4NE Copyright © 2025 by The Rowman &amp; Littlefield Publishing Group, Inc. All rights reserved. No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the publisher, except by a reviewer who may quote passages in a review. British Library Cataloguing in Publication Information Available Library of Congress Cataloging-in-Publication Data Names: Howell, Ian, author. Title: Hearing singing : a guide to functional listening and voice perception / Ian Howell. Description: Lanham : Rowman &amp; Littlefield Publishers, 2025. | Includes bibliographical references and index. | Summary: “Ian Howell provides a fresh, actionable framework for the perception of the singing voice which will help guide singers toward efficient and expressive singing. The book dives deeply into the connections between voice acoustics, biomechanics, aerodynamics, functional listening, perception, and pedagogy”—Provided by publisher. Identifiers: LCCN 2024051752 | ISBN 9798881804633 (cloth) | ISBN 9798881804657 (ebook) Subjects: LCSH: Singing—Instruction and study. | Singing—Physiological aspects. | Singing—Acoustics. | Voice—Acoustics. | Auditory perception. | Musical pitch. | Tone color (Music) | Listening—Psychological aspects. | Spectral analysis (Phonetics) Classification: LCC MT820 .H83 2025 | DDC 783/.043071—dc23/eng/20241101 LC record available at https://lccn.loc.gov/2024051752 The paper used in this publication meets the minimum requirements of American National Standard for Information Sciences—Permanence of Paper for Printed Library Materials, ANSI/NISO Z39.48-1992.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_02_Title.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_04_Dedication.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9 Absolute Spectral Tone Color - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_75_Discussion Questions.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_77_ABSOLUTE SPECTRAL TONE COLOR HISTORY AND DEFINITION.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="9 Absolute Spectral Tone Color">
+        <h3>Страница 212</h3>
+
+<p>9 Absolute Spectral Tone Color The exploration of tone color in the previous chapter suggests that the study of sung sounds may be problematized by a framework that prioritizes language cognition over inherent timbral percepts. Singers do frequently leverage language to communicate, and much related to musical phrasing draws on the cadence and prosody of text. However, the timbral variations potentially employed by a singer far exceed the inventory of sounds necessary for speech intelligibility. A singer may substitute more strongly resonant vowels for problematic ones, leveraging the listener’s cognition to preserve intelligibility despite the actual sounds presented. The singer may subtly adjust a vowel to create a favorable acoustical environment in the vocal tract for a specific registration transition or “money note.” Additionally, a framework that is based on language cognition lacks a mechanism to understand timbral changes related to the expanded pitch and dynamic ranges that are common in singing, yet largely absent in everyday speech. Entire genres of music feature singing characterized by timbral qualities that are either irrelevant to the intelligibility of language or purposely obfuscate intelligibility to those outside a subculture. As voice educators who engage a singer’s sound on a technical level, we are best served by discussing the actual sounds being made. This is true even though such sounds also convey linguistic and paralinguistic meaning. Therefore, it seems reasonable and necessary to consider</p>
+
+<hr class="page-separator">
+
+<h3>Страница 213</h3>
+
+<p>models for understanding the sound of a voice through a language- agnostic lens. As explored in chapter 8, it is not controversial to suggest that two pure tones of the same frequency are equally bright, and that two pure tones of differing frequencies differ in brightness. One may also extend, with some important caveats, the tone colors of pure tones to describe aspects of a complex wave with a similar dominant frequency band. The tone colors of pure tones then serve as references for understanding the ongoing spectral flux of tone colors in a complex sound wave. This is the primary practical application of what I have dubbed absolute spectral tone color.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_75_Discussion Questions.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_77_ABSOLUTE SPECTRAL TONE COLOR HISTORY AND DEFINITION.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

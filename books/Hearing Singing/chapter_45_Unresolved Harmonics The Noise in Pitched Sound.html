@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unresolved Harmonics: The Noise in Pitched Sound - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_44_Restating the Perceptual Qualities of Pitch.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_46_Issues with the Singer’s Formant and Pitch.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Unresolved Harmonics: The Noise in Pitched Sound">
+        <h3>Страница 103</h3>
+
+<p>UNRESOLVED HARMONICS: THE NOISE IN PITCHED SOUND Let us consolidate the limits of our ability to extract pitch information from the spectrum of a periodic sound. To review, the spectrum of a singer divides into lower resolved (pitch percept) and higher unresolved (generally buzzing noise) harmonics. The crossover takes place around the ninth harmonic (9f o), but it is a gradual transition, and 9f o should not be taken as a hard cutoff. Further, any information above 5 kHz is challenging to resolve into the pitch, regardless of where it occurs in the spectrum. These ideas point to a dependable percept typically associated with robust or high-pitched singing: Any sound with stronger upper harmonics or energy above 5 kHz will typically include a buzzing, noisy timbre. Regardless of whether this percept is strong, weak, absent, or co- presents with other strong percepts, when the spectrum does include such information, we hear it as buzzy noise. There are various physiological correlates to generating that higher frequency energy. I hope you are developing an intuition that high-frequency harmonics represent fast rates of change in the pressure wave, whether they are continuous or not. Therefore, this buzzy noise must correspond to some functional aspect of voice production that generates fast pressure changes. This will be explored further in chapter 11. At this point, I would like to illustrate these ideas with an example of a real singer. The complex waveform in figure 5.1 has been transformed into an easier-to-read spectrum of harmonics (see Figure 5.2). Please see Appendix A for an orientation to these graphs. Neither of these images display the pitch as we perceive it. Figure 5.1 shows the frequency of repetition of the waveform pattern as a function of time (the duration of each repetition of the complex pattern in the waveform). Figure 5.2 displays this same information in a spectrum, which suggests that only the fundamental—the harmonic at the frequency equivalent to A ♭ 4—aligns with the pitch; all the other harmonics visually align with higher values on the piano keyboard. The image would display the pitch more intuitively if</p>
+
+<hr class="page-separator">
+
+<h3>Страница 104</h3>
+
+<p>the lowest eight harmonics (1f o–8f o) were grouped together (shown with brackets in figure 5.2). These lower harmonics are resolved into the pitch. Figure 5.1 Two periods of audio waveform of a cisgender female soprano singing A ♭ 4 [a]. Note the pattern repeats a second time starting at the dashed gray line. Source: Recorded by author under controlled conditions. Figure 5.2 Power spectrum view A ♭ 4 [a] from Figure 5.1. Each peak represents a harmonic that corresponds to the frequency equivalents of the pitches on the keyboard. The lowest eight harmonics have been bracketed together to show that they form the</p>
+
+<hr class="page-separator">
+
+<h3>Страница 105</h3>
+
+<p>pitch percept. Note that this percept arises after the processing of the inner ear. This percept does not exist in the compression wave that propagates through the air. Source: Recorded by author under controlled conditions.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_44_Restating the Perceptual Qualities of Pitch.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_46_Issues with the Singer’s Formant and Pitch.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

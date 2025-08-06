@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Combined Perceptual Model - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_89_The Obvious True Fundamental.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_91_Perceptual Signifiers of Some Common Resonance Strategies.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="A Combined Perceptual Model">
+        <h3>Страница 257</h3>
+
+<p>A COMBINED PERCEPTUAL MODEL The addition of ASTC values completes the model introduced in chapter 9. In figure 10.5 (top), note that the intersection of ASTC, pitch resolution, and auditory roughness creates a complex percept for the G3 from figure 10.4 (b). The vowel formants are discrete, the singer’s formant is buzzy and unresolved, and two harmonics populate the |~u| tone color range. The intersection of ASTC, pitch resolution, and auditory roughness is different for the G4 in figure 10.5 (bottom). The two vowel formants now produce a single peak with a darker average tone color than the second formant (F 2 ) of the G3. The singer’s formant now falls within the resolved portion of the spectrum, and the fundamental is the only harmonic with the |~u| tone color, which affords it an authentic ASTC label. If you pass-filter each annotated spectral region in both samples, you will hear the qualities I have outlined here.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 258</h3>
+
+<hr class="page-separator">
+
+<h3>Страница 259</h3>
+
+<p>Figure 10.5 A perceptual annotation of [a] at G3 (top) and G4 (bottom). Source: Created by author. Note that the color of a cluster of harmonics in this image is denoted with a “&lt;” rather than “~.” This is intentional, because ASTC values only hold for pure tones. Once a cluster of harmonics is averaged together into a complex formant, the tone color is something more complex yet still less than a complete vowel. Engage the analysis at this level or granularity or not. As a practitioner, it is enough to simply encounter the tone color of the formant in question. In the next section I will explore several approaches to singing featured in classical and contemporary genres. Please try to apply the model I propose, and visually annotate the spectra with pitched/pitch-less and pure/rough divisions. Consider the tone colors and position within the harmonic series of the various formants as they appear. Are they more like figure 10.4 (a) and (b), with two identifiable vowel formants (F 1 and F 2) and many unresolved harmonics? Or are they more like figure 10.4 (c) and (d), with fewer unresolved harmonics and a simplification of the vowel formants?</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_89_The Obvious True Fundamental.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_91_Perceptual Signifiers of Some Common Resonance Strategies.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

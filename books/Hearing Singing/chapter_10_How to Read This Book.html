@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Read This Book - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_09_Who Is This Book For.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_11_1 Introduction.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="How to Read This Book">
+        <h3>Страница 21</h3>
+
+<p>HOW TO READ THIS BOOK Depending on your background and the context in which you encounter it, I recommend one of three ways to read this book: 1. If you are interested in the deepest dive possible, and wish to ground ideas in academic frameworks, read this book from start to finish. Different parts will challenge you in different ways, but you will see the broad context of the culture that generates teaching materials for the voice pedagogy and vocology communities; you will be methodically taken through a granular understanding of perceptual phenomena relevant to the singing voice; and you will finish with a sense of how to apply those ideas in the voice studio. 2. If you are dipping your toes into the science of the singing voice, you may wish to start with chapters 1 and 2 (“Introduction” and “How We Got Here”) followed by the final two chapters (“How to Teach Singing” and “Pedagogic Practices and Functional Listening Examples”). Choosing this approach means you will have to accept certain claims I make without support for the time being, but this may equip you with the grounding you need to make sense of the middle chapters of the book.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 22</h3>
+
+<p>3. If you are considering assigning portions of this book as readings in a voice pedagogy or vocology class, you may wish to use chapter 3 as a broad overview of how to understand voice production, with chapters 4 through 10 as special topic readings related to perception. Chapters 11 and 12 will provide ample fodder for an applied teaching practicum. No matter the approach you choose, please make use of the supporting resources I provide. In the appendixes you will find a primer on what the waveform, spectrum, and spectrogram images presented throughout represent; you will also find a glossary. Additional online resources are available at the following website: https://www.embodiedmusiclab.com/hearing-singing or https://www.bit.ly/HearingSinging. These include experiential lab assignments with video walk-throughs for you and your students. It is my hope that you come away from this book with a clear sense of what qualities can be heard in a singing voice, that you have experienced these sounds, that you know how to support the assertions I make, and that you have a clear sense of how to link these sounds to the functional behavior of the singing voice. Good luck, and I will see you at the epilogue.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 23</h3>
+
+<p>NOTE 1. Cornelius Reid, “Functional Vocal Training, Journal of Orgonomy 4, No. 2 (November 1970) and 5, No. 1, (May 1971).</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_09_Who Is This Book For.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_11_1 Introduction.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

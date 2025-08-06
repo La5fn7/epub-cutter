@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion Questions - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_37_Potential Conclusions and Applications.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_39_5 Pitch.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Discussion Questions">
+        <h3>Страница 90</h3>
+
+<p>DISCUSSION QUESTIONS What is the official ANSI definition of timbre? In what ways is this definition problematic? Discuss the idea that there may be loci of similarity beyond pitch, loudness, and duration between two otherwise differently timbred sounds. The idea that an aspect of a sound might exist outside of time is problematic, as all sounds exist in time. Please restate this idea in your own words, as intuitively as you can. Were you able to hear the tone color similarities between the voice and instrument when carrying out the experiments outlined in this chapter? Did you notice the between-instrument similarities and how the fundamental contrasted with the rest of each instrument’s spectrum? Reflect on the assertion that “the ear coequally determines the sound of a singing voice” in the context of chapter 3, which argued for an end-to-end model to understand voice production. Where is the sound of the voice created? Can this question be answered?</p>
+
+<hr class="page-separator">
+
+<h3>Страница 91</h3>
+
+<p>NOTES 1. ANSI, Psychoacoustic Terminology: Timbre (New York: American National Standards Institute, 1994). 2. Roy D. Patterson, Thomas C. Walters, Jessica Monaghan, and Étienne Gaudrain, “Reviewing the Definition of Timbre as It Pertains to the Perception of Speech and Musical Sounds,” in eds. Enrique A Lopez-Poveda, Alan R Palmer, and Ray Meddis, Neurophysiological Bases of Auditory Perception (New York: Springer, 2010), 223. 3. Albert S. Bregman, Auditory Scene Analysis: The Perceptual Organization of Sound (Cambridge, MA: MIT Press, 1994), 92–93. 4. Robert Cogan, “Toward a Theory of Timbre: Verbal Timbre and Musical Line in Purcell, Sessions, and Stravinsky,” in Perspectives of New Music 8, no. 1 (Autumn–Winter, 1969): 75. 5. Kai Siedenburg and Stephen McAdams, “Four Distinctions for the Auditory ‘Wastebasket’ of Timbre,” in Frontiers in Psychology 8, article 1747 (2017), https://doi.org/10.3389/fpsyg.2017.01747. 6. Wayne Slawson, Sound Color (Berkeley: University of California Press, 1985), 20. 7. Reinier Plomp, “Experiments on Tone Perception” (PhD diss., Institute for Perception RVO-TNO, 1966), 132.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_37_Potential Conclusions and Applications.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_39_5 Pitch.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Steps Toward Understanding the Timbre of a Voice - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_19_Not All Singing Transmits Language.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_21_What We Choose to Notice.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="First Steps Toward Understanding the Timbre of a Voice">
+        <h3>Страница 44</h3>
+
+<p>FIRST STEPS TOWARD UNDERSTANDING THE TIMBRE OF A VOICE If one were to begin the study of the timbral qualities of a musical instrument with a clean slate, it is unlikely that the obvious first step would be to remove all sound below and above the analog telephone bandwidth (roughly 300 Hz to 3.4 kHz).7 However, with rare exception, that is exactly what our singing voice community does regardless of pitch, voice type, hormonal regime, performance environment, style, intensity, or affect. Our acoustical models for understanding the sound of a singing voice typically rest on either the frequency bandwidth of the first two spectral peaks (F 1 and F 2) or those two spectral peaks plus the classical singer’s formant cluster. This turns out to correspond well to the frequency bandwidth of the analog telephone system. More on what these things are later. This useful narrowing of frequency bandwidth allowed the telephone to preserve speech intelligibility while controlling costs and balancing resources. It also reflects that microphones and sound analysis technology at the turn of the twentieth century were unable to properly capture or study higher frequency energy.8 Somehow this narrow view of frequency information—born from practical considerations at the time—has turned into a narrative intimating that (1) the extra information below 300 Hz and above 3,400 Hz is either inaudible or irrelevant, and (2) that the information within that band may be lumped together. This has historically limited the scope of exploration. But what may be perceived in the information that is routinely excluded from such analyses?9 What nuance may be brought to the information that is included in that narrow band? And how do these legacy decisions impact long-standing issues when such standards</p>
+
+<hr class="page-separator">
+
+<h3>Страница 45</h3>
+
+<p>do a better job of essentializing some bodies over others? As Tallon (2019) suggests: The proliferation of AM (amplitude-modulated) radio stations in the early nineteen-twenties led to frequent signal interference, and by 1927 Congress decided to intervene by regulating the bandwidth allotted to each station. Both as a result of these limitations and advances in telephony research, most broadcasters and equipment manufacturers eventually limited their signals to a range between three hundred and three thousand four hundred hertz—a range known as “voiceband”—which was viewed as the bare minimum amount of frequency information needed to adequately transmit speech. Unfortunately, the researchers and regulators who were deciding on this range primarily took lower [speaking] voices into account when doing so. Capping a signal at three thousand four hundred hertz didn’t significantly impact intelligibility for many men, but it certainly did so for most women, because it removed a significant portion of the sonic information critical for consonant identification.10 At best, this historical limitation falls well short of universally describing the singing voice. How could it when our voices can easily produce—and our ears can hear—sound outside this bandwidth? At worst, this approach points our ears and imaginations away from what may be pedagogically helpful ideas. If you would like to explore this experientially, complete Lab #1 (see appendix B for the website URL). Having reached this understanding of their origins, we may consider the benefit of discarding these limitations.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_19_Not All Singing Transmits Language.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_21_What We Choose to Notice.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

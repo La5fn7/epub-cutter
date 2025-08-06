@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feldenkrais for Actors - Feldenkrais for Actors: How to Do Less and Discover More</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Фиксированная панель инструментов -->
+    <div class="toolbar">
+        <div class="toolbar-left">
+            <h1 class="book-title">Feldenkrais for Actors: How to Do Less and Discover More</h1>
+        </div>
+        <div class="toolbar-right">
+            <div class="font-controls">
+                <button class="font-btn font-decrease" onclick="changeFontSize(-1)" title="Уменьшить шрифт">A-</button>
+                <button class="font-btn font-increase" onclick="changeFontSize(1)" title="Увеличить шрифт">A+</button>
+            </div>
+            <div class="theme-controls">
+                <button class="theme-btn light-theme active" onclick="setTheme('light')" title="Светлая тема">☀️</button>
+                <button class="theme-btn dark-theme" onclick="setTheme('dark')" title="Тёмная тема">🌙</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="navigation">
+            <a href="index.html" class="nav-button">📚 Содержание</a>
+            <a href="chapter_29_Feldenkrais for Actors.html" class="nav-button">← Предыдущая</a>
+            
+        </div>
+        
+        <div class="chapter-content" data-chapter-title="Feldenkrais for Actors">
+            <h2 class="chapter-title">Feldenkrais for Actors</h2>
+            <?xml version='1.0' encoding='utf-8'?>
+<html >
+  <head>
+    <title>Feldenkrais for Actors</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body id="PNV60-a90a7afdeb3b44c3b8154838eaa839e5" class="calibre">
+<p class="copyt"><a id="page_265" class="calibre6"></a><i class="calibre8">A Nick Hern Book</i></p>
+<p class="copy"><i class="calibre8">Feldenkrais for Actors</i><br class="calibre10"/>first published in Great Britain in 2016<br class="calibre10"/>by Nick Hern Books Limited,<br class="calibre10"/>The Glasshouse, 49a Goldhawk Road, London W12 8QP</p>
+<p class="copy">This ebook first published in 2016</p>
+<p class="copy">Copyright © 2016 Victoria Worsley<br class="calibre10"/>Illustrations copyright © 2016 James Humphries<br class="calibre10"/>Anatomical sketches by Nick de Somogyi</p>
+<p class="copy">Victoria Worsley has asserted her moral right to be identified as the author of this work</p>
+<p class="copy">Cover photograph © Judy Bould<br class="calibre10"/>Designed and typeset by Nick Hern Books</p>
+<p class="copy">A CIP catalogue record for this book is available from the British Library</p>
+<p class="copy">ISBN 978 1 84842 417 3 (print edition)<br class="calibre10"/>ISBN 978 1 78001 838 6 (ebook edition)</p>
+<p class="copy"><b class="calibre7">CAUTION</b> This ebook is copyright material and must not be copied, reproduced, transferred, distributed, leased, licensed or publicly performed or used in any way except as specifically permitted in writing by the publishers, as allowed under the terms and conditions under which it was purchased or as strictly permitted by applicable copyright law. Any unauthorised distribution or use of this text may be a direct infringement of the author’s and publisher’s rights, and those responsible may be liable in law accordingly.</p>
+</body></html>
+
+        </div>
+        
+        <div class="navigation">
+            <a href="index.html" class="nav-button">📚 Содержание</a>
+            <a href="chapter_29_Feldenkrais for Actors.html" class="nav-button">← Предыдущая</a>
+            
+        </div>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция изменения размера шрифта
+        function changeFontSize(change) {
+            const root = document.documentElement;
+            const currentSize = parseInt(getComputedStyle(root).getPropertyValue('--font-size')) || 18;
+            const newSize = Math.max(12, Math.min(32, currentSize + change * 2));
+            root.style.setProperty('--font-size', newSize + 'px');
+            localStorage.setItem('font-size', newSize);
+        }
+        
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            if (theme === 'dark') {
+                document.body.classList.add('theme-dark');
+                document.documentElement.classList.add('theme-dark');
+            }
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.' + theme + '-theme').classList.add('active');
+        }
+        
+        function loadSavedSettings() {
+            // Загружаем сохранённую тему
+            const savedTheme = localStorage.getItem('reading-theme') || 'light';
+            setTheme(savedTheme);
+            
+            // Загружаем сохранённый размер шрифта
+            const savedFontSize = localStorage.getItem('font-size') || 18;
+            document.documentElement.style.setProperty('--font-size', savedFontSize + 'px');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedSettings();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

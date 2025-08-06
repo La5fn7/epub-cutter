@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Pedagogic Models - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_23_3 Refining Models for Understanding the Singing Voice.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_25_How to Understand Phonation and Resonance in the Vocal Tract.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Current Pedagogic Models">
+        <h3>Страница 54</h3>
+
+<p>CURRENT PEDAGOGIC MODELS Most science-based pedagogic models for thinking about the singing voice will center on either the neurological, physiological, and aerodynamic means of voice production or the acoustical measures of its output. The former is certainly an important scaffold on which voicing hangs. It allows one to consider how specific muscles contract to move the various parts of the singing body, and especially how the vocal folds behave in and act on the flow of air. Acoustical measures, on the other hand, perhaps require even more finesse to understand. Most acoustical measures are derived from the mathematical decomposition of the singer’s radiated pressure wave as seen in a spectrum or spectrogram. A spectrum is used to average the rates of pressure change within that radiated wave. A spectrogram is a time series of those spectra. In digital computers, this decomposition is typically accomplished by means of either a discrete or fast Fourier transform (DFT or FFT), the complex mathematical processes under the hood in any spectrograph. Most pedagogically actionable conclusions rest on the relationships between the visible structures in the resulting spectral images. It is worth asking whether such a model shows what is real or whether it shows aspects of a singer’s sound that could be understood in other ways. To put it directly, what does a spectrum or spectrogram show? Does what it displays physically exist in the air? In the listener’s ear? In the listener’s percept of the sound? If perception is a response to the sound itself, understanding the acoustical process that generates that sound is the place to start.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_23_3 Refining Models for Understanding the Singing Voice.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_25_How to Understand Phonation and Resonance in the Vocal Tract.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

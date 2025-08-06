@@ -1,0 +1,410 @@
+/* CSS стили для EPUB веб-сайта с улучшенным UI */
+:root {
+    --font-size: 18px;
+    --line-height: 1.6;
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --header-bg: #f8f9fa;
+    --border-color: #dee2e6;
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+}
+
+.theme-dark {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --header-bg: #2c2c2c;
+    --border-color: #404040;
+    --primary-color: #4dabf7;
+    --secondary-color: #adb5bd;
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+/* Фиксированная панель инструментов */
+.toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 20px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.toolbar-left, .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.book-title-mini {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 16px;
+    margin: 0;
+}
+
+.theme-toggle {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.theme-btn {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-btn.light {
+    background: #ffffff;
+    color: #333333;
+}
+
+.theme-btn.dark {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+.theme-btn.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+.font-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.font-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.font-btn:hover {
+    opacity: 0.8;
+}
+
+.font-size-display {
+    font-size: 14px;
+    color: var(--text-color);
+    min-width: 40px;
+    text-align: center;
+}
+
+/* Основной контент с отступом от панели инструментов */
+.main-content {
+    margin-top: 70px;
+    padding: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.book-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.book-title {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.book-author {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 1rem;
+}
+
+.nav-button {
+    display: inline-block;
+    margin: 0 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-button:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+.chapter-content {
+    background: var(--bg-color);
+    padding: 2rem;
+    border-radius: 8px;
+    line-height: var(--line-height);
+}
+
+.chapter-content p {
+    margin-bottom: 1em;
+    text-align: justify;
+}
+
+.chapter-content h1, 
+.chapter-content h2, 
+.chapter-content h3, 
+.chapter-content h4, 
+.chapter-content h5, 
+.chapter-content h6 {
+    color: var(--text-color);
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+}
+
+.toc {
+    background: var(--bg-color);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.toc h2 {
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.toc a:hover {
+    background-color: var(--header-bg);
+    border-color: var(--primary-color);
+}
+
+.chapter-number {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .toolbar {
+        padding: 8px 10px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .toolbar-left, .toolbar-right {
+        gap: 10px;
+    }
+    
+    .book-title-mini {
+        font-size: 14px;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .font-controls {
+        gap: 8px;
+    }
+    
+    .main-content {
+        margin-top: 80px;
+        padding: 15px;
+    }
+    
+    .chapter-content {
+        padding: 1rem;
+    }
+    
+    .nav-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        margin: 0.25rem;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .navigation {
+        margin: 1rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .toolbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .toolbar-left, .toolbar-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .main-content {
+        margin-top: 100px;
+        padding: 10px;
+    }
+    
+    .book-title {
+        font-size: 1.8rem;
+    }
+    
+    .theme-btn {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .font-btn {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+}
+
+/* Стили для кнопок в панели инструментов */
+.theme-btn, .font-btn {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    outline: none;
+}
+
+.theme-btn:hover, .font-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.theme-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.font-btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 36px;
+}
+
+.theme-btn {
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    min-width: 40px;
+}
+
+/* Темная тема */
+.theme-dark {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.theme-dark .toolbar {
+    background: var(--header-bg);
+    border-bottom-color: var(--border-color);
+}
+
+.theme-dark .book-header {
+    border-bottom-color: #444;
+}
+
+.theme-dark .book-title {
+    color: var(--text-color);
+}
+
+.theme-dark .chapter-content,
+.theme-dark .toc {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.theme-dark .nav-button {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.theme-dark .nav-button:hover {
+    background-color: #3a8dff;
+}
+
+.theme-dark .toc a {
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.theme-dark .toc a:hover {
+    background-color: #3c3c3c;
+    border-color: var(--primary-color);
+}
+
+.theme-dark .chapter-title {
+    color: var(--text-color);
+    border-bottom-color: var(--border-color);
+}

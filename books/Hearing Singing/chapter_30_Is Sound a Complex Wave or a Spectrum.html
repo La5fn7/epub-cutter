@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is Sound a Complex Wave or a Spectrum? - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_29_A More Complex Model of the Ear.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_31_Introducing Pitch, Auditory Roughness, and Tone Color.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Is Sound a Complex Wave or a Spectrum?">
+        <h3>Страница 73</h3>
+
+<p>IS SOUND A COMPLEX WAVE OR A SPECTRUM? Taking in the above suggests the benefit of conceptualizing voice production in the physical world of pressure changes over time, rather than the mathematically abstract way that sound may be represented in a spectrum. Is it possible to synthesize a facsimile of a voice by building up a complex wave from sine tones? Yes. Is that how the human voice creates its sound? No. Human voicing operates in the world of complex pressure patterns up to the point of frequency filtering by the cochlea. This means that despite the value of spectral analysis, we must switch back to a time-and-pressure-domain model before we can imagine how the pressure pattern interacts with its environment and changes as it moves on to each step in the process. This also allows us to think of acoustical aspects of the voice as real, physical parts of the pressure and flow dynamics at work in the vocal tract. They are simultaneously a sound and a physical phenomenon.20 Auditory transduction then can be understood as the process through which the complex vibrations that move the eardrum are turned into nerve impulses, which are in turn received and interpreted by the brain. This process changes aspects of the sound before it reaches the brain.21 If we consider that the mathematics of the Fourier transform will typically preferentially represent the repeated information within a periodic pattern in terms of harmonics of the slowest repeating pattern (the fundamental), perhaps we stand to reassess whether spectrograms represent voices in a manner consistent with our perception of those voices.22 In a spectrum we see the summary of a snapshot in time (or a series of such snapshots in a spectrogram) in this process of sound generation, propagation, and perception. In an actual living human ear,23 this frequency division reduces information and introduces qualitative aspects of timbre that are not reflected in a spectrogram. If for no other reason than this, I believe it is crucial to evaluate whether our evolving models account for the contributions of the ear.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 74</h3>
+
+<p>It is worth repeating: The frequency decomposition carried out by a Fourier transform may be conceptually matched in nature by the action of the cochlea, and applying a Fourier transform to the pressure wave at any step of the complex process of voice production—even if just at a model level—absolutely tells us something valuable. It is helpful to understand the differing spectra of the glottal impulses facilitated by the vocal folds as they thicken and thin, for example. The high-frequency energy more present in the former (and generally lacking in the latter) is perceptually relevant. This kind of contrast is reflected in a spectrogram far more intuitively than in a flow glottogram or waveform. However, we must be cautious not to arbitrarily impose cochlea-like frequency filtering at this earlier step in the process. The cochlea is not stimulated by the vocal fold source sound prior to the response of the vocal tract. We do not hear the vocal fold source sound. We hear the interaction of that source pressure impulse, the vocal tract, the room and/or electronic audio signal chain, and the mediation of auditory transduction as a functional whole. We must be cautious to recognize that any such image represents a way to think about aspects of that underlying reality. It does not depict actual separate harmonics that physically exist in space and through time, as though they were generated by discrete processes. Thus, within the voice pedagogy and vocology literature, a spectrum always needs to be qualified. If the spectrum seeks to represent some aspect of the pressure wave prior to the information-destructive process of auditory transduction, we must recognize that it risks misrepresenting the physical nature of voice production. If a spectrum appears to represent the sound as we perceive it, we must recognize that the ear introduces qualitative aspects to the percept of the sound after the instant in time that is displayed in the spectrum.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_29_A More Complex Model of the Ear.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_31_Introducing Pitch, Auditory Roughness, and Tone Color.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

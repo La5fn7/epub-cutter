@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11 How to Teach Singing - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_96_Conclusions.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_98_How a Singer Should Think.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="11 How to Teach Singing">
+        <h3>Страница 281</h3>
+
+<p>11 How to Teach Singing This chapter describes how I both teach and coach singers, and how I mentor others to do the same. Woven throughout are practical frameworks that will begin to inform how functional listening plays out in various contexts. In some ways the previous chapters were easier to write than this one because logical arguments based on and extended from a set of facts can be methodically structured. Voice teaching is much less straightforward a process, rarely linear, and only occasionally susceptible to even the best-formed argument. This chapter is not directly about perception. It is about how to incorporate perception into a cohesive approach to teaching. Voice teaching leverages “what works” more than what is factual; “what is helpful” more than what is true. There are powerfully useful lies in voice teaching that cannot be rigorously tested. So this chapter may seem like a departure from the previous ones, appearing at times like a series of generalizable concepts that I have found to be effective. For the singer, singing should feel like a unified, expressive response to a simple thought. A well-coordinated, artistic singer does not use knowledge of facts to correctly position their body in space and drive vocal fold oscillation with the right amount of tracheal pressure. That optimal coordination does not then enable</p>
+
+<hr class="page-separator">
+
+<h3>Страница 282</h3>
+
+<p>the singer’s musical intuition to use that technically efficient body expressively. This is exactly backwards. We must get the singer’s thinking right first, which will stimulate a response in their body. Once the singer falls into that pattern of stimulus (the thoughts) and response (the singing) without additional, counterproductive steps of self-monitoring and attempts to independently control separate parts of the body, we can start the work. The flip side of this is also true though. The teacher who wants to truly understand how to teach effectively is arguably best served by deeply understanding the entire process rather than a personal, procedural narrative. My tongue is perhaps a little in my cheek as I write this, but I frequently find that those who argue for the immediate practical application of a new idea—or its dismissal—do so to make their learning process easier, not that of their students. Ideally, the role of the teacher or coach is to guide the singer through a series of experiences based on, informed by, and shaped by the logically formed frameworks within the teacher’s mind. If you have read this book (or parts of it) in a voice pedagogy class, look inward as you contemplate the material. Is your goal to exclusively operationalize the conclusions of others, or are you here to transform the way you imagine how the voice works and how you can work the voice? Are you limited by the solutions your teacher has observed in the genres of music they teach? I think it is not enough to know what should work in each circumstance—the correction for a given problem. The effective voice teacher is the teacher who has the tools to think on their feet and react productively to the dynamic environment of a voice lesson. This requires an active mind to start, one capable of hearing and effectively evaluating the functional reality of the singer. I believe the purpose of a voice lesson for the singer is to practice the process of singing. The outcome of that lesson should be that through singing, they will come to understand how they can sing</p>
+
+<hr class="page-separator">
+
+<h3>Страница 283</h3>
+
+<p>new things in new ways. The language of teaching is whatever allows the singer to sing better. I would be happy if one of my voice teaching mentees never spoke any of the words in this book in a lesson. The ideas in this book are for the teacher to inform, to suggest, to predict, and to serve as guardrails. With that said, in the following chapter (1) I will lay out a short primer on how to train a singer to think, and how you as a teacher can reason through where in that thought process the singer is getting caught up. (2) I will lay out several practical concepts to keep in mind as you teach. (3) I will explain how I imagine the singing body works as a functional whole. This part of this chapter will draw on the information presented in multiple previous chapters, and I aim to synthesize these ideas into a single, perception-focused narrative to understand voice production. There are many parts of the singing body to be sure, but there are ways to conceive of the act of singing that take us out of the provincialism of anatomical and acoustical subsystems into a global view of how that entire system can work together. Understand those interactions, and you can start to understand how different ways of using the body physically produce different sounds. You can then start to think about intermediate sounds and adjacent functions that fall short of the target sound. But in falling short, they establish some crucial functional coordination that allows the singer to quickly reach that target sound with a procedural understanding of how they did it. (4) I will present three good rules of thumb that connect perception to vocal function.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_96_Conclusions.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_98_How a Singer Should Think.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

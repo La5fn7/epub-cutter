@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What We Choose to Notice - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_20_First Steps Toward Understanding the Timbre of a Voice.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_22_Conclusion.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="What We Choose to Notice">
+        <h3>Страница 46</h3>
+
+<p>WHAT WE CHOOSE TO NOTICE Perception is a curious phenomenon. It can be a nebulous, almost mystical process that is highly personal and dependent on education, context, and focus of attention. Listen to the same recording three times, and you can choose to hear something different on each pass. Listen to the same recording while paying attention to a passing butterfly or remembering the smell of your mother’s macaroni and cheese, and your experience will change again. I want to suggest that it matters how you choose to perceive a voice. It matters how you think. Readers who work with singers have likely already decided to listen with greater specificity than they would as a novice. Any layperson who has acquired the taste for a given style of singing likely understands that their appreciation followed the decision to appreciate. I would never argue that what follows is perceptually obligate. In general, people may listen to and enjoy a singing voice on their own terms. Much of the perception literature muddies this idea because the variable ways in which one might listen create the impression that perception is irredeemably varied. What I propose is a way to listen. I am confident that if you choose to listen in the manner I suggest, you will dependably notice the phenomena I point out. Furthermore, the way you hear issues in a singing voice will change, enlarging your toolbox in the teaching studio and refining your ability to listen functionally. Ultimately, the aim of this material is to teach you what you can learn to notice through a simple set of heuristics. You will become aware of these qualities in singing, speech, musical instruments, and urban and natural sounds. These heuristics can come to characterize the fabric of your experience of timbre, which is as persistently available and as unseen as the air you breathe. In the following</p>
+
+<hr class="page-separator">
+
+<h3>Страница 47</h3>
+
+<p>chapters, I hope to make the argument for the utility of this model conceptually, pedagogically, and, most importantly, experientially.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_20_First Steps Toward Understanding the Timbre of a Voice.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_22_Conclusion.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>When Is a Fundamental a Fundamental? - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_42_Where pitch is—and is not—in a spectrum.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_44_Restating the Perceptual Qualities of Pitch.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="When Is a Fundamental a Fundamental?">
+        <h3>Страница 101</h3>
+
+<p>WHEN IS A FUNDAMENTAL A FUNDAMENTAL? This discussion complicates the use of the term fundamental. Here we may do well to differentiate between its use in the time domain and its use in the frequency domain. Periodic voicing almost always generates a complex pressure pattern that repeats at the rate at which the vocal folds contact. Whatever number of times per second that complex pattern repeats is the fundamental frequency of phonation. So if the vocal folds contact 440 times per second, the entire complex pattern will repeat 440 times per second. This may be expressed as 440 Hz, the modern pitch standard for A4. We can also consider the duration of each individual repetition of that complex pattern. Measured in milliseconds, this is called the pitch period. To convert from frequency (Hz) to duration (ms) for this pattern, divide 1,000 by the frequency (Hz). To derive Hz from ms, divide 1,000 by the period duration (ms). This means that a frequency of exactly 440 Hz will have a period duration of ~2.27 milliseconds. So frequency in this case points to the rate at which the complex pressure pattern repeats. Once we apply the Fourier transform to that pattern, we will likely find higher frequency harmonic components that occur at integer multiples of that fundamental frequency. In that spectral domain, only one of those components will share the frequency of the vocal fold contacting events. This component is also called the fundamental and is notated 1f o or sometimes f o, with the integer understood as “1.” Depending on the pitch and vowel being sung, this fundamental may also contribute a great deal of tone color and energy. A period (a single instance of the complex repeating pattern) contains all the timbral information of the vocal tract resonances. This includes both fast (high-frequency) and slow (low- frequency) changes in pressure, some of which resolve into the pitch.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_42_Where pitch is—and is not—in a spectrum.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_44_Restating the Perceptual Qualities of Pitch.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

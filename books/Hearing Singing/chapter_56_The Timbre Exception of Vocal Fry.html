@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Timbre Exception of Vocal Fry - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_55_The Pitch Exception of Subharmonic Singing.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_57_The Pitch Exception of Noisy Distortion.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="The Timbre Exception of Vocal Fry">
+        <h3>Страница 149</h3>
+
+<p>THE TIMBRE EXCEPTION OF VOCAL FRY So far, we have investigated normal voicing, overtone singing, and subharmonic phonation. While these are by no means the only ways to create a sung sound with a pitch percept, these contrasting modes of phonation do demonstrate that the human voice can produce pitch percepts in multiple ways. A fourth phonation type, vocal fry, throws into relief exactly how important periodicity is to pitch, and how timbre and pitch may be separated. Vocal fry is broadly considered to be the “lowest” laryngeal vibratory mechanism of the voice.25 It is a creaky, popping, pulsing, pitch-less sound.26 Notably though, vocal fry has timbre. Indeed, Donald Miller et al. (2000) suggest utilizing vocal fry as a nonperiodic method for extracting accurate vocal tract formant frequency measures.27 By definition, those formants help to characterize timbre. Consider the following images (figure 6.10), illustrating vocal fry of an [a] by the same singer in figure 6.8. According to the transient theory of voice production, the dampened resonant response of the vocal tract to each impulse should be reasonably similar in figure 6.10 as it was in both the modal and subharmonic singing in figure 6.8, since the vocal tract is shaped similarly in all three cases. Figure 6.10 (top left) shows a zoomed- in section of the vocal fry waveform. Note that these ripples indeed follow a very similar pattern to those found in both modal and subharmonic phonation in figure 6.8. This is because the “pops” of vocal fry also excite the resonant response of the vocal tract with transient changes in pressure.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 150</h3>
+
+<p>Figure 6.10 Vocal fry of an [a] by the same singer as in Figure 6.8. Top left is zoomed into show several excitations of the vocal tract resonances on the same timescale of Figure 24. Top right shows a spectrum, and bottom zooms out to show several aperiodic excitation patterns. Source: Recorded by author under controlled conditions. Note, though, that when zoomed out (figure 6.10, bottom), there is no consistent duration between each transient. The resonances play out similarly after every transient, but those transients are aperiodic. This is also visible in the spectrum (figure 6.10, top right), which shows peaks at ~650 Hz and ~1,150 Hz, as were present in both modal and subharmonic phonation in figure 6.8. This is how vocal fry conveys the timbre identity of the vowel without pitch. It is aperiodic excitations of a vocal tract that</p>
+
+<hr class="page-separator">
+
+<h3>Страница 151</h3>
+
+<p>could be excited periodically. In a way of thinking, vocal fry more completely transmits the timbral potential of all the vocal tract resonances, because the randomized duration between glottal impulses at times allows for a much longer oscillation of the resonances within the vocal tract than found in periodic phonation. If you would like to explore this idea experientially, carry out Lab #8.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_55_The Pitch Exception of Subharmonic Singing.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_57_The Pitch Exception of Noisy Distortion.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

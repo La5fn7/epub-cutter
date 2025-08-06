@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Problem - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_12_The Purpose of This Book.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_14_The Argument.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="The Problem">
+        <h3>Страница 27</h3>
+
+<p>THE PROBLEM We have seen a profound expansion in our understanding of the physical world in the years since Manuel García II first viewed the oscillating vocal folds of a singer. This includes how the voice functions biomechanically, the nature of singing voice aerodynamics and acoustics, and our broader understanding of perception. The practice of integrating scientific information into voice pedagogy exploded in the nineteenth and twentieth centuries as content addressing biomechanics and voice acoustics became de rigueur in most serious voice pedagogy texts. However, the inclusion of these additional bodies of knowledge came with a corresponding burden. Authors were challenged to gain command of this specialized information and to effectively situate that information within a logical framework of questions and approaches to singing that remained culturally defined. The ways in which we came to understand these new bodies of information intersected with particular ways of singing. Perception has long been considered prohibitively complex to tackle within the voice pedagogy and vocology literature. It has seemed too slippery to tie down, especially when contrasted with the quantitative measurements of anatomy and physiology, acoustics, and aerodynamics. One may find endless discussion regarding the existence (and computer measurements) of muscles, cartilages, bones, vibratory mechanisms, laryngeal and acoustic registers, and registration in a voice without a meaningful discussion of the perceptual nature of the sonic output.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_12_The Purpose of This Book.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_14_The Argument.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

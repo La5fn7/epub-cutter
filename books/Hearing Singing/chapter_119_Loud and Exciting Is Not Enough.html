@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loud and Exciting Is Not Enough - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_118_Same Shape  New Sound for Trebles.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_120_There Are No Registers, Only Qualities.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Loud and Exciting Is Not Enough">
+        <h3>Страница 325</h3>
+
+<p>the intermediate [o]. Repeat at higher pitches and dynamics as is useful. Same Shape / New Sound for Trebles If you want to ascend the treble staff with a classical sound—or explore registration options as a musical theater or contemporary singer—you may find it helpful to execute the previous exercise in a higher octave. Target a strong [a] on F4 and slide up to [o] on C5. Do not slide up to the [o] with the force of [a]. Aim to directly sing the [o] without excess effort. It is not an [a] restricted by the [o]. Done well, you will notice that the [o] is a simpler sound than the [a], strongly characterized by the pure, warm, |~o| tone color of the fundamental. Once you establish this, slowly open from the [o] to the [a] shapes without changing your registration. You will notice that the [a] shape is capable of producing a full and warm sound even though it is brighter and buzzier on the lower pitch. Ascend in half steps, allowing the intermediate upper vowel shape to open as pitch rises. It will be happier as an [ɔ] toward the top of the treble staff and will open further to an [ɑ] or [a] shape by G5 or A5. Anticipate that these shapes will sound warmer and less buzzy than they do at lower pitches. Loud and Exciting Is Not Enough If you can only sing higher notes loud, and your sound is exciting but feels unsustainable or over-pressurized, consider practicing generating brightness with vocal tract shaping rather than higher tracheal pressure and greater muscular adduction of the vocal folds. Singing at a lower volume allows the thyroarytenoid muscles to lengthen slightly, which allows the tissue to stretch and vibrate faster without raising the tracheal pressure into a problematic range. Establish a warm, gauzy, neutral sound first. Then try to make very</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_118_Same Shape  New Sound for Trebles.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_120_There Are No Registers, Only Qualities.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

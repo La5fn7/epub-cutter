@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Does a Resonance Strategy Feel Like? - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_103_Different Parts of the Voice.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_105_How the Entire System Works.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="What Does a Resonance Strategy Feel Like?">
+        <h3>Страница 293</h3>
+
+<p>to registration. These have to do with the basic functional behavior of the system, and the boundaries of these ranges depend on voice type and genre. In a speech-pitch range, non-pathological, non- injured singing voices tend to work reasonably well when singing loud. Familiar auditory targets generally elicit a balanced response in a short amount of time, and you have many motor plans to call upon. This range tends not to fail. In the highest parts of the voice, loud singing tends to fail poorly. This means if singing does not work well, it does so spectacularly. Balanced voices tend to respond well to the stimulus to sing high pitches. Approached with miscoordination, and the issues presented in this higher range tend to be obvious to teacher and student alike —for example, strain, cracking, flipping, high effort, or loss of power. By contrast, the middle range of the singing voice tends to fail well. Miscoordination in this range may be hidden, and it does not preclude phonation. This is the most challenging range of unbalanced singing, where a singer can get away with a choice that would never work at higher pitches or be necessary at lower pitches. While the challenges related to singing extremely high pitches have tended to capture the collective imagination of voice pedagogues and voice scientists—and I frequently joke that for many of us, the term voice pedagogy actually means “How do I sing high notes loud?”—the subtler migrations and microadjustments to pitch, loudness, and timbre in the middle of a singer’s range tend to be where most voices are successfully balanced. What Does a Resonance Strategy Feel Like? We have come to one of the great paradoxes of studying the science of the singing voice to then teach people to sing. Learning how the voice works so that you can work the voice is an old and well-worn approach. Scientific research has amassed a stunning amount of</p>
+
+<hr class="page-separator">
+
+<h3>Страница 294</h3>
+
+<p>information about what the voice is physically and how it might possibly function. Science also offers the chance to study truly amazing singers and to analyze the acoustic output of their singing in objective terms. However, we must be cautious to not confuse the map for the terrain. Consider Franco Corelli, a singer whose recording I analyzed in the previous chapter. In that sample, he appears to have aligned his second resonance (f R2) with his third harmonic (3f o), and that definitely affects the sound he produced in a predictable way. Was he aware of that? Could he put his awareness of how he sang those thrilling high notes into terms that would align with a scientific analysis? As a singer myself, I assume not. The thing that can be described from the outside is frequently experienced by the singer according to a different map because, again, we must reduce the stimulus to sing to a simple idea. In some ways, effective voice teaching involves using declarative language about and demonstrations of a procedural experience in order to generate a procedural experience that the singer may then ultimately describe with their own declarative language. The one thing I have repeatedly observed among elite singers executing difficult motor tasks is that to them, it feels good. It feels like they keep singing through whatever adjustment produces a cheer from those of us who can measure aspects of singing. That measurement is the outward evidence of whatever procedural solution the singer has figured out for themselves. Even something as simple as observing Corelli’s mouth shape tells you little about the behavior of his tongue, which I would wager had much to do with the reduced damping in his second resonance (f R2). Again, anything that can be measured and analyzed in a coordinated singer almost certainly just feels like good singing to the singer. They don’t necessarily work for the subtle acoustical adjustments that separate</p>
+
+<hr class="page-separator">
+
+<h3>Страница 295</h3>
+
+<p>professional singers from students, nor do they experience them in a manner consistent with the output of a computer.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_103_Different Parts of the Voice.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_105_How the Entire System Works.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

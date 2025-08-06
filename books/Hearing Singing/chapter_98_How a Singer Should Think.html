@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How a Singer Should Think - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_97_11 How to Teach Singing.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_99_The Five Steps in All Singing.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="How a Singer Should Think">
+        <h3>Страница 284</h3>
+
+<p>HOW A SINGER SHOULD THINK The simplest, but most important pattern you need to know about is the dynamic of stimulus and response in the singer.1 In this case, stimulus means what you think as you ask your body to sing. The response is the way in which your body responds to that stimulus. This includes the myriad patterns of muscular engagement, the effects of postural effort and one’s sense of proprioception, the efficiency of breathing and phonation, and the way phonation and resonation interact. In efficient singing, these do not feel like separate concerns. Rather, they are aspects of the functional whole of the singer’s response. To be sure, I want to be cautious not to imply that the brain is segregated from the body. But we can be complete beings while recognizing our ability to consciously decide to move our bodies in certain ways. Most singers who seek lessons have not yet clarified the stimulus, nor have they found the efficient, spontaneous response they desire. As such, your exploration of their stimulus-and-response patterns will necessarily include breaking down some aspects of that ultimate, seamless, all-at-once act into smaller challenges. Our goal in discussing the parts of the whole is not so that we can focus on the parts. For rapid improvement, we do well to understand the coordination of the whole in terms of actionable choices that target specific issues in specific aspects of the singer’s process.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_97_11 How to Teach Singing.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_99_The Five Steps in All Singing.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

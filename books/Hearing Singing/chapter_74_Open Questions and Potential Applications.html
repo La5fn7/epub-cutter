@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Questions and Potential Applications - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_73_What If Formants Have Tone Colors.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_75_Discussion Questions.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Open Questions and Potential Applications">
+        <h3>Страница 207</h3>
+
+<p>OPEN QUESTIONS AND POTENTIAL APPLICATIONS The above material leaves me with an unanswered question: What is the underlying physiological or cognitive mechanism for tone color perception? At this moment I am honestly not sure, but I can speculate. Perhaps the basilar membrane transmits information in qualitatively different ways from different tonotopic areas. Perhaps tone color is a cognitive response to the timing of nerve firings sent to the brain. Perhaps it is the result of deeper cognitive processing that the auditory cortex layers onto its analysis of the incoming signals. Like the basilar membrane, the auditory cortex itself may be organized tonotopically.42 Perhaps more interesting questions include: Why do some listeners notice the phenomenon of tone color without any training while others do not? Multiple people have noted and published about this over the past 140 years. One assumes that this perceptual property of simple sounds has always occurred to some people. How can we not notice that the coo of a mourning dove is dissimilar from a high-pitched whistle? Similarly, why does this selective hearing skill appear to be so easily teachable? How does the acquisition of this critical listening skill change a listener’s percept so rapidly? How do these perceptual changes persist as cognitive processes over time? As with auditory roughness and pitch perception, discussed in chapter 7, the idea of tone color maps well to a simple, two-timbre understanding of the sound of a singer. If you would expect a given sound to show strong lower frequency aspects in a spectrum and lack much higher frequency energy, you will favor the tone color palette that sounds more like [u] than [i]. Similarly, any sound that is extremely bright (regardless of the target vowel) will have an additional tone color component that sounds more like [i] than [u]. We will investigate these ideas in more detail in chapter 10.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_73_What If Formants Have Tone Colors.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_75_Discussion Questions.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

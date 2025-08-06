@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Structure of This Book - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_14_The Argument.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_16_A Few Important Guardrails and Bits of Housekeeping.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="The Structure of This Book">
+        <h3>Страница 29</h3>
+
+<p>THE STRUCTURE OF THIS BOOK This book is organized into five sections plus one online resource. Many chapters end with a list of discussion questions that I hope will spark reflective learning. 1. I begin with a short introduction (chapter 2) to how the voice pedagogy and vocology literature has historically engaged information drawn from the scientific community. I will make an argument that we should care about singing voice perception, that we should confront the limitations of existing models that address it in the voice pedagogy and vocology literature, and that we can critically appraise the framework that currently houses these subjects in a voice pedagogy or vocology curriculum. This part of the book courts the philosophical, but it establishes an important framework for what follows. 2. I will introduce models to understand how the voice makes sound and how we hear that sound (chapter 3). This will include a discussion of popular models for teaching voice acoustics to voice teachers, and I will attempt to start to make connections between the details of those models and the physical reality of voice production.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 30</h3>
+
+<p>3. I will next introduce and explore the intersection of three broad and actionable aspects of singing voice perception that are, in my experience, currently underexplored in the voice pedagogy and vocology communities: pitch, auditory roughness, and tone color (chapters 4–10). They are the signifiers of vocal function used in functional listening. More specifically, these three terms represent meaningful contrasts along the continua they reference: pitch/noise, pure/buzzy, and the vowel-like qualities between dark and bright tone colors.1 Incredibly powerful aural cues lie at the intersection of these percepts as a singing voice migrates through changes in pitch, loudness, and timbre. This is especially important in the higher pitch and intensity ranges utilized in much singing (and typically avoided in speech). This part of the book will offer many lab assignments to explore these perceptual phenomena as you read about them. 4. The last two chapters will offer pedagogic principles, examples related to functional listening, and good heuristics for teaching voice (chapters 11 and 12). These chapters build upon the more scholarly presentation of models and concepts in the previous chapters, but that information is reformed into a narrative that ties</p>
+
+<hr class="page-separator">
+
+<h3>Страница 31</h3>
+
+<p>all the previous ideas together. In large part, these chapters lay out how I teach. As such, they situate functional listening within a practical pedagogical framework. If you are intimidated by the thought of exploring psychoacoustics in a technical manner, you may wish to start with these chapters. 5. Finally, I have included a glossary of difficult terms and two appendixes: a short primer that explains the various waveforms, spectra, and spectrograms that appear throughout this book, and a list of labs and that can be found at the indicated website. Throughout the book I will include references to these lab assignments. The website that houses them includes step-by step instructions and video walk-throughs.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_14_The Argument.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_16_A Few Important Guardrails and Bits of Housekeeping.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

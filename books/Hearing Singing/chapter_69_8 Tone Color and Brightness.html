@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 Tone Color and Brightness - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_68_Discussion Questions.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_70_What Is Brightness.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="8 Tone Color and Brightness">
+        <h3>Страница 187</h3>
+
+<p>8 Tone Color and Brightness This chapter addresses the perceptual continuum of tone color, a term I will narrowly define in the hope of drawing attention to a specific aspect of timbre. Tone color offers us a way to understand qualitative oppositions along the scale of frequency. Tone color points to the idea that pure tones at different frequencies are qualitatively different, and that pure tones at the same frequency are qualitatively similar. These pure tone qualities in turn inform the frequency content-dependent tone colors that are present in complex tones, such as a sung vowel. This is to say that complex tones are characterized by both faster (high-frequency) and slower (low- frequency) pressure oscillations that occur simultaneously, and that these different pressure change aspects of a complex tone trigger different tone color percepts. In real-world terms, this pressure change information is generated in a singing voice by both the number of repetitions of the complex resonant response of the vocal tract per second (fundamental frequency) and the recurring existence of faster oscillations within that complex pattern (the resonances themselves). Tone color characterizes our perceptual response to the speeds of all of these pressure changes. In chapter 6 I suggest the utility of thinking of resonances as a time- and-pressure domain phenomenon based on the excitation patterns of the vocal tract air mass, rather than as the latent amplification potential of the vocal tract. The reader will recall that the source-filter model suggests separating the contribution of the vocal folds and vocal tract, and further makes distinctions regarding the spectral details of the radiated sound.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 188</h3>
+
+<p>This leads to a set of model-specific terms to label each part, wherein the vocal folds produce harmonic frequencies (1f o , 2f o , 3f o , etc.) which are amplified (or not) by the vocal tract resonances (f R1 , f R2 , f R3 , etc.). The combination of those vocal fold harmonics and vocal tract resonances produces peaks in the spectrum which may be labeled formants (indicated with F 1 , F 2 , F 3 , etc.). 1 Thus, if a harmonic has no available resonance, that harmonic will be attenuated in the radiated spectrum. If a resonance has no harmonic to populate it, it cannot turn into a formant and functionally will not exist. The history of the term formant is worth a brief mention. In 1894 Ludimar Hermann was studying phonograph recordings of sustained vowels.2 When he visually amplified the grooves in those phonograph discs, he saw the same familiar periodic excitation and damping waveform patterns we can now see with modern computers. Hermann applied a Fourier transform to these repeating patterns, representing the repeating oscillations of the vocal tract resonances as spectral peaks. He termed this spectral representation of the time-and-pressure domain phenomena formants. 3 I offer this brief history now because the material covered in this chapter will reference both the speech literature and the seminal work of singing voice researcher Donald G. Miller. This combined body of literature uses the term formant to describe those radiated peaks and frequently frames observable phenomena using terms and perspectives from the source-filter model. For example, consider this common construction: Align 1f o with f R1 to produce a strong F 1. This chapter will use the term formant to align with these sources. But please keep in mind that we know that the feature of a spectrum labeled as a formant is generated mathematically by averaging the periodic repetition of the excitation and damping patterns of the vocal tract per glottal cycle over time. What we are calling a formant is a spectral feature that points to the physical oscillations of pressure within the vocal tract. Consider that 1f o : f R1 produces F 1 can also be described in terms of timing each subsequent</p>
+
+<hr class="page-separator">
+
+<h3>Страница 189</h3>
+
+<p>glottal contacting event with the end of the first complete oscillation of the slowest resonance in the vocal tract. Since we understand that these terms all exist within models, and that some models need labels for specific concepts, I think it is possible to use the term formant in this chapter without pointing to an abstract concept. The spectrum typically averages away short-time fluctuations in the amplitude of the vocal tract resonances, representing them instead as continuously intense harmonics. The human ear is generally stimulated by that complex pattern, not continuous harmonic frequency energy as it appears on a spectrum. However, summarizing these damped oscillations in this manner allows one to talk about their frequency in practical terms and with great specificity. Depending on what you have read, you may conceive of a formant as the result of combining a harmonic with a resonance, or you may conceive of it as a spectral average of multiple periods of the damped excitation pattern of the vocal tract. Or you may have never grasped the idea of a formant. A gentle reminder that it is probably best to not get locked into just one way of understanding the phenomenon these terms point to, or to imagine that the abstract concept captured by the term is the underlying phenomenon.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_68_Discussion Questions.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_70_What Is Brightness.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

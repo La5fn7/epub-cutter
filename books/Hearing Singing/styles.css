@@ -1,0 +1,274 @@
+
+/* Базовые стили для веб-сайта книги */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Тема Vintage (по умолчанию) */
+.theme-vintage {
+    --bg-color: #f7f5f3;
+    --text-color: #2c1810;
+    --accent-color: #8b4513;
+    --border-color: #d4c4b0;
+    --nav-bg: #e8dcc6;
+}
+
+/* Темная тема */
+.theme-dark {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --accent-color: #bb86fc;
+    --border-color: #333;
+    --nav-bg: #2d2d2d;
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.book-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.book-title {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.book-author {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.book-info {
+    font-size: 1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: var(--nav-bg);
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-button:hover {
+    background-color: var(--text-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.chapter-content {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.chapter-content h1, .chapter-content h2, .chapter-content h3 {
+    color: var(--accent-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.chapter-content p {
+    text-align: justify;
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+}
+
+.chapter-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    border-radius: 5px;
+}
+
+.page-image {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem auto;
+    display: block;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.page-separator {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--border-color), transparent);
+    margin: 2rem 0;
+}
+
+/* Переключатель тем */
+.theme-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--nav-bg);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.theme-switcher-label {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.theme-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.theme-btn {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.theme-btn.active {
+    border-color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+.theme-btn-vintage {
+    background: linear-gradient(45deg, #f7f5f3, #8b4513);
+}
+
+.theme-btn-dark {
+    background: linear-gradient(45deg, #1a1a1a, #bb86fc);
+}
+
+/* Оглавление */
+.toc {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--nav-bg);
+    border-radius: 10px;
+}
+
+.toc h2 {
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.toc ul {
+    list-style: none;
+}
+
+.toc li {
+    margin-bottom: 0.8rem;
+}
+
+.toc a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--accent-color);
+}
+
+.toc a:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateX(10px);
+}
+
+.chapter-number {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .book-title {
+        font-size: 2rem;
+    }
+    
+    .navigation {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav-button {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+    
+    .chapter-content {
+        padding: 1rem;
+    }
+    
+    .theme-switcher {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .book-title {
+        font-size: 1.5rem;
+    }
+    
+    .chapter-content {
+        margin: 1rem auto;
+    }
+}

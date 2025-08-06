@@ -5,7 +5,7 @@
 {% block content %}
 <div class="page-header">
     <h1><i class="bi bi-upload"></i> Добавить новую книгу</h1>
-    <p class="page-subtitle">Загрузите EPUB файл, чтобы создать интерактивный веб-сайт книги</p>
+    <p class="page-subtitle">Загрузите EPUB или PDF файл, чтобы создать интерактивный веб-сайт книги</p>
 </div>
 
 <div class="upload-container">
@@ -14,14 +14,14 @@
             <div class="upload-icon">
                 <i class="bi bi-cloud-upload"></i>
             </div>
-            <h3>Перетащите EPUB файл сюда</h3>
+            <h3>Перетащите EPUB или PDF файл сюда</h3>
             <p>или</p>
             <button class="btn btn-primary" id="selectFileBtn">
                 <i class="bi bi-folder"></i> Выбрать файл
             </button>
-            <input type="file" id="fileInput" accept=".epub" style="display: none;">
+            <input type="file" id="fileInput" accept=".epub,.pdf" style="display: none;">
             <div class="upload-info">
-                <small>Поддерживаются только файлы .epub (макс. 100 МБ)</small>
+                <small>Поддерживаются файлы .epub и .pdf (макс. 100 МБ)</small>
             </div>
         </div>
     </div>
@@ -32,6 +32,7 @@
             <div class="progress-fill" id="progressFill"></div>
         </div>
         <div class="progress-text" id="progressText">Загрузка...</div>
+        <div class="progress-details" id="progressDetails" style="margin-top: 10px; font-size: 0.9rem; color: var(--secondary-color);"></div>
     </div>
 
     <!-- Результат -->
@@ -69,6 +70,7 @@ const selectFileBtn = document.getElementById('selectFileBtn');
 const progressContainer = document.getElementById('progressContainer');
 const progressFill = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
+const progressDetails = document.getElementById('progressDetails');
 const resultContainer = document.getElementById('resultContainer');
 const resultSuccess = document.getElementById('resultSuccess');
 const resultError = document.getElementById('resultError');
@@ -112,8 +114,9 @@ fileInput.addEventListener('change', (e) => {
 
 function handleFile(file) {
     // Проверяем тип файла
-    if (!file.name.toLowerCase().endsWith('.epub')) {
-        showError('Недопустимый формат файла. Поддерживается только EPUB.');
+    const fileName = file.name.toLowerCase();
+    if (!fileName.endsWith('.epub') && !fileName.endsWith('.pdf')) {
+        showError('Недопустимый формат файла. Поддерживаются EPUB и PDF.');
         return;
     }
 
@@ -134,15 +137,19 @@ function uploadFile(file) {
     uploadZone.style.display = 'none';
     progressContainer.style.display = 'block';
     resultContainer.style.display = 'none';
+    
+    progressFill.style.width = '10%';
+    progressText.textContent = 'Загрузка и обработка файла...';
+    progressDetails.textContent = `Файл: ${file.name}`;
 
-    // Создаем XMLHttpRequest для отслеживания прогресса
+    // Создаем XMLHttpRequest для отслеживания прогресса загрузки
     const xhr = new XMLHttpRequest();
     
     xhr.upload.addEventListener('progress', (e) => {
         if (e.lengthComputable) {
-            const percentComplete = (e.loaded / e.total) * 100;
-            progressFill.style.width = percentComplete + '%';
-            progressText.textContent = `Загрузка... ${Math.round(percentComplete)}%`;
+            const percentComplete = (e.loaded / e.total) * 50; // Загрузка - первые 50%
+            progressFill.style.width = Math.max(10, percentComplete) + '%';
+            progressText.textContent = `Загрузка файла... ${Math.round(percentComplete * 2)}%`;
         }
     });
 
@@ -151,7 +158,12 @@ function uploadFile(file) {
             try {
                 const response = JSON.parse(xhr.responseText);
                 if (response.success) {
-                    showSuccess(response);
+                    // Файл успешно обработан
+                    progressFill.style.width = '100%';
+                    progressText.textContent = 'Обработка завершена!';
+                    setTimeout(() => {
+                        showSuccess(response);
+                    }, 500);
                 } else {
                     showError(response.error || 'Неизвестная ошибка');
                 }
@@ -171,6 +183,7 @@ function uploadFile(file) {
     xhr.send(formData);
 }
 
+
 function showSuccess(data) {
     progressContainer.style.display = 'none';
     resultContainer.style.display = 'block';
@@ -178,11 +191,15 @@ function showSuccess(data) {
     resultError.style.display = 'none';
 
     // Заполняем информацию о книге
+    const fileTypeIcon = '📖'; // EPUB файл
+    const chaptersLabel = 'глав';
+    
     resultBookInfo.innerHTML = `
         <div class="book-preview">
-            <h4>${data.title}</h4>
+            <h4>${fileTypeIcon} ${data.title}</h4>
             <p><strong>Автор:</strong> ${data.author}</p>
-            <p><strong>Количество глав:</strong> ${data.chapters_count}</p>
+            <p><strong>Тип файла:</strong> EPUB</p>
+            <p><strong>Количество ${chaptersLabel}:</strong> ${data.chapters_count}</p>
         </div>
     `;
 
@@ -209,6 +226,7 @@ function resetUpload() {
     fileInput.value = '';
     progressFill.style.width = '0%';
     progressText.textContent = 'Загрузка...';
+    progressDetails.textContent = '';
     currentBookPath = null;
 }
 </script>

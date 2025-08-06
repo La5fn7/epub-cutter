@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modeling Voice Production Without the Fourier Transform - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_50_6 Time‑and‑Pressure Domain Considerations of Pitch and Timbre.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_52_The Timing of Timbre.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Modeling Voice Production Without the Fourier Transform">
+        <h3>Страница 128</h3>
+
+<p>MODELING VOICE PRODUCTION WITHOUT THE FOURIER TRANSFORM What does it mean to understand voice production in the time-and- pressure domain without the help of a Fourier transform? Consider the effect of popping a balloon in a cathedral. The pop itself induces a sudden change in air pressure in and around the space formerly occupied by the balloon. That pressure change propagates into the surrounding air mass. A complex cascade of reflections and refractions emerges in the surrounding space as that wavefront bounces off walls and the open air between objects. Depending on the nature of the space, this process may set up longer lasting oscillations at some frequencies while others find themselves quickly dampened. The interference and damping behavior of these patterns as the air mass eventually returns to atmospheric pressure is the reverberant quality of that space. A similar process takes place more rapidly and on a much smaller scale inside the vocal tract. The contacting of the vocal folds facilitates a sudden drop in supraglottal pressure. This is the functional equivalent of our balloon pop. This drop in pressure swiftly propagates through the vocal tract, setting the air mass contained therein into motion. The resulting complex flow and pressure patterns encounter and interact with the boundaries between more-open and more-closed regions of the vocal tract, bouncing off its walls, openings, and changes in diameter in ways that cause a cascading series of overlapping responses to the initial impulse. This is the reverberant quality of the vocal tract, which characterizes the timbral character of its shape at the time of phonation. At this point our analogy begins to break down. In a large room, the strongest patterns of reflection—the standing waves that fit the dimensions of the space well—oscillate slower than our lower pitch threshold of 20 Hz. We do not typically hear the rhythmic flutter reverberation of an acoustically live, large to medium-sized room as a pitch. Since the vocal tract is significantly smaller, its standing waves oscillate fast enough to hear as pitches. This means that the standing</p>
+
+<hr class="page-separator">
+
+<h3>Страница 129</h3>
+
+<p>waves of the vocal tract have pitch equivalents. Also, compared to a much harder surface like the stone of a cathedral, the energy in a soft(er), fleshy vocal tract dampens quickly, falling to a fraction of its original amplitude in mere milliseconds. Conversely, our stone cathedral can reverberate for six seconds or longer. But the singing voice is not a single impulse and response of the vocal tract. It is a rapid series of such impulses and responses, each interrupting the previous one according to the timing of the glottal contacting events and the amplitude of the resonance pattern still moving over time in the vocal tract. Understanding this concept gives us the opportunity to reconceive a resonance of the vocal tract as a pressure pattern that changes over time as it oscillates and is dampened, rather than as either a potential amplifier or a spectral peak. The faster (higher frequency) and slower (lower frequency) resonant oscillations within the vocal tract all lie atop one another in the waveform much as faster ocean waves ride atop the slower tides. Figure 6.1 shows the initial impulse of a single glottal contacting event and the subsequent excitation and rapid damping of a cisgender man’s [ɑ]-shaped vocal tract response. This pattern has no periodic repetition and resonates here for around 35 ms. If somehow he could periodically repeat this every 35 ms, this would correspond to a pitch equivalent to about 28 Hz. But this pattern is not repeated here. It is an isolated event for the purpose of this illustration. Therefore, a harmonic series cannot describe this pressure wave any more than it could reconstruct the waveform of the attack-and-decay of a cymbal crash. The closest thing to a repeated pattern here (and it does not perfectly repeat because of both the damping and its own complex nature) is the slowest ripple (resonant response) of the vocal tract to that impulse.</p>
+
+<hr class="page-separator">
+
+<h3>Страница 130</h3>
+
+<p>Figure 6.1 A single glottal impulse and decay tail of a cisgender baritone’s [ɑ]-shaped vocal tract. f R1 and f R2 are indicated with horizontal lines. Higher frequency resonances are visible. Initial broadband impulse indicated with a dashed vertical line. Source: Recorded by author under controlled conditions. The spectrogram shows several frequency regions (the strongest around 630 Hz, with smaller oscillations at 1,100 Hz, 2,400 Hz, 3,100 Hz, etc.) as preferential bands of acoustic energy that last longer than other bands. This waveform is not periodic in the way that we have observed previous waveforms of voicing. In fact, if the next impulse did not follow,</p>
+
+<hr class="page-separator">
+
+<h3>Страница 131</h3>
+
+<p>this is how all glottal impulses would likely play out in time. It is more like that single balloon pop in our cathedral rather than a series of them. So, what are harmonics of a voice? At the timescale of a single period, when the timbres of the vocal tract resonances are created, there has not yet been a periodic repetition. If harmonics require repetition, and the resonant response of the vocal tract takes place per period of voicing, resonances precede harmonics as a physical phenomenon. Another way to think about this is that for all practical purposes, the vocal tract resonances are the phenomenon that is repeated to create pitch in our brain and harmonics in a spectrum. Harmonics then are a way to mathematically characterize even faster repeating patterns within the greater repeating pattern of the fundamental frequency of vocal fold oscillation. Harmonics do not necessarily point to persistent aspects of the resonant response of the vocal tract, or to continuous input from the vocal folds.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_50_6 Time‑and‑Pressure Domain Considerations of Pitch and Timbre.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_52_The Timing of Timbre.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

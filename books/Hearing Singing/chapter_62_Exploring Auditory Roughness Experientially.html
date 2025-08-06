@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploring Auditory Roughness Experientially - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_61_What Is Auditory Roughness.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_63_Visualizing Critical Bands of Hearing.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Exploring Auditory Roughness Experientially">
+        <h3>Страница 166</h3>
+
+<p>EXPLORING AUDITORY ROUGHNESS EXPERIENTIALLY Auditory roughness may be easily explored by creating two pure tones in a tone-generating program or app of your choice, such as Audacity, Madde, VoceVista Video Pro, Praat, or any other. Hold the frequency of the first tone constant at C5 (~523 Hz) and slowly bring the second tone from G5 (~784 Hz) down to E ♭ 5 (~622 Hz). As you bring the second tone closer in frequency, note that you will begin to perceive a dissonant buzzing. If the tones are sufficiently intense, you will be able to perceive the difference tone. The difference tone is the pitch equivalent to the difference between those frequencies. This suggests that a tone at 1,600 Hz and another at 1,700 Hz will generate a lower pitch percept at 100 Hz. As two pure tones approach each other in frequency, and as that difference tone falls below the threshold on human hearing, they will begin to produce the above-mentioned beating sound like a metrical pulsing of intensity. In a low enough frequency range, this is strongly noticeable at intervals smaller than a half step. If the frequencies of the two tones were to double (to rise an octave in pitch), the musical interval would have to become larger in order to pulse at the same rate. An octave lower and that musical interval would have to be smaller. As the tones become even closer to one another, the beats slow down until they collapse into a perfect unison.13 Explore all these examples in Lab # 9. Next we will explore how auditory roughness might exist in a truly complex sound. To do this we will generate a sawtooth wave at the pitch C4 (~262 Hz). VoceVista Video Pro, Praat, and Madde will all do this. First, generate that sawtooth wave and record it. Pass-filter the lowest five harmonics of the spectrum within one of these programs. This means you will allow those harmonics to pass while stopping the playback of higher harmonics. Note that this lower portion of the spectrum lacks roughness. Now pass-filter from the fifth harmonic (5f o) upward. Notice how buzzy the quality is. If the pitch of your sawtooth falls within the pitch range in which humans tend to sing, the rough division of the spectrum at the fifth</p>
+
+<hr class="page-separator">
+
+<h3>Страница 167</h3>
+
+<p>harmonic will usually separate the pure sound from the rough sound.14 See Lab #10. A loose definition of auditory roughness, then, suggests that in terms of musical intervals, any two separate pitched tones a minor third or closer will generally fall within a critical band of hearing. The rule of the minor third may be applied to harmonics of a voice as they appear on a spectrogram.15 Generally speaking, the percept of auditory roughness in a single voice will always be buzziness, never beats.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_61_What Is Auditory Roughness.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_63_Visualizing Critical Bands of Hearing.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

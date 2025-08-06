@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Are the Perceptual Qualities of Registration? - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_121_What Are the Perceptual Qualities of Vocal Registers.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_123_Thoughts on How Perceptual Qualities Point to Vocal Function.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="What Are the Perceptual Qualities of Registration?">
+        <h3>Страница 329</h3>
+
+<p>WHAT ARE THE PERCEPTUAL QUALITIES OF REGISTRATION? All vowels have additional, complementary colors other than their vowel defining color. These may be darker or brighter. Pitch changes the qualitative character—the pitch and auditory roughness percepts —of the characteristic and complementary parts of a vowel. Different vowels tend to be characterized by the tone colors of different parts of the spectrum. The vowels [u] and [o] are generally most strongly defined by their lowest formant (F 1). Most other cardinal vowels are defined by the second spectral peak (F 2). The shifts that occur with /a/-like vowels on the treble staff (in close timbre, according to Bozeman)2 can be understood in terms of the effect of merging two separate vowel formants into a single radiated peak. This merging can be understood in the time-and- pressure domain as the result of the duration of timbral evolution prior to the next glottal closing. This does not happen at the same pitch point for brighter, higher second formant vowels like [i] and [e]. One may sing those vowels with a clear vowel identity much higher than the pitch of the first resonance (f R1) so long as one opens the mouth or spreads the lips to track the first resonance higher than the pitch, while keeping the relationship between the tongue and the roof of the mouth the same. It feels somewhat like “re-raising” your tongue, which would otherwise have traveled down as the mouth opens. Treble voices in particular exhibit a dependable pitch- and vowel- dependent registration trajectory. Below the frequency of the first resonance (f R1), the fundamental (1f o) contributes a warm tone color that is unnecessary for vowel identification. Once you sing the pitch of that resonance, the fundamental (1f o ) contributes a</p>
+
+<hr class="page-separator">
+
+<h3>Страница 330</h3>
+
+<p>complementary warm vowel color in most cases. As pitch rises, and assuming the singer is opening to speed up that first resonance, eventually what had been two vowel formants plus a warmer color becomes a single formant dominated by 1f o. Higher pitches are phenomenologically simpler stimuli and obligatorily generate simpler resulting percepts. The vowel-like sounds of high-pitched singing (think the C5 of a classical tenor or Eb5 high belt of a singer of contemporary or popular styles) draw on workable options from a limited set of potentially resonant vocal tract shapes at that pitch. The vowel heard (if we are determined to call it that) is a result of how our ears react to the resulting pressure wave. The same vocal tract shape two octaves lower will produce a different sound. Above the treble staff, classical treble singers basically have two resonant vowel options: the one that sounds like a simple version of [ɑ] and that vowel with added brightness because the tongue is higher or further back. The singer’s formant cluster3 does not trigger the same qualitative percept in a listener as pitch rises. The contrasting quality of an operatic tenor above C5 and at C5 and below can be understood in terms of the auditory roughness of the SFC. It largely dissipates above C5 as those harmonics fall below 5f o. Treble voices that are missing the clustered aspect of the singer’s formant can nevertheless produce perceptually-relevant brightness.4 The “narrowing” around C5 or D5 for a classical treble singer can be explained as the tone color contribution of 1f o coming to power while it contributes a darker tone color than it will above the treble staff. Overtone singing can be reconsidered in the time-and-pressure domain, as opposed to the current dominant perspective offered by the frequency-and-time domain. A strong resonance at an integer</p>
+
+<hr class="page-separator">
+
+<h3>Страница 331</h3>
+
+<p>multiple of the fundamental can be understood as though it is a pure tone riding the carrier wave of 1f o for the duration of each period. The tone color contribution of 1f o can account for many of the differences between most vowel sounds pitched above the treble staff and those on or below it. Above the staff, it is rare to encounter a weakened 1f o that is both darker than and incidental to the vowel color. Below the staff, 1f o falls below the frequency center of the lowest vocal tract resonance. Genre-appropriate registration can be thought of as the delay of or transition to 1f o coming to prominence as a strong tone color as pitch rises through the treble staff. This is part of why classical treble singing on the staff can be so warm and contemporary singing can be so bright, even though neither generates as complex a percept as found at lower pitches.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_121_What Are the Perceptual Qualities of Vocal Registers.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_123_Thoughts on How Perceptual Qualities Point to Vocal Function.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

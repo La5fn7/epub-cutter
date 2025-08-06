@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perceptual Signifiers of Some Common Resonance Strategies - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_90_A Combined Perceptual Model.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_92_The Tone Color of a Strong 1fo Solutions for the Treble Staff and Higher.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Perceptual Signifiers of Some Common Resonance Strategies">
+        <h3>Страница 260</h3>
+
+<p>PERCEPTUAL SIGNIFIERS OF SOME COMMON RESONANCE STRATEGIES Having spent time exploring the various rules of thumb for visually annotating a spectrum or spectrogram, and having considered the timbral difference between a formant with a strong central harmonic (a well- timed resonance) versus a formant without that strong central harmonic (a poorly timed resonance), I would like to explore several real-world recordings where singers chose to time their resonances well. These are examples that invite us to extend ASTC labels to inform the tone colors of the resulting formants. This typically only happens when there is a strong resonance, with minimal damping, oscillating in the vocal tract for the entire pitch period. This exists in at least three ways of singing: 1. Overtone singing. When the formant’s bandwidth is so narrow (the damping of the resonance is so slight) that the harmonics surrounding the formant peak are significantly weaker, we hear that faster ripple as a separate pitch percept. In this edge case, we do not typically hear auditory roughness or pitch-lessness below 5 kHz from that formant, regardless of its place in the harmonic series. 2. Another way this occurs is with strong energy at 1f o on and above the treble staff. This is a common strategy to build power in a classical treble voice. 3. A third way features formants that fall somewhere between overtone singing and the kind of spectral peaks typically found in speech—in other words, well- populated with harmonics in a spectrum. This approach is to sing with a strong, faster resonance</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_90_A Combined Perceptual Model.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_92_The Tone Color of a Strong 1fo Solutions for the Treble Staff and Higher.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_108_Acoustical Interactions.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_110_Good Rules of Thumb to Connect Perception to Function.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Summary">
+        <h3>Страница 315</h3>
+
+<p>Summary In summary, to sing, the abdomen expands with or ahead of the rib cage and then asymmetrically decreases its circumference to displace that expansion into the rib cage. That expansion maximizes the elastic recoil energy stored in the rib cage. This elastic recoil asymmetrically raises tracheal pressure sufficient to drive the vocal folds apart. The vocal folds also store elastic recoil energy in their tissues, using it to assist their return to the midline. In returning to their midline, led by the inferior edge of the vocal folds, the transglottal flow pattern is asymmetrically skewed. The supraglottal air mass resists that airflow according to the shape of its container and, in doing so, raises pressure of the supraglottal air. This leverages the elastic recoil of the air itself, which facilitates a subsequently faster drop in supraglottal pressure as the transglottal airflow rate drops and the high-pressure air moves down the vocal tract. That drop from high to low pressure propagates through the air mass in the vocal tract as a pressure wave, interacting with various changes in diameter to set up a cascade of resonant responses. At higher pitches and higher amplitudes, the oscillation of these resonances may time well with subsequent drops in supraglottal pressure as the vocal folds contact. This can preserve the amplitude of the resonances already in motion in the vocal tract and facilitate a stronger initial source impulse, affecting the entire spectrum. This elegant nonlinear system can work exquisitely well to produce high output for minimal effort, and changes in one part should affect the behavior of other parts both up- and downstream.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_108_Acoustical Interactions.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_110_Good Rules of Thumb to Connect Perception to Function.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

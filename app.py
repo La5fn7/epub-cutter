@@ -8,6 +8,10 @@ Web-приложение EPUB Cutter
 import os
 import sqlite3
 import zipfile
+import logging
+import threading
+import time
+from datetime import datetime
 from pathlib import Path
 from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for, flash, send_file
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
@@ -16,33 +20,41 @@ import sys
 import tempfile
 import io
 
-# Функции для работы с метаданными (перенесены из metadata_utils)
-def extract_epub_metadata(opf_root):
-    """Извлекает метаданные книги из OPF файла"""
-    import xml.etree.ElementTree as ET
-    
-    # Пространства имен для OPF
-    namespaces = {
-        'opf': 'http://www.idpf.org/2007/opf',
-        'dc': 'http://purl.org/dc/elements/1.1/'
-    }
-    
-    # Извлечение названия книги
-    title_elem = opf_root.find('.//dc:title', namespaces)
-    title = title_elem.text if title_elem is not None and title_elem.text else "Без названия"
-    
-    # Извлечение автора
-    author_elem = opf_root.find('.//dc:creator', namespaces)
-    author = author_elem.text if author_elem is not None and author_elem.text else "Неизвестный автор"
-    
-    return title.strip(), author.strip()
+# Настройка логирования в файл
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('debug.log', encoding='utf-8'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
+
+# Импорты для работы с PDF
+try:
+    from pypdf import PdfReader
+    from reportlab.pdfgen import canvas
+    from reportlab.lib.pagesizes import letter
+    from PIL import Image
+    PDF_SUPPORT = True
+except ImportError:
+    PDF_SUPPORT = False
+    logger.warning("PDF support libraries not found. Install pypdf, reportlab, and Pillow for PDF support.")
+
+# Импорт процессоров
+from processors.epub_processor import EPUBProcessor
+
+# Учетные данные администратора
+USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
+PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin')
 
 def format_book_info(title, author):
     """Форматирует информацию о книге для отображения"""
     return f"{title} - {author}"
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key-change-in-production'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or os.urandom(24).hex()
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['BOOKS_FOLDER'] = 'books'
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100MB max file size
@@ -54,17 +66,20 @@ login_manager.login_view = 'login'
 login_manager.login_message = 'Пожалуйста, войдите в систему для доступа к этой странице.'
 login_manager.login_message_category = 'info'
 
-# Учетные данные пользователя
-USERNAME = 'reading'
-PASSWORD = 'readingbooks'
-
+# Учетные данные пользователя (теперь в базе данных)
 class User(UserMixin):
     def __init__(self, username):
         self.id = username
 
 @login_manager.user_loader
 def load_user(user_id):
-    if user_id == USERNAME:
+    conn = sqlite3.connect('books.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT username FROM users WHERE username = ?', (user_id,))
+    result = cursor.fetchone()
+    conn.close()
+    
+    if result:
         return User(user_id)
     return None
 
@@ -72,9 +87,9 @@ def load_user(user_id):
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['BOOKS_FOLDER'], exist_ok=True)
 
-class EPUBProcessor:
-    """Класс для обработки EPUB файлов (адаптирован из основного приложения)"""
-    
+# Класс EPUBProcessor теперь импортируется из processors.epub_processor
+
+class PDFProcessor:
     def __init__(self):
         self.book_title = ""
         self.book_author = ""
@@ -1575,7 +1590,14 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         
-        if username == USERNAME and password == PASSWORD:
+        # Проверяем пользователя в базе данных
+        conn = sqlite3.connect('books.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT username, password FROM users WHERE username = ?', (username,))
+        user_data = cursor.fetchone()
+        conn.close()
+        
+        if user_data and user_data[1] == password:
             user = User(username)
             login_user(user)
             next_page = request.args.get('next')

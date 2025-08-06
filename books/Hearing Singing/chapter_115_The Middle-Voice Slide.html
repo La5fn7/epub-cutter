@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Middle-Voice Slide - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_114_Going on a Brightness Hunt.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_116_The Terrible Treble Ah.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="The Middle-Voice Slide">
+        <h3>Страница 323</h3>
+
+<p>narrowing into the vocal tract without changing the amount of laryngeal effort. Going on a Brightness Hunt I wrote in chapter 11 that brightness is caused by a beneficial narrowing somewhere in the vocal tract. Even if we feel that our throat is open, in artistic singing there is always a maximal narrowing somewhere. In general terms, that can be at the tongue dorsum, in the pharynx, at the base of the tongue, or at the glottis itself. If you are having issues disentangling one possible narrowing with another, stick the tongue out. Removing the tongue as an agent of narrowing tends to immediately shine a light on whether a structure further upstream is unintentionally narrowed. Ideally you can make sounds that use different narrowings at different times. The Middle-Voice Slide If you have issues singing in your middle voice and want to blend your strong lower register with your weaker higher register, slide from a loud, buzzy [a] on a low pitch to a quiet, pure [u] on a high note. I like B ♭ 3 to F4, with chromatic iterations down a whole step and up to a third higher. As you change pitch, you must simultaneously move along the loudness and timbre continuums. This exercise requires a gradual decrescendo up to the higher pitch and a gradual crescendo down to the lower pitch. Likewise, explore every vowel from [a] to [u] on the way up and [u] to [a] on the way down. If your voice flips, choose just one control factor to adjust; only change the loudness or the vowel. You will likely be able to move your flipping pitch up and down, depending on the balance of your control factors. Eventually you will be able to eliminate the flip entirely. You will know the right lower pitch function by its warmth,</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_114_Going on a Brightness Hunt.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_116_The Terrible Treble Ah.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

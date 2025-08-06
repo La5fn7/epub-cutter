@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Is This Book For? - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_08_Before We Start.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_10_How to Read This Book.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="Who Is This Book For?">
+        <h3>Страница 17</h3>
+
+<p>WHO IS THIS BOOK FOR? I can imagine several different kinds of readers who will approach this text. Some will bring a considerable understanding of the scientific literature on voice acoustics and perception. Some will come having been exposed to voice acoustics and perception in the context of a voice pedagogy or vocology class. Such an education may have attempted to cover what is true, what is thought to be helpful, or some combination of both. Some will come with no previous exposure to structured ways of understanding voice production, acoustics, and perception. And some may come with either indifference or active hostility to the idea that these scientific fields—or any kind of objective, quantitative measurement—can meaningfully inform the act of singing or voice teaching at all. It is difficult to simultaneously meet each of those very different populations where they are. As such, I will ask forgiveness from each of you in different ways and at different times for the way I have structured this book. Ultimately, I will argue that we can learn how to listen functionally,1 which is to say that we can associate specific aspects of the sound of a singer with specific physiological adjustments, and do so without the aid of a computer. This means we can use specific sounds as both indications of and prompts for specific functional outcomes. This is not a quick fix that distills well to bite-size takeaways. At least not if one wants to deeply understand why we hear singing the way we do. Voice acoustics, physiology, aerodynamics, and perception are challenging to understand in part because the ideas these fields explore are inherently complex. Different people understand and teach them in different ways, which suggests that any one summary will leave out important information. Many refined and simplified</p>
+
+<hr class="page-separator">
+
+<h3>Страница 18</h3>
+
+<p>models emerge from these fields, but it is easy to mistake the ability to regurgitate the details of those models for a deep understanding of the underlying concepts. If we think of voice acoustics (in particular) in terms of computer measurements of singing, it is easy to imagine that one needs a computer to make use of it. If we lack a detailed understanding of important concepts from the study of sound perception, we may not notice important aspects of the sound a singer makes. This is true regardless of the detailed measurements we can take. It is challenging to propose novel models for understanding the singing voice without engaging existing models. Some readers will have had thorough exposure to earlier models (and their associated tools), including the source-filter theory of voice production, the myoelastic-aerodynamic theory of phonation, the acoustic theory of vowel production, formant or resonance tuning strategies, acoustic registers, laryngeal registers, and, more broadly, the outputs of Fourier transform–derived spectra and spectrograms. Others will have never conceptualized the singing voice through such models or tools at all. If you are the former, please know that I will both challenge and seek to integrate those models in this book, and I will aim to bring nuance to the way you connect them to the act of singing from now on. If you are the latter, please know that any voice pedagogy or vocology textbook that addresses voice acoustics, perception, or production does so by using such models. And models are, by design, incomplete. I do not expect you to join me on the academic ramparts as I lobby for changes in this literature. But if this is your first exposure to these ideas, I want you to be able to better understand the way in which texts that you read in the future about voice acoustics, physiology, aerodynamics, and perception selectively employ these models. When my arguments seem passionate, it is because I see much confusion that I believe could be alleviated by reframing</p>
+
+<hr class="page-separator">
+
+<h3>Страница 19</h3>
+
+<p>information within my communities. In my experience, many of the singers and voice teachers who wish to understand this material are stopped dead in their tracks by the details of the models themselves. If you do not see value in confronting those models yet, you will come to appreciate the importance of doing so as you continue to expand your library. Those of you who seek to understand more about voice acoustics and perception may find the voice pedagogy and vocology literature confusing in two different ways. First, voice production is presented as either a time, flow, and pressure phenomenon or as a process of generating and filtering a spectrum of harmonics. The way in which these two ideas complement each other and reconcile is generally left unaddressed. A second challenge in this literature is the assumption that the output of such models maps well to qualitative aspects of the singing voice. It is well and good to note the volume of transglottal airflow per glottal cycle or look at a spectrogram and note the presence or absence of high-frequency energy. But I want to argue that we need to be able to discuss such phenomena in qualitative perceptual terms to be useful for singers and voice teachers. This means making actionable connections between our existing literature and models from the field of psychoacoustics (the study of sound perception). Otherwise, the best teacher would need the best computer, and there is clearly no historical support for that idea. I am a strong believer that we notice the things we have labels for. Our brains thrive on predictive processes. This suggests that the act of learning how the sound of a singer might be broken down into a logical set of simultaneously present, qualitatively opposable percepts with dependably appropriate labels will change what we notice. In the simplest terms, this book proposes and provides experiential and scholarly support for a practical set of such labels</p>
+
+<hr class="page-separator">
+
+<h3>Страница 20</h3>
+
+<p>that allows one to listen functionally. This book aims to permanently change what you are able to hear.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_08_Before We Start.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_10_How to Read This Book.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>

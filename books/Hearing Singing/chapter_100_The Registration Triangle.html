@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-vintage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Registration Triangle - Hearing Singing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-vintage">
+    <!-- Переключатель тем -->
+    <div class="theme-switcher">
+        <div class="theme-switcher-label">🎨 Тема</div>
+        <div class="theme-buttons">
+            <div class="theme-btn theme-btn-vintage active" onclick="setTheme('vintage')" title="Винтажная тема"></div>
+            <div class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Черная тема"></div>
+        </div>
+    </div>
+    
+    <div class="book-header">
+        <h1 class="book-title">Hearing Singing</h1>
+        <p class="book-author">Ian Howell</p>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_99_The Five Steps in All Singing.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_101_A Few Practical Things to Keep in Mind.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <div class="chapter-content" data-chapter-title="The Registration Triangle">
+        <h3>Страница 289</h3>
+
+<p>THE REGISTRATION TRIANGLE Lynne Vardaman also introduced me to Cornelius Reid’s conceptual framework that I will call his registration triangle, which has great utility in the clarify and continue steps. This concept neatly links functional vocal training to psychoacoustics. In short, to sing a sound with a clear stimulus and a spontaneous response, you must intend the pitch, the intensity, and the vowel you want to sing. Reid believed that these thoughts were the only “control factors” capable of regulating as complex and involuntary a system as the singing voice.2 Demonstrating these control factors is easy. Try to sing a high pitch (below around A4) on a quiet [u] and you will have organized your voice in a manner that finds affinity with the term falsetto or head voice. In physical terms, you are likely decreasing engagement of your thyroarytenoid muscles, stretching your vocal folds with your cricothyroid muscles, and handing over the mucosal wave of self- sustaining vocal fold oscillation from the slack cover riding over the stiff fibers of your thyroarytenoid muscles to the now stiffer vocal ligament as those muscles are stretched. Your vocal fold contacting area will decrease, especially in the top-to-bottom (superior-to- inferior) dimension, and your arytenoid cartilages will likely not make complete contact at the posterior end of the vocal folds. Additionally, you took a breath and regulated tracheal pressure to meet or exceed the phonation threshold pressure required to start that sound. The radiated sound will be dominated by the tone color of the fundamental and will have little to no auditory roughness or pitch- less noise. Now sing a low pitch on a loud [a], and virtually every one of these functional adjustments will have reversed to align with what might be called chest voice. You will have shortened your</p>
+
+<hr class="page-separator">
+
+<h3>Страница 290</h3>
+
+<p>thyroarytenoid muscles, creating a loose mucosal cover and releasing the strain on the vocal ligament. Your vocal folds will contact with greater depth, and your inhalation and tracheal pressure will readjust for this sound. Your sound will likely gain auditory roughness and some pitch-less noise, and the tone color of your fundamental will be darker than your two vowel formants. Bleat like a sheep (baaaaaaaa!) and your tongue will move back in your mouth, further changing the acoustic properties of the laryngopharynx and pharynx to favor brightness and roughness. We can easily cause changes in the functional coordination of a singer by targeting the stimulus that results in the desired response. And we can break that stimulus down into bite-size, human-friendly ideas. Kayla Gautereaux, Assistant Professor of Voice and Vocal Pedagogy at the Boston Conservatory at Berklee, rightly points out that while pitch is a cognitive experience, intensity and vowel point to measurable aspects of the pressure wave. If this book has consistently championed anything, it is to prize the perceptual experience of the voice over its measurable aspects. The perceptual equivalents of intensity and vowel are loudness and timbre. Therefore, I encourage us to update Reid’s work to pitch, loudness, and timbre. Reducing a sung sound to three parameters may feel too reductive. But if the goal is to sing with a free and unencumbered voice, freedom in this sense does not mean the absence of oppression; it means the presence of options. Think of Reid’s framework as a reminder to explore a wide range of sounds across the continuums of pitch, loudness, and timbre. This triangle also points to the interconnected nature of these ideas. They become discrete levers to adjust the singer’s registration. The rule of thumb is that if one control factor is prescribed and you want to change a second, registration is</p>
+
+<hr class="page-separator">
+
+<h3>Страница 291</h3>
+
+<p>characterized by the way the third must accommodate. For example, if a glide from Bb3 to F4 is prescribed and you want to preserve the loudness, your timbre will have to accommodate in some way. Or if you wanted to preserve your timbre, you would have to modulate your loudness to rebalance the registration. One of the most dependable tools I use in a voice lesson to address unbalanced registration in the middle range of the voice is to have the singer use the loud-to-quiet and open-to-close timbre paths to trigger myriad registration options in between what might feel like mutually exclusive or broken registers. The rebalancing of the system that results from reducing loudness and closing the vowel (and anticipating a loss of auditory roughness) as pitch rises can be transformative for the singer, especially when coordinating mix or other potentially nonintuitive functions. Thinking in these terms allows you to parse out registration options with great nuance.</p>
+
+<hr class="page-separator">
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-button">📚 Содержание</a>
+        <a href="chapter_99_The Five Steps in All Singing.html" class="nav-button">← Предыдущая</a>
+        <a href="chapter_101_A Few Practical Things to Keep in Mind.html" class="nav-button">Следующая →</a>
+    </div>
+    
+    <script src="/static/js/notes.js"></script>
+    <script>
+        // Функция переключения тем
+        function setTheme(theme) {
+            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.documentElement.className = document.documentElement.className.replace(/theme-\w+/g, '');
+            
+            document.body.classList.add('theme-' + theme);
+            document.documentElement.classList.add('theme-' + theme);
+            
+            localStorage.setItem('reading-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-btn-' + theme).classList.add('active');
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('reading-theme') || 'vintage';
+            setTheme(savedTheme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            
+            const pathParts = window.location.pathname.split('/');
+            if (pathParts[1] === 'book' && pathParts[2]) {
+                const bookPath = pathParts[2];
+                fetch(`/api/book-info?path=${encodeURIComponent(bookPath)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.book_id && window.notesSystem) {
+                            window.notesSystem.bookId = data.book_id;
+                            window.notesSystem.addNotesButtonToNavigation();
+                        }
+                    })
+                    .catch(error => console.log('Could not load book info:', error));
+            }
+        });
+    </script>
+</body>
+</html>
